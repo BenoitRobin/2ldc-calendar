@@ -11,15 +11,15 @@
 <div class="p-4">
 	<h1 class="mb-2 font-display text-2xl font-extrabold">Calendrier</h1>
 
-	<div class="divide-y divide-border border-t border-border">
+	<div class="flex flex-col gap-3">
 		{#each data.events as evt (evt.id)}
 			{@const day = formatEventDay(evt.date)}
 			<a
 				href={resolve('/(app)/calendar/[eventId]', { eventId: evt.id })}
-				class="-mx-4 flex gap-4 px-4 py-4 transition-colors hover:bg-secondary/40"
+				class="flex items-center gap-4 rounded-lg border border-border bg-card p-4 transition-colors hover:border-accent/60"
 			>
-				<div class="w-12 shrink-0 text-center">
-					<p class="font-display text-2xl leading-none font-semibold">{day.day}</p>
+				<div class="w-14 shrink-0 text-center">
+					<p class="font-display text-2xl leading-none font-extrabold text-accent">{day.day}</p>
 					<p class="mt-1 text-xs text-muted-foreground">{day.month}</p>
 				</div>
 				<div class="min-w-0 flex-1">
