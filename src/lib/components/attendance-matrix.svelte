@@ -24,7 +24,11 @@
 	<table class="w-full min-w-max border-collapse text-sm">
 		<thead>
 			<tr>
-				<th class="border-b-2 border-primary/70 p-2 text-left font-medium">Membre</th>
+				<th
+					class="sticky left-0 z-10 border-b-2 border-primary/70 bg-background p-2 text-left font-medium"
+				>
+					Membre
+				</th>
 				{#each events as evt (evt.id)}
 					<th
 						class="border-b-2 border-primary/70 p-2 text-left font-display font-semibold whitespace-nowrap"
@@ -37,8 +41,11 @@
 		</thead>
 		<tbody>
 			{#each users as u (u.id)}
-				<tr class="hover:bg-secondary/40">
-					<td class="border-b border-border p-2 font-medium whitespace-nowrap">{u.name}</td>
+				<tr class="group hover:bg-secondary/40">
+					<td
+						class="sticky left-0 z-10 border-b border-border bg-background p-2 font-medium whitespace-nowrap group-hover:bg-secondary/40"
+						>{u.name}</td
+					>
 					{#each events as evt (evt.id)}
 						<td class="border-b border-border p-2">
 							{#if editable}
