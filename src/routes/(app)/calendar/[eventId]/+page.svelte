@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
+	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import { buttonVariants } from '$lib/components/ui/button';
 	import StatusBadge, { type PresenceStatus } from '$lib/components/status-badge.svelte';
@@ -47,6 +48,27 @@
 		{ status: 'non', label: 'Non' },
 		{ status: 'indecis', label: 'Indécis' }
 	];
+
+	// Swipe navigation (mobile, replaces the prev/next arrows there — desktop keeps
+	// the visible preview cards instead). Requires a mostly-horizontal, sufficiently
+	// long gesture so page scrolling and simple taps don't trigger a navigation.
+	let touchStartX = 0;
+	let touchStartY = 0;
+
+	function handleTouchStart(e: TouchEvent) {
+		touchStartX = e.touches[0].clientX;
+		touchStartY = e.touches[0].clientY;
+	}
+
+	function handleTouchEnd(e: TouchEvent) {
+		const touch = e.changedTouches[0];
+		const deltaX = touch.clientX - touchStartX;
+		const deltaY = touch.clientY - touchStartY;
+		if (Math.abs(deltaX) < 60 || Math.abs(deltaX) < Math.abs(deltaY) * 1.5) return;
+
+		const target = deltaX < 0 ? data.nextEvent : data.prevEvent;
+		if (target) goto(resolve('/(app)/calendar/[eventId]', { eventId: target.id }));
+	}
 </script>
 
 <svelte:head><title>{data.event.name} — 2LDC Calendar</title></svelte:head>
@@ -65,13 +87,6 @@
 			{@const prevDay = formatEventDay(data.prevEvent.date)}
 			<a
 				href={resolve('/(app)/calendar/[eventId]', { eventId: data.prevEvent.id })}
-				aria-label="Évènement précédent : {data.prevEvent.name}"
-				class="flex size-9 shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:bg-secondary/40 hover:text-foreground md:hidden"
-			>
-				<ChevronLeft class="size-5" aria-hidden="true" />
-			</a>
-			<a
-				href={resolve('/(app)/calendar/[eventId]', { eventId: data.prevEvent.id })}
 				class="hidden w-40 shrink-0 items-start gap-2 rounded-lg border border-border bg-card p-3 text-left transition-colors hover:border-accent/60 md:flex"
 			>
 				<ChevronLeft class="mt-0.5 size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
@@ -81,11 +96,18 @@
 				</div>
 			</a>
 		{:else}
-			<span class="size-9 shrink-0 md:hidden" aria-hidden="true"></span>
 			<span class="hidden w-40 shrink-0 md:block" aria-hidden="true"></span>
 		{/if}
 
-		<div class="min-w-0 flex-1 rounded-lg border border-border bg-card">
+		<!-- The touch handlers are a supplementary swipe shortcut, not this div's only
+		     way to navigate — its content (heading, form buttons) stays keyboard/click
+		     accessible on its own, so no interactive role belongs here. -->
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<div
+			class="min-w-0 flex-1 rounded-lg border border-border bg-card"
+			ontouchstart={handleTouchStart}
+			ontouchend={handleTouchEnd}
+		>
 			<div class="flex gap-4 p-4">
 				<div class="w-14 shrink-0 text-center">
 					<p class="font-display text-2xl leading-none font-extrabold text-accent">{day.day}</p>
@@ -147,13 +169,6 @@
 			{@const nextDay = formatEventDay(data.nextEvent.date)}
 			<a
 				href={resolve('/(app)/calendar/[eventId]', { eventId: data.nextEvent.id })}
-				aria-label="Évènement suivant : {data.nextEvent.name}"
-				class="flex size-9 shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:bg-secondary/40 hover:text-foreground md:hidden"
-			>
-				<ChevronRight class="size-5" aria-hidden="true" />
-			</a>
-			<a
-				href={resolve('/(app)/calendar/[eventId]', { eventId: data.nextEvent.id })}
 				class="hidden w-40 shrink-0 items-start justify-between gap-2 rounded-lg border border-border bg-card p-3 text-right transition-colors hover:border-accent/60 md:flex"
 			>
 				<div class="min-w-0">
@@ -163,8 +178,15 @@
 				<ChevronRight class="mt-0.5 size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
 			</a>
 		{:else}
-			<span class="size-9 shrink-0 md:hidden" aria-hidden="true"></span>
 			<span class="hidden w-40 shrink-0 md:block" aria-hidden="true"></span>
 		{/if}
 	</div>
+
+	{#if data.prevEvent || data.nextEvent}
+		<p class="mt-3 flex items-center justify-center gap-1 text-xs text-muted-foreground md:hidden">
+			<ChevronLeft class="size-3.5" aria-hidden="true" />
+			Balayez pour changer d'évènement
+			<ChevronRight class="size-3.5" aria-hidden="true" />
+		</p>
+	{/if}
 </div>
