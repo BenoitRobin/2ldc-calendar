@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
-	import BottomNav from '$lib/components/bottom-nav.svelte';
 	import TopNav from '$lib/components/top-nav.svelte';
 	import CalendarCog from '@lucide/svelte/icons/calendar-cog';
 	import Users from '@lucide/svelte/icons/users';
@@ -27,18 +26,7 @@
 	]);
 </script>
 
-<TopNav
-	{links}
-	roleTag={isAdmin ? 'Admin' : undefined}
-	class={isAdmin ? undefined : 'hidden md:block'}
-/>
-<div
-	class={isAdmin
-		? 'pt-24 md:mx-auto md:w-4/5 md:pt-28'
-		: 'pb-16 md:mx-auto md:w-4/5 md:pt-28 md:pb-0'}
->
+<TopNav {links} roleTag={isAdmin ? 'Admin' : undefined} />
+<div class="pt-24 md:mx-auto md:w-4/5 md:pt-28">
 	{@render children()}
 </div>
-{#if !isAdmin}
-	<BottomNav />
-{/if}
