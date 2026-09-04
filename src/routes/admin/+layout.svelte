@@ -13,6 +13,6 @@
 </script>
 
 <TopNav {links} roleTag="Admin" />
-<div class="p-4 pt-16 md:mx-auto md:w-4/5">
+<div class="p-4 pt-24 md:mx-auto md:w-4/5 md:pt-28">
 	{@render children()}
 </div>
