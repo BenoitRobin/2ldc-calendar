@@ -38,6 +38,21 @@
 				/>
 			</div>
 			<div class="flex flex-col gap-1.5">
+				<label for="password" class="text-sm font-medium">Nouveau mot de passe</label>
+				<input
+					id="password"
+					name="password"
+					type="text"
+					minlength="8"
+					placeholder="Laisser vide pour ne pas changer"
+					class="h-11 rounded-md border border-input px-3 text-sm"
+				/>
+				<p class="text-xs text-muted-foreground">
+					Le mot de passe actuel n'est pas consultable — renseignez ce champ pour le remplacer (8
+					caractères minimum), à transmettre ensuite au membre.
+				</p>
+			</div>
+			<div class="flex flex-col gap-1.5">
 				<label for="role" class="text-sm font-medium">Rôle</label>
 				<select id="role" name="role" class="h-11 rounded-md border border-input px-3 text-sm">
 					<option value="standard" selected={data.member.role !== 'admin'}>Standard</option>

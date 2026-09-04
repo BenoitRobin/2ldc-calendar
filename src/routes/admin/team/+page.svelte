@@ -1,9 +1,23 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import { resolve } from '$app/paths';
 	import { buttonVariants } from '$lib/components/ui/button';
-	import type { PageData } from './$types';
+	import {
+		AlertDialog,
+		AlertDialogContent,
+		AlertDialogHeader,
+		AlertDialogFooter,
+		AlertDialogTitle,
+		AlertDialogDescription,
+		AlertDialogAction,
+		AlertDialogCancel
+	} from '$lib/components/ui/alert-dialog';
+	import X from '@lucide/svelte/icons/x';
+	import type { ActionData, PageData } from './$types';
 
-	let { data }: { data: PageData } = $props();
+	let { data, form }: { data: PageData; form: ActionData } = $props();
+
+	let deletingMember = $state<{ id: string; name: string } | null>(null);
 </script>
 
 <svelte:head><title>Équipe — 2LDC Calendar</title></svelte:head>
@@ -27,8 +41,54 @@
 				href={resolve('/admin/team/[userId]/edit', { userId: member.id })}
 				class={buttonVariants({ variant: 'outline', size: 'sm' })}>Modifier</a
 			>
+			<button
+				type="button"
+				onclick={() => (deletingMember = { id: member.id, name: member.name })}
+				aria-label="Supprimer {member.name}"
+				class="flex size-9 shrink-0 items-center justify-center rounded-md border border-destructive/60 text-destructive transition-colors hover:bg-destructive/10"
+			>
+				<X class="size-4" aria-hidden="true" />
+			</button>
 		</div>
 	{:else}
 		<p class="py-6 text-sm text-muted-foreground">Aucun membre pour le moment.</p>
 	{/each}
 </div>
+
+<AlertDialog
+	open={!!deletingMember}
+	onOpenChange={(open) => {
+		if (!open) deletingMember = null;
+	}}
+>
+	<AlertDialogContent>
+		<AlertDialogHeader>
+			<AlertDialogTitle>Supprimer {deletingMember?.name} ?</AlertDialogTitle>
+			<AlertDialogDescription>
+				Cette action est définitive : le compte de {deletingMember?.name} et toutes ses réponses de présence
+				seront supprimés. Impossible d'annuler après confirmation.
+			</AlertDialogDescription>
+		</AlertDialogHeader>
+		{#if form?.error}
+			<p class="text-sm text-danger" role="alert">{form.error}</p>
+		{/if}
+		<AlertDialogFooter>
+			<AlertDialogCancel onclick={() => (deletingMember = null)}>Annuler</AlertDialogCancel>
+			<form
+				method="POST"
+				action="?/delete"
+				use:enhance={() => {
+					return async ({ result, update }) => {
+						if (result.type === 'success') {
+							deletingMember = null;
+						}
+						await update();
+					};
+				}}
+			>
+				<input type="hidden" name="userId" value={deletingMember?.id ?? ''} />
+				<AlertDialogAction type="submit">Supprimer définitivement</AlertDialogAction>
+			</form>
+		</AlertDialogFooter>
+	</AlertDialogContent>
+</AlertDialog>

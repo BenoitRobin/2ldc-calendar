@@ -1,5 +1,5 @@
 import { error as kitError, fail } from '@sveltejs/kit';
-import { eq, and } from 'drizzle-orm';
+import { eq, and, desc } from 'drizzle-orm';
 import { db } from '$lib/server/db';
 import { event, attendanceResponse } from '$lib/server/db/schema';
 import { isPresenceValue, setAttendanceResponse } from '$lib/server/attendance';
@@ -20,7 +20,17 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 		)
 		.limit(1);
 
-	return { event: existing, myStatus: myResponse?.status ?? 'none' };
+	// Navigation précédent/suivant : même ordre que la liste du calendrier
+	// (évènements du plus récent au plus ancien).
+	const orderedIds = await db.select({ id: event.id }).from(event).orderBy(desc(event.date));
+	const currentIndex = orderedIds.findIndex((e) => e.id === existing.id);
+	const prevEventId = currentIndex > 0 ? orderedIds[currentIndex - 1].id : null;
+	const nextEventId =
+		currentIndex !== -1 && currentIndex < orderedIds.length - 1
+			? orderedIds[currentIndex + 1].id
+			: null;
+
+	return { event: existing, myStatus: myResponse?.status ?? 'none', prevEventId, nextEventId };
 };
 
 export const actions: Actions = {

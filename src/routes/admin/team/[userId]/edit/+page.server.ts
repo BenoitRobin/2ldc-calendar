@@ -23,6 +23,7 @@ export const actions: Actions = {
 		const formData = await request.formData();
 		const name = formData.get('name');
 		const email = formData.get('email');
+		const password = formData.get('password');
 		const role = formData.get('role');
 
 		if (typeof name !== 'string' || !name.trim()) {
@@ -30,6 +31,10 @@ export const actions: Actions = {
 		}
 		if (typeof email !== 'string' || !email.trim()) {
 			return fail(400, { error: 'Email requis.' });
+		}
+		// Optional: laisser vide pour ne pas changer le mot de passe existant.
+		if (typeof password === 'string' && password.length > 0 && password.length < 8) {
+			return fail(400, { error: 'Le mot de passe doit contenir au moins 8 caractères.' });
 		}
 		if (role !== 'standard' && role !== 'admin') {
 			return fail(400, { error: 'Rôle invalide.' });
@@ -69,6 +74,15 @@ export const actions: Actions = {
 				body: { userId: params.userId, data: { name: trimmedName, email: email.trim(), role } },
 				headers: request.headers
 			});
+
+			// Le mot de passe existant est haché (specs/user-auth) : impossible de
+			// l'afficher, seulement de le remplacer si l'admin en saisit un nouveau.
+			if (typeof password === 'string' && password.length > 0) {
+				await auth.api.setUserPassword({
+					body: { userId: params.userId, newPassword: password },
+					headers: request.headers
+				});
+			}
 		} catch (error) {
 			if (isAPIError(error)) {
 				if (error.body?.code === 'USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL') {
