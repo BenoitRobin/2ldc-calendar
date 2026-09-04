@@ -23,8 +23,18 @@
 	]);
 </script>
 
-<TopNav {links} roleTag={isAdmin ? 'Admin' : undefined} class="hidden md:block" />
-<div class="pb-16 md:mx-auto md:w-4/5 md:pt-28 md:pb-0">
+<TopNav
+	{links}
+	roleTag={isAdmin ? 'Admin' : undefined}
+	class={isAdmin ? undefined : 'hidden md:block'}
+/>
+<div
+	class={isAdmin
+		? 'pt-24 md:mx-auto md:w-4/5 md:pt-28'
+		: 'pb-16 md:mx-auto md:w-4/5 md:pt-28 md:pb-0'}
+>
 	{@render children()}
 </div>
-<BottomNav />
+{#if !isAdmin}
+	<BottomNav />
+{/if}
