@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { resolve } from '$app/paths';
-	import { Card, CardContent } from '$lib/components/ui/card';
 	import { buttonVariants } from '$lib/components/ui/button';
 	import StatusBadge, { type PresenceStatus } from '$lib/components/status-badge.svelte';
 	import { formatEventDay } from '$lib/format-date';
@@ -74,67 +73,63 @@
 			<span class="size-9 shrink-0" aria-hidden="true"></span>
 		{/if}
 
-		<Card class="min-w-0 flex-1 border-t-2 border-primary/70">
-			<CardContent class="flex h-96 gap-4 pt-6">
-				<div class="w-12 shrink-0 text-center">
-					<p class="font-display text-2xl leading-none font-semibold">{day.day}</p>
+		<div class="min-w-0 flex-1 rounded-lg border border-border bg-card">
+			<div class="flex gap-4 p-4">
+				<div class="w-14 shrink-0 text-center">
+					<p class="font-display text-2xl leading-none font-extrabold text-accent">{day.day}</p>
 					<p class="mt-1 text-xs text-muted-foreground">{day.month}</p>
 				</div>
-				<div class="flex min-w-0 flex-1 flex-col">
-					<div>
-						<h1 class="line-clamp-2 font-display text-xl leading-snug font-extrabold">
-							{data.event.name}
-						</h1>
-						<p class="mt-0.5 line-clamp-1 text-sm text-muted-foreground">
-							{[
-								data.event.startTime && data.event.endTime
-									? `${data.event.startTime}–${data.event.endTime}`
-									: data.event.startTime,
-								data.event.location
-							]
-								.filter(Boolean)
-								.join(', ')}
-						</p>
+				<div class="min-w-0 flex-1">
+					<h1 class="font-display text-xl leading-snug font-extrabold">
+						{data.event.name}
+					</h1>
+					<p class="mt-0.5 text-sm text-muted-foreground">
+						{[
+							data.event.startTime && data.event.endTime
+								? `${data.event.startTime}–${data.event.endTime}`
+								: data.event.startTime,
+							data.event.location
+						]
+							.filter(Boolean)
+							.join(', ')}
+					</p>
 
-						{#if data.event.description}
-							<p class="mt-3 line-clamp-3 text-sm">{data.event.description}</p>
-						{/if}
-					</div>
-
-					<div class="mt-auto pt-5">
-						<p class="mb-2 text-sm font-medium">Votre présence</p>
-						<div class="grid grid-cols-3 gap-2">
-							{#each CHOICES as choice (choice.status)}
-								{@const active = displayStatus === choice.status}
-								<form method="POST" action="?/respond" use:enhance={respondWith(choice.status)}>
-									<input type="hidden" name="status" value={choice.status} />
-									<button
-										type="submit"
-										class={cn(
-											buttonVariants({ variant: active ? 'default' : 'outline', size: 'sm' }),
-											'w-full px-1',
-											active && `bg-status-${choice.status} text-status-${choice.status}-foreground`
-										)}
-									>
-										{choice.label}
-									</button>
-								</form>
-							{/each}
-						</div>
-						{#if displayStatus === 'none'}
-							<p class="mt-2 text-sm text-muted-foreground">
-								<StatusBadge status="none" /> — vous n'avez pas encore répondu.
-							</p>
-						{/if}
-						{#if saveFailed}
-							<p class="mt-2 text-sm text-danger" role="alert">
-								Échec de l'enregistrement, réessayez.
-							</p>
-						{/if}
-					</div>
+					{#if data.event.description}
+						<p class="mt-3 line-clamp-3 text-sm">{data.event.description}</p>
+					{/if}
 				</div>
-			</CardContent>
-		</Card>
+			</div>
+
+			<div class="border-t border-dashed border-border p-4">
+				<p class="mb-2 text-sm font-medium">Votre présence</p>
+				<div class="grid grid-cols-3 gap-2">
+					{#each CHOICES as choice (choice.status)}
+						{@const active = displayStatus === choice.status}
+						<form method="POST" action="?/respond" use:enhance={respondWith(choice.status)}>
+							<input type="hidden" name="status" value={choice.status} />
+							<button
+								type="submit"
+								class={cn(
+									buttonVariants({ variant: active ? 'default' : 'outline', size: 'sm' }),
+									'w-full px-1',
+									active && `bg-status-${choice.status} text-status-${choice.status}-foreground`
+								)}
+							>
+								{choice.label}
+							</button>
+						</form>
+					{/each}
+				</div>
+				{#if displayStatus === 'none'}
+					<p class="mt-2 text-sm text-muted-foreground">
+						<StatusBadge status="none" /> — vous n'avez pas encore répondu.
+					</p>
+				{/if}
+				{#if saveFailed}
+					<p class="mt-2 text-sm text-danger" role="alert">Échec de l'enregistrement, réessayez.</p>
+				{/if}
+			</div>
+		</div>
 
 		{#if data.nextEventId}
 			<a
