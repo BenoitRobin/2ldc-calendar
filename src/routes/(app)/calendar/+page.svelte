@@ -35,16 +35,18 @@
 							.join(', ')}
 					</p>
 				</div>
-				<span
-					class={cn(
-						'size-2.5 shrink-0 rounded-full',
-						evt.myStatus === 'none'
-							? 'border border-muted-foreground/50'
-							: `bg-status-${evt.myStatus}`
-					)}
-					aria-hidden="true"
-				></span>
-				<span class="sr-only">Votre réponse : {STATUS_LABELS[evt.myStatus]}</span>
+				<div class="flex w-14 shrink-0 items-center justify-center">
+					<span
+						class={cn(
+							'size-2.5 rounded-full',
+							evt.myStatus === 'none'
+								? 'border border-muted-foreground/50'
+								: `bg-status-${evt.myStatus}`
+						)}
+						aria-hidden="true"
+					></span>
+					<span class="sr-only">Votre réponse : {STATUS_LABELS[evt.myStatus]}</span>
+				</div>
 			</a>
 		{:else}
 			<p class="py-6 text-sm text-muted-foreground">Aucun évènement pour le moment.</p>
