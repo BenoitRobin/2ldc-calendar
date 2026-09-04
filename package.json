@@ -60,7 +60,6 @@
 		"@lucide/svelte": "^1.41.0",
 		"bits-ui": "^2.19.0",
 		"clsx": "^2.1.1",
-		"resend": "^6.26.0",
 		"tailwind-merge": "^3.6.0",
 		"tailwind-variants": "^3.3.1"
 	}

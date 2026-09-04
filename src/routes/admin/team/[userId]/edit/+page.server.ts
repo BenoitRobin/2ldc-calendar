@@ -4,6 +4,7 @@ import { isAPIError } from 'better-auth/api';
 import { auth } from '$lib/server/auth';
 import { db } from '$lib/server/db';
 import { user } from '$lib/server/db/schema';
+import { findUserByName } from '$lib/server/user-lookup';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params }) => {
@@ -25,7 +26,7 @@ export const actions: Actions = {
 		const role = formData.get('role');
 
 		if (typeof name !== 'string' || !name.trim()) {
-			return fail(400, { error: 'Nom requis.' });
+			return fail(400, { error: 'Prénom requis.' });
 		}
 		if (typeof email !== 'string' || !email.trim()) {
 			return fail(400, { error: 'Email requis.' });
@@ -34,12 +35,21 @@ export const actions: Actions = {
 			return fail(400, { error: 'Rôle invalide.' });
 		}
 
+		const trimmedName = name.trim();
+
 		const [target] = await db
 			.select({ role: user.role })
 			.from(user)
 			.where(eq(user.id, params.userId))
 			.limit(1);
 		if (!target) kitError(404, 'Membre introuvable.');
+
+		// Login is by prénom (specs/user-auth), so two members can't share one —
+		// excludes this member's own current row from the clash check.
+		const clash = await findUserByName(db, trimmedName);
+		if (clash && clash.id !== params.userId) {
+			return fail(400, { error: 'Ce prénom est déjà utilisé par un autre membre.' });
+		}
 
 		// Auto-lockout guard (PRD phase 8): never let the last admin lose the role,
 		// or nobody could administer the app anymore.
@@ -56,7 +66,7 @@ export const actions: Actions = {
 			// headers required: unlike createUser, adminUpdateUser always checks the
 			// caller's session/permissions itself (better-auth's adminMiddleware).
 			await auth.api.adminUpdateUser({
-				body: { userId: params.userId, data: { name: name.trim(), email: email.trim(), role } },
+				body: { userId: params.userId, data: { name: trimmedName, email: email.trim(), role } },
 				headers: request.headers
 			});
 		} catch (error) {

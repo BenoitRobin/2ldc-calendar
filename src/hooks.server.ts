@@ -5,7 +5,7 @@ import { svelteKitHandler } from 'better-auth/svelte-kit';
 
 // Routes reachable without a session. Everything else requires one (specs/user-auth:
 // "Unauthenticated user requests a protected route").
-const PUBLIC_PATH_PREFIXES = ['/login', '/reset-password', '/api/auth'];
+const PUBLIC_PATH_PREFIXES = ['/login', '/api/auth'];
 
 function isPublicPath(pathname: string) {
 	return PUBLIC_PATH_PREFIXES.some(

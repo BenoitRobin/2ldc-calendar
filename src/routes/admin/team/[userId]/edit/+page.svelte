@@ -16,7 +16,7 @@
 	<CardContent>
 		<form method="POST" action="?/update" use:enhance class="flex flex-col gap-4">
 			<div class="flex flex-col gap-1.5">
-				<label for="name" class="text-sm font-medium">Nom</label>
+				<label for="name" class="text-sm font-medium">Prénom</label>
 				<input
 					id="name"
 					name="name"

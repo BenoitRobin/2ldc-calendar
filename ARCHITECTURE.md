@@ -10,7 +10,6 @@ Ce document fige les choix techniques retenus pour l'application décrite dans `
 | Base de données | Turso (libSQL / SQLite) |
 | ORM | Drizzle ORM |
 | Authentification | better-auth |
-| Email transactionnel | Resend |
 | UI | Tailwind CSS + shadcn-svelte |
 | Hébergement | Vercel (plan Hobby, usage personnel/associatif) |
 | Tests e2e | Playwright (local/manuel) |
@@ -37,16 +36,11 @@ Coût d'hébergement visé : 0€/mois, tous les paliers gratuits ci-dessus éta
 
 ## Authentification — better-auth
 
-- Méthode email + mot de passe uniquement au démarrage (pas d'OAuth ni de 2FA — non nécessaire pour une petite équipe).
+- Méthode email + mot de passe côté better-auth (pas d'OAuth ni de 2FA — non nécessaire pour une petite équipe), mais la **connexion se fait avec le prénom**, pas l'email : l'email reste stocké (identité interne better-auth) mais n'est jamais saisi par les membres.
+- Comptes créés uniquement par un admin (auto-inscription désactivée) ; l'admin choisit et transmet lui-même le mot de passe du nouveau membre — pas de flux de réinitialisation par email.
 - Session par cookie géré par la librairie (hachage des mots de passe, création/expiration de session, protection CSRF intégrée), branché sur SvelteKit via son adaptateur officiel.
 - Tables `users` (avec champ de rôle standard/admin) et `sessions` générées par l'adaptateur Drizzle de better-auth, dans le même schéma que les données applicatives.
 - Premier compte admin créé par un script one-shot (pas d'interface de gestion des comptes au tout début), comme prévu Phase 5 du PRD.
-
-## Email transactionnel — Resend
-
-- Appels isolés dans un module unique (`src/lib/server/email.ts`) : le reste de l'application ne connaît jamais Resend directement.
-- Repli en simple `console.log` si `RESEND_API_KEY` n'est pas configurée, pour ne jamais bloquer le développement local en attendant la création du compte.
-- Un domaine d'envoi vérifié à configurer côté Resend (compte à créer par le propriétaire du projet, pas par l'agent).
 
 ## UI — Tailwind CSS + shadcn-svelte
 
@@ -64,7 +58,7 @@ Coût d'hébergement visé : 0€/mois, tous les paliers gratuits ci-dessus éta
 
 - Déploiement automatique à chaque push sur la branche principale, connecté au dépôt Git.
 - Plan Hobby (gratuit) : usage confirmé comme personnel/associatif, donc conforme aux conditions d'utilisation de ce plan.
-- Secrets (clé Turso, clé Resend, secret better-auth, etc.) uniquement dans les variables d'environnement Vercel — jamais commités. Un `.env.example` versionné liste les clés attendues, sans valeurs.
+- Secrets (clé Turso, secret better-auth, etc.) uniquement dans les variables d'environnement Vercel — jamais commités. Un `.env.example` versionné liste les clés attendues, sans valeurs.
 
 ## Points laissés ouverts (non bloquants)
 

@@ -4,7 +4,6 @@ import { eq, inArray, like } from 'drizzle-orm';
 import { betterAuth } from 'better-auth/minimal';
 import { createAuthOptions } from '../src/lib/server/auth-options';
 import { createDbClient } from '../src/lib/server/db/client';
-import { createEmailSender } from '../src/lib/server/email-sender';
 import { user, event } from '../src/lib/server/db/schema';
 import { setAttendanceResponse, type PresenceValue } from '../src/lib/server/attendance';
 
@@ -13,13 +12,15 @@ import { setAttendanceResponse, type PresenceValue } from '../src/lib/server/att
 const DEMO_EMAIL_DOMAIN = '@demo.local';
 const DEMO_PASSWORD = 'Demo1234!';
 
+// Prénoms seuls : c'est ce qui sert à se connecter (specs/user-auth), donc ça doit
+// rester unique dans l'équipe.
 const MUSICIANS = [
-	{ email: `alice${DEMO_EMAIL_DOMAIN}`, name: 'Alice Girard' },
-	{ email: `baptiste${DEMO_EMAIL_DOMAIN}`, name: 'Baptiste Roux' },
-	{ email: `chloe${DEMO_EMAIL_DOMAIN}`, name: 'Chloé Bernard' },
-	{ email: `david${DEMO_EMAIL_DOMAIN}`, name: 'David Lambert' },
-	{ email: `emma${DEMO_EMAIL_DOMAIN}`, name: 'Emma Faure' },
-	{ email: `hugo${DEMO_EMAIL_DOMAIN}`, name: 'Hugo Petit' }
+	{ email: `alice${DEMO_EMAIL_DOMAIN}`, name: 'Alice' },
+	{ email: `baptiste${DEMO_EMAIL_DOMAIN}`, name: 'Baptiste' },
+	{ email: `chloe${DEMO_EMAIL_DOMAIN}`, name: 'Chloé' },
+	{ email: `david${DEMO_EMAIL_DOMAIN}`, name: 'David' },
+	{ email: `emma${DEMO_EMAIL_DOMAIN}`, name: 'Emma' },
+	{ email: `hugo${DEMO_EMAIL_DOMAIN}`, name: 'Hugo' }
 ];
 
 const EVENTS = [
@@ -74,13 +75,11 @@ async function main() {
 	if (!process.env.DATABASE_URL) throw new Error('DATABASE_URL is not set');
 
 	const db = createDbClient(process.env.DATABASE_URL, process.env.TURSO_AUTH_TOKEN || undefined);
-	const sendEmail = createEmailSender(process.env.RESEND_API_KEY, process.env.RESEND_FROM_EMAIL);
 	const auth = betterAuth(
 		createAuthOptions({
 			baseURL: process.env.ORIGIN,
 			secret: process.env.BETTER_AUTH_SECRET,
-			db,
-			sendEmail
+			db
 		})
 	);
 
@@ -141,7 +140,7 @@ async function main() {
 	console.log(
 		`\n${MUSICIANS.length} musiciens créés (mot de passe démo pour tous : ${DEMO_PASSWORD}) :`
 	);
-	for (const m of MUSICIANS) console.log(`  - ${m.email}`);
+	for (const m of MUSICIANS) console.log(`  - ${m.name} (${m.email})`);
 	console.log(`\n${EVENTS.length} évènements créés.`);
 	console.log('\nRelancez `pnpm seed:demo` à tout moment pour régénérer un jeu de données propre.');
 }

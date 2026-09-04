@@ -10,7 +10,6 @@ export function createAuthOptions(config: {
 	baseURL: string | undefined;
 	secret: string | undefined;
 	db: ReturnType<typeof createDbClient>;
-	sendEmail: (args: { to: string; subject: string; text: string }) => Promise<void>;
 }) {
 	return {
 		baseURL: config.baseURL,
@@ -20,22 +19,13 @@ export function createAuthOptions(config: {
 			enabled: true,
 			// Accounts are created only via the admin bootstrap script or the admin
 			// "add a team member" action (specs/user-auth), both using auth.api.createUser
-			// below — never public self-signup.
-			disableSignUp: true,
-			// The bootstrap script and the "add a team member" action both trigger this via
-			// auth.api.requestPasswordReset right after createUser, so the new account's
-			// password is always set by the person themselves, never by the admin/operator.
-			sendResetPassword: async ({ user, url }: { user: { email: string }; url: string }) => {
-				await config.sendEmail({
-					to: user.email,
-					subject: 'Choisissez votre mot de passe — 2LDC Calendar',
-					text: `Bonjour,\n\nUn compte a été créé pour vous sur 2LDC Calendar. Choisissez votre mot de passe ici :\n${url}\n\nCe lien expire prochainement.`
-				});
-			}
+			// with an admin-chosen password — never public self-signup, no email-based
+			// password-reset flow.
+			disableSignUp: true
 		},
 		plugins: [
-			// Gives us auth.api.createUser (admin creates an account without choosing its
-			// password) and the `role` column/session field our two-role model relies on.
+			// Gives us auth.api.createUser (admin sets the new account's password directly)
+			// and the `role` column/session field our two-role model relies on.
 			admin({ defaultRole: 'standard', adminRoles: ['admin'] })
 		]
 	};

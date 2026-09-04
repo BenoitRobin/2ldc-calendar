@@ -18,13 +18,13 @@
 			<h1 class="mb-5 text-sm font-semibold">Connexion</h1>
 			<form method="POST" use:enhance class="flex flex-col gap-4">
 				<div class="flex flex-col gap-1.5">
-					<label for="email" class="text-sm font-medium">Email</label>
+					<label for="name" class="text-sm font-medium">Prénom</label>
 					<input
-						id="email"
-						name="email"
-						type="email"
+						id="name"
+						name="name"
+						type="text"
 						required
-						autocomplete="email"
+						autocomplete="username"
 						class="h-11 rounded-md border border-input px-3 text-sm"
 					/>
 				</div>

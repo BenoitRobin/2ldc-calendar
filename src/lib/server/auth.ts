@@ -4,13 +4,11 @@ import { sveltekitCookies } from 'better-auth/svelte-kit';
 import { getRequestEvent } from '$app/server';
 import { createAuthOptions } from './auth-options';
 import { db } from './db';
-import { sendEmail } from './email';
 
 const options = createAuthOptions({
 	baseURL: env.ORIGIN,
 	secret: env.BETTER_AUTH_SECRET,
-	db,
-	sendEmail
+	db
 });
 
 export const auth = betterAuth({
