@@ -35,7 +35,7 @@
 							.join(', ')}
 					</p>
 				</div>
-				<div class="flex w-14 shrink-0 items-center justify-center">
+				<div class="flex w-14 shrink-0 items-center justify-center md:w-96">
 					<span
 						class={cn(
 							'size-2.5 rounded-full',
