@@ -10,7 +10,7 @@
 
 <svelte:head><title>Modifier l'évènement — 2LDC Calendar</title></svelte:head>
 
-<Card class="max-w-lg">
+<Card class="mx-auto max-w-lg">
 	<CardHeader>
 		<CardTitle>Modifier l'évènement</CardTitle>
 	</CardHeader>
@@ -41,7 +41,7 @@
 			cancel();
 		}
 	}}
-	class="mt-4 max-w-lg"
+	class="mx-auto mt-4 max-w-lg"
 >
 	<Button type="submit" variant="destructive">Supprimer l'évènement</Button>
 </form>

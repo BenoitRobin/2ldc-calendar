@@ -13,7 +13,7 @@
 </script>
 
 <nav
-	class="fixed inset-x-0 bottom-0 flex border-t border-border bg-card"
+	class="fixed inset-x-0 bottom-0 flex border-t border-border bg-card md:hidden"
 	aria-label="Navigation principale"
 >
 	{#each links as link (link.href)}

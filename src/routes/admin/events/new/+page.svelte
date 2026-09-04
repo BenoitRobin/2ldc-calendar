@@ -8,7 +8,7 @@
 
 <svelte:head><title>Nouvel évènement — 2LDC Calendar</title></svelte:head>
 
-<Card class="max-w-lg">
+<Card class="mx-auto max-w-lg">
 	<CardHeader>
 		<CardTitle>Nouvel évènement</CardTitle>
 	</CardHeader>

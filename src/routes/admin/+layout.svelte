@@ -1,10 +1,18 @@
 <script lang="ts">
-	import AdminNav from '$lib/components/admin-nav.svelte';
+	import { resolve } from '$app/paths';
+	import TopNav from '$lib/components/top-nav.svelte';
 
 	let { children } = $props();
+
+	const links = [
+		{ href: resolve('/admin/events'), label: 'Évènements' },
+		{ href: resolve('/admin/team'), label: 'Équipe' },
+		{ href: resolve('/(app)/calendar'), label: 'Voir le calendrier' },
+		{ href: resolve('/(app)/overview'), label: 'Vue d’ensemble' }
+	];
 </script>
 
-<AdminNav />
-<div class="p-4">
+<TopNav {links} roleTag="Admin" />
+<div class="p-4 pt-16 md:mx-auto md:w-4/5">
 	{@render children()}
 </div>

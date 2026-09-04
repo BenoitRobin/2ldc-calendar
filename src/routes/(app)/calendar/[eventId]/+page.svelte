@@ -49,7 +49,7 @@
 <svelte:head><title>{data.event.name} — 2LDC Calendar</title></svelte:head>
 
 <div class="p-4">
-	<Card class="max-w-lg border-t-2 border-primary/70">
+	<Card class="mx-auto max-w-lg border-t-2 border-primary/70">
 		<CardContent class="flex gap-4 pt-6">
 			<div class="w-12 shrink-0 text-center">
 				<p class="font-display text-2xl leading-none font-semibold">{day.day}</p>

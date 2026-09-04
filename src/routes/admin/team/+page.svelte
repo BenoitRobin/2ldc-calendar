@@ -9,7 +9,7 @@
 
 <svelte:head><title>Équipe — 2LDC Calendar</title></svelte:head>
 
-<Card class="max-w-md">
+<Card class="mx-auto max-w-md">
 	<CardHeader>
 		<CardTitle>Ajouter un membre de l'équipe</CardTitle>
 	</CardHeader>
