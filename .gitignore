@@ -19,3 +19,6 @@ build/
 # Editor
 .vscode/
 .idea/
+
+# Playwright MCP runtime artifacts
+.playwright-mcp/
