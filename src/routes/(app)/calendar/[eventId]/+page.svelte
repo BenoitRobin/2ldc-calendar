@@ -60,17 +60,29 @@
 		Retour au calendrier
 	</a>
 
-	<div class="mx-auto flex max-w-lg items-center gap-2">
-		{#if data.prevEventId}
+	<div class="mx-auto flex max-w-lg items-center gap-2 md:max-w-3xl">
+		{#if data.prevEvent}
+			{@const prevDay = formatEventDay(data.prevEvent.date)}
 			<a
-				href={resolve('/(app)/calendar/[eventId]', { eventId: data.prevEventId })}
-				aria-label="Évènement précédent"
-				class="flex size-9 shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:bg-secondary/40 hover:text-foreground"
+				href={resolve('/(app)/calendar/[eventId]', { eventId: data.prevEvent.id })}
+				aria-label="Évènement précédent : {data.prevEvent.name}"
+				class="flex size-9 shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:bg-secondary/40 hover:text-foreground md:hidden"
 			>
 				<ChevronLeft class="size-5" aria-hidden="true" />
 			</a>
+			<a
+				href={resolve('/(app)/calendar/[eventId]', { eventId: data.prevEvent.id })}
+				class="hidden w-40 shrink-0 items-start gap-2 rounded-lg border border-border bg-card p-3 text-left transition-colors hover:border-accent/60 md:flex"
+			>
+				<ChevronLeft class="mt-0.5 size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+				<div class="min-w-0">
+					<p class="text-xs text-muted-foreground">{prevDay.day} {prevDay.month}</p>
+					<p class="line-clamp-2 text-sm font-semibold">{data.prevEvent.name}</p>
+				</div>
+			</a>
 		{:else}
-			<span class="size-9 shrink-0" aria-hidden="true"></span>
+			<span class="size-9 shrink-0 md:hidden" aria-hidden="true"></span>
+			<span class="hidden w-40 shrink-0 md:block" aria-hidden="true"></span>
 		{/if}
 
 		<div class="min-w-0 flex-1 rounded-lg border border-border bg-card">
@@ -131,16 +143,28 @@
 			</div>
 		</div>
 
-		{#if data.nextEventId}
+		{#if data.nextEvent}
+			{@const nextDay = formatEventDay(data.nextEvent.date)}
 			<a
-				href={resolve('/(app)/calendar/[eventId]', { eventId: data.nextEventId })}
-				aria-label="Évènement suivant"
-				class="flex size-9 shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:bg-secondary/40 hover:text-foreground"
+				href={resolve('/(app)/calendar/[eventId]', { eventId: data.nextEvent.id })}
+				aria-label="Évènement suivant : {data.nextEvent.name}"
+				class="flex size-9 shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:bg-secondary/40 hover:text-foreground md:hidden"
 			>
 				<ChevronRight class="size-5" aria-hidden="true" />
 			</a>
+			<a
+				href={resolve('/(app)/calendar/[eventId]', { eventId: data.nextEvent.id })}
+				class="hidden w-40 shrink-0 items-start justify-between gap-2 rounded-lg border border-border bg-card p-3 text-right transition-colors hover:border-accent/60 md:flex"
+			>
+				<div class="min-w-0">
+					<p class="text-xs text-muted-foreground">{nextDay.day} {nextDay.month}</p>
+					<p class="line-clamp-2 text-sm font-semibold">{data.nextEvent.name}</p>
+				</div>
+				<ChevronRight class="mt-0.5 size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+			</a>
 		{:else}
-			<span class="size-9 shrink-0" aria-hidden="true"></span>
+			<span class="size-9 shrink-0 md:hidden" aria-hidden="true"></span>
+			<span class="hidden w-40 shrink-0 md:block" aria-hidden="true"></span>
 		{/if}
 	</div>
 </div>

@@ -22,21 +22,23 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 
 	// Navigation précédent/suivant : même ordre et même filtre que la liste du
 	// calendrier (évènements à venir uniquement, du plus proche au plus loin) —
-	// un évènement passé consulté via un lien direct n'a alors ni voisin.
+	// un évènement passé consulté via un lien direct n'a alors ni voisin. Le nom et
+	// la date des voisins sont inclus pour l'aperçu affiché à côté de la carte sur
+	// desktop, sans requête supplémentaire.
 	const today = new Date().toISOString().slice(0, 10);
-	const orderedIds = await db
-		.select({ id: event.id })
+	const orderedEvents = await db
+		.select({ id: event.id, name: event.name, date: event.date })
 		.from(event)
 		.where(gte(event.date, today))
 		.orderBy(asc(event.date));
-	const currentIndex = orderedIds.findIndex((e) => e.id === existing.id);
-	const prevEventId = currentIndex > 0 ? orderedIds[currentIndex - 1].id : null;
-	const nextEventId =
-		currentIndex !== -1 && currentIndex < orderedIds.length - 1
-			? orderedIds[currentIndex + 1].id
+	const currentIndex = orderedEvents.findIndex((e) => e.id === existing.id);
+	const prevEvent = currentIndex > 0 ? orderedEvents[currentIndex - 1] : null;
+	const nextEvent =
+		currentIndex !== -1 && currentIndex < orderedEvents.length - 1
+			? orderedEvents[currentIndex + 1]
 			: null;
 
-	return { event: existing, myStatus: myResponse?.status ?? 'none', prevEventId, nextEventId };
+	return { event: existing, myStatus: myResponse?.status ?? 'none', prevEvent, nextEvent };
 };
 
 export const actions: Actions = {
