@@ -24,9 +24,11 @@
 	<table class="w-full min-w-max border-collapse text-sm">
 		<thead>
 			<tr>
-				<th class="border-b p-2 text-left font-medium">Membre</th>
+				<th class="border-b-2 border-primary/70 p-2 text-left font-medium">Membre</th>
 				{#each events as evt (evt.id)}
-					<th class="border-b p-2 text-left font-medium whitespace-nowrap">
+					<th
+						class="border-b-2 border-primary/70 p-2 text-left font-display font-semibold whitespace-nowrap"
+					>
 						{evt.name}
 						<span class="block text-xs font-normal text-muted-foreground">{evt.date}</span>
 					</th>
@@ -35,10 +37,10 @@
 		</thead>
 		<tbody>
 			{#each users as u (u.id)}
-				<tr>
-					<td class="border-b p-2 whitespace-nowrap">{u.name}</td>
+				<tr class="hover:bg-secondary/40">
+					<td class="border-b border-border p-2 font-medium whitespace-nowrap">{u.name}</td>
 					{#each events as evt (evt.id)}
-						<td class="border-b p-2">
+						<td class="border-b border-border p-2">
 							{#if editable}
 								{@const current = statusFor(evt.id, u.id)}
 								<form method="POST" action="?/respond" use:enhance>

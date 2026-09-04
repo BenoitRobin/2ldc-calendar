@@ -8,7 +8,7 @@
 <svelte:head><title>Vue d’ensemble — 2LDC Calendar</title></svelte:head>
 
 <div class="p-4">
-	<h1 class="mb-4 text-lg font-semibold">Vue d’ensemble</h1>
+	<h1 class="mb-4 font-display text-2xl font-extrabold">Vue d’ensemble</h1>
 
 	{#if data.events.length === 0}
 		<p class="text-sm text-muted-foreground">Aucun évènement pour le moment.</p>

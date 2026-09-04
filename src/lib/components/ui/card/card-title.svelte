@@ -14,7 +14,7 @@
 
 <div
 	bind:this={ref}
-	class={cn('leading-none font-semibold tracking-tight', className)}
+	class={cn('font-display text-xl leading-tight font-extrabold tracking-tight', className)}
 	{...restProps}
 >
 	{@render children?.()}

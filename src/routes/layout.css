@@ -1,48 +1,73 @@
 @import 'tailwindcss';
+@import '@fontsource/archivo/400.css';
+@import '@fontsource/archivo/500.css';
+@import '@fontsource/archivo/600.css';
+@import '@fontsource/archivo/700.css';
+@import '@fontsource/archivo/800.css';
+@import '@fontsource/archivo/900.css';
 
 @theme {
-	--color-background: #ffffff;
-	--color-foreground: #0a0a0a;
+	--font-display: 'Archivo', ui-sans-serif, system-ui, sans-serif;
+	--font-sans: 'Archivo', ui-sans-serif, system-ui, -apple-system, sans-serif;
 
-	--color-card: #ffffff;
-	--color-card-foreground: #0a0a0a;
+	/* Brass-band flyer palette, built off the 2LDC logo (bold black/white pictogram
+	   mark, brass instruments): black poster stock throughout, matching the logo's
+	   own black plate, cream ink for type, brass gold as the single supporting
+	   accent. Every pair below is checked for WCAG AA contrast (tasks.md 4.3). */
+	/* Exact black sampled from the logo's own plate (logo-2ldc-white.png), so the
+	   page background and the logo blend into one continuous surface. */
+	--color-background: #030304;
+	--color-foreground: #f6f3ea;
 
-	--color-primary: #171717;
-	--color-primary-foreground: #fafafa;
+	--color-card: #1a1815;
+	--color-card-foreground: #f6f3ea;
 
-	--color-secondary: #f5f5f5;
-	--color-secondary-foreground: #171717;
+	--color-primary: #f6f3ea;
+	--color-primary-foreground: #0e0e0e;
 
-	--color-muted: #f5f5f5;
-	--color-muted-foreground: #737373;
+	--color-secondary: #262420;
+	--color-secondary-foreground: #f6f3ea;
 
-	--color-accent: #f5f5f5;
-	--color-accent-foreground: #171717;
+	--color-muted: #262420;
+	--color-muted-foreground: #a39b8b;
 
-	--color-destructive: #dc2626;
-	--color-destructive-foreground: #fafafa;
+	--color-accent: #8c6215;
+	--color-accent-foreground: #ffffff;
 
-	--color-border: #e5e5e5;
-	--color-input: #e5e5e5;
-	--color-ring: #a3a3a3;
+	--color-destructive: #9b3a3a;
+	--color-destructive-foreground: #ffffff;
+	/* Brighter than --color-destructive: that value is tuned for white text ON it
+	   (buttons/badges) and fails contrast used directly as text on the dark surfaces
+	   below it — this is for inline error text instead. */
+	--color-danger: #d6635f;
+
+	--color-border: #655f4e;
+	--color-input: #655f4e;
+	--color-ring: #f6f3ea;
 
 	/* Presence-status color tokens (specs/event-attendance): every status badge in the
 	   app draws from these four, never a hard-coded color, and each pair is checked
 	   for WCAG AA contrast in tasks.md 4.3. */
-	--color-status-oui: #15803d;
+	--color-status-oui: #3f6b4a;
 	--color-status-oui-foreground: #ffffff;
 
-	--color-status-non: #b91c1c;
+	--color-status-non: #9b3a3a;
 	--color-status-non-foreground: #ffffff;
 
-	--color-status-indecis: #f59e0b;
-	--color-status-indecis-foreground: #1c1917;
+	--color-status-indecis: #8c6215;
+	--color-status-indecis-foreground: #ffffff;
 
-	--color-status-none: #e5e7eb;
-	--color-status-none-foreground: #1c1917;
+	--color-status-none: #262420;
+	--color-status-none-foreground: #a39b8b;
 }
 
 body {
 	background-color: var(--color-background);
 	color: var(--color-foreground);
+	font-family: var(--font-sans);
+}
+
+:focus-visible {
+	outline: 2px solid var(--color-ring);
+	outline-offset: 2px;
 }

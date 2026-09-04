@@ -35,7 +35,7 @@ export const actions: Actions = {
 		// Every authenticated user may set their own response, at any time
 		// (specs/event-attendance) — no admin check needed here, this only ever
 		// touches locals.user's own row.
-		await setAttendanceResponse(params.eventId, locals.user!.id, status);
+		await setAttendanceResponse(db, params.eventId, locals.user!.id, status);
 
 		return { status };
 	}

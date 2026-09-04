@@ -33,10 +33,10 @@
 				</select>
 			</div>
 			{#if form?.error}
-				<p class="text-sm text-destructive" role="alert">{form.error}</p>
+				<p class="text-sm text-danger" role="alert">{form.error}</p>
 			{/if}
 			{#if form?.success}
-				<p class="text-sm text-green-700" role="status">
+				<p class="text-sm" role="status">
 					Compte créé pour {form.email}. Un lien pour choisir son mot de passe a été envoyé.
 				</p>
 			{/if}

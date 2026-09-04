@@ -45,7 +45,7 @@ export const actions: Actions = {
 			return fail(400, { error: 'Requête invalide.' });
 		}
 
-		await setAttendanceResponse(eventId, userId, status);
+		await setAttendanceResponse(db, eventId, userId, status);
 
 		return { success: true };
 	}

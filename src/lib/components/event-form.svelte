@@ -87,7 +87,7 @@
 			value={values?.description ?? ''}></textarea>
 	</div>
 	{#if error}
-		<p class="text-sm text-destructive" role="alert">{error}</p>
+		<p class="text-sm text-danger" role="alert">{error}</p>
 	{/if}
 	<Button type="submit">{submitLabel}</Button>
 </form>

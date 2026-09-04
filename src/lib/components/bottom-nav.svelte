@@ -13,7 +13,7 @@
 </script>
 
 <nav
-	class="fixed inset-x-0 bottom-0 flex border-t bg-background"
+	class="fixed inset-x-0 bottom-0 flex border-t border-border bg-card"
 	aria-label="Navigation principale"
 >
 	{#each links as link (link.href)}
@@ -21,8 +21,10 @@
 		<a
 			href={link.href}
 			class={cn(
-				'flex min-h-11 flex-1 flex-col items-center justify-center gap-0.5 py-2 text-xs',
-				active ? 'font-medium text-primary' : 'text-muted-foreground'
+				'flex min-h-11 flex-1 flex-col items-center justify-center gap-0.5 border-t-2 py-2 text-xs',
+				active
+					? 'border-primary font-semibold text-primary'
+					: 'border-transparent text-muted-foreground'
 			)}
 			aria-current={active ? 'page' : undefined}
 		>
@@ -33,7 +35,7 @@
 	<form method="POST" action="/logout" class="flex flex-1">
 		<button
 			type="submit"
-			class="flex min-h-11 flex-1 flex-col items-center justify-center gap-0.5 py-2 text-xs text-muted-foreground"
+			class="flex min-h-11 flex-1 flex-col items-center justify-center gap-0.5 border-t-2 border-transparent py-2 text-xs text-muted-foreground"
 		>
 			<LogOut class="size-5" aria-hidden="true" />
 			Déconnexion

@@ -12,7 +12,7 @@
 <svelte:head><title>Choisir un mot de passe — 2LDC Calendar</title></svelte:head>
 
 <div class="flex min-h-dvh items-center justify-center p-4">
-	<Card class="w-full max-w-sm">
+	<Card class="w-full max-w-sm border-t-2 border-primary/70">
 		<CardHeader>
 			<CardTitle>Choisissez votre mot de passe</CardTitle>
 		</CardHeader>
@@ -32,7 +32,7 @@
 					/>
 				</div>
 				{#if form?.error}
-					<p class="text-sm text-destructive" role="alert">{form.error}</p>
+					<p class="text-sm text-danger" role="alert">{form.error}</p>
 				{/if}
 				<Button type="submit" class="w-full">Valider</Button>
 			</form>
