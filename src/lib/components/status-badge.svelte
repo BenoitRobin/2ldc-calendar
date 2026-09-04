@@ -18,7 +18,7 @@
 
 	export type PresenceStatus = VariantProps<typeof statusBadgeVariants>['status'];
 
-	const STATUS_LABELS: Record<NonNullable<PresenceStatus>, string> = {
+	export const STATUS_LABELS: Record<NonNullable<PresenceStatus>, string> = {
 		oui: 'Oui',
 		non: 'Non',
 		indecis: 'Indécis',
