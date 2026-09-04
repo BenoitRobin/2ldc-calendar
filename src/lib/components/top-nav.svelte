@@ -1,15 +1,17 @@
 <script lang="ts">
+	import type { Component } from 'svelte';
 	import { page } from '$app/state';
 	import { cn } from '$lib/utils';
 	import Menu from '@lucide/svelte/icons/menu';
 	import X from '@lucide/svelte/icons/x';
+	import LogOut from '@lucide/svelte/icons/log-out';
 
 	let {
 		links,
 		roleTag,
 		class: className
 	}: {
-		links: { href: string; label: string }[];
+		links: { href: string; label: string; icon?: Component }[];
 		roleTag?: string;
 		class?: string;
 	} = $props();
@@ -93,11 +95,14 @@
 					<a
 						href={link.href}
 						class={cn(
-							'rounded-md px-3 py-2.5 text-sm',
+							'flex items-center gap-3 rounded-md px-3 py-2.5 text-sm',
 							active ? 'font-semibold text-primary' : 'text-muted-foreground hover:text-foreground'
 						)}
 						aria-current={active ? 'page' : undefined}
 					>
+						{#if link.icon}
+							<link.icon class="size-4 shrink-0" aria-hidden="true" />
+						{/if}
 						{link.label}
 					</a>
 					<!-- eslint-enable svelte/no-navigation-without-resolve -->
@@ -105,8 +110,9 @@
 				<form method="POST" action="/logout">
 					<button
 						type="submit"
-						class="w-full rounded-md px-3 py-2.5 text-left text-sm text-muted-foreground hover:text-foreground"
+						class="flex w-full items-center gap-3 rounded-md px-3 py-2.5 text-left text-sm text-muted-foreground hover:text-foreground"
 					>
+						<LogOut class="size-4 shrink-0" aria-hidden="true" />
 						Déconnexion
 					</button>
 				</form>
