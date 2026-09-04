@@ -1,10 +1,24 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import { resolve } from '$app/paths';
 	import { buttonVariants } from '$lib/components/ui/button';
+	import {
+		AlertDialog,
+		AlertDialogContent,
+		AlertDialogHeader,
+		AlertDialogFooter,
+		AlertDialogTitle,
+		AlertDialogDescription,
+		AlertDialogAction,
+		AlertDialogCancel
+	} from '$lib/components/ui/alert-dialog';
 	import { formatEventDay } from '$lib/format-date';
-	import type { PageData } from './$types';
+	import X from '@lucide/svelte/icons/x';
+	import type { ActionData, PageData } from './$types';
 
-	let { data }: { data: PageData } = $props();
+	let { data, form }: { data: PageData; form: ActionData } = $props();
+
+	let deletingEvent = $state<{ id: string; name: string } | null>(null);
 </script>
 
 <svelte:head><title>Évènements — 2LDC Calendar</title></svelte:head>
@@ -37,8 +51,54 @@
 				href={resolve('/admin/events/[eventId]/edit', { eventId: evt.id })}
 				class={buttonVariants({ variant: 'outline', size: 'sm' })}>Modifier</a
 			>
+			<button
+				type="button"
+				onclick={() => (deletingEvent = { id: evt.id, name: evt.name })}
+				aria-label="Supprimer {evt.name}"
+				class="flex size-9 shrink-0 items-center justify-center rounded-md border border-destructive/60 text-destructive transition-colors hover:bg-destructive/10"
+			>
+				<X class="size-4" aria-hidden="true" />
+			</button>
 		</div>
 	{:else}
 		<p class="py-6 text-sm text-muted-foreground">Aucun évènement pour le moment.</p>
 	{/each}
 </div>
+
+<AlertDialog
+	open={!!deletingEvent}
+	onOpenChange={(open) => {
+		if (!open) deletingEvent = null;
+	}}
+>
+	<AlertDialogContent>
+		<AlertDialogHeader>
+			<AlertDialogTitle>Supprimer « {deletingEvent?.name} » ?</AlertDialogTitle>
+			<AlertDialogDescription>
+				Cette action est définitive : l'évènement et toutes les réponses de présence associées
+				seront supprimés. Impossible d'annuler après confirmation.
+			</AlertDialogDescription>
+		</AlertDialogHeader>
+		{#if form?.error}
+			<p class="text-sm text-danger" role="alert">{form.error}</p>
+		{/if}
+		<AlertDialogFooter>
+			<AlertDialogCancel onclick={() => (deletingEvent = null)}>Annuler</AlertDialogCancel>
+			<form
+				method="POST"
+				action="?/delete"
+				use:enhance={() => {
+					return async ({ result, update }) => {
+						if (result.type === 'success') {
+							deletingEvent = null;
+						}
+						await update();
+					};
+				}}
+			>
+				<input type="hidden" name="eventId" value={deletingEvent?.id ?? ''} />
+				<AlertDialogAction type="submit">Supprimer définitivement</AlertDialogAction>
+			</form>
+		</AlertDialogFooter>
+	</AlertDialogContent>
+</AlertDialog>
