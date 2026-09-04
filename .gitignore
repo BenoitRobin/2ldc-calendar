@@ -1,24 +1,28 @@
-# Environment variables / secrets
+node_modules
+
+# Output
+.output
+.vercel
+.netlify
+.wrangler
+/.svelte-kit
+/build
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
 .env
 .env.*
 !.env.example
+!.env.test
 
-# macOS
-.DS_Store
-
-# Dependencies
-node_modules/
-
-# Build output
-dist/
-build/
-
-# Logs
-*.log
-
-# Editor
-.vscode/
-.idea/
-
-# Playwright MCP runtime artifacts
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+# Playwright
+test-results
 .playwright-mcp/
+# SQLite
+*.db
