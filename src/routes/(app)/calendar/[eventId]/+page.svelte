@@ -193,15 +193,15 @@
 				</div>
 				{#if displayStatus === 'none'}
 					<p class="mt-2 text-sm text-muted-foreground">
-						<StatusBadge status="none" /> — vous n'avez pas encore répondu.
+						<StatusBadge status="none" /> — réponds vite!.
 					</p>
 				{:else if locked}
 					<p class="mt-2 text-sm text-muted-foreground">
-						Réponse enregistrée — seul un administrateur peut la modifier, depuis Vue d’ensemble.
+						Done! seul l'admin peut le modifier.
 					</p>
 				{/if}
 				{#if saveFailed}
-					<p class="mt-2 text-sm text-danger" role="alert">Échec de l'enregistrement, réessayez.</p>
+					<p class="mt-2 text-sm text-danger" role="alert">Échec de l'enregistrement, réessaie.</p>
 				{/if}
 			</div>
 		</div>
