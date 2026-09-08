@@ -50,9 +50,25 @@ export const actions: Actions = {
 			return fail(400, { error: 'Statut invalide.' });
 		}
 
-		// Every authenticated user may set their own response, at any time
-		// (specs/event-attendance) — no admin check needed here, this only ever
-		// touches locals.user's own row.
+		// A user may only set their own response once — after that, only an admin
+		// can change it, from the Vue d'ensemble overview's own `respond` action
+		// (admin/(app)/overview +page.server.ts), which is unaffected by this check.
+		const [existing] = await db
+			.select({ status: attendanceResponse.status })
+			.from(attendanceResponse)
+			.where(
+				and(
+					eq(attendanceResponse.eventId, params.eventId),
+					eq(attendanceResponse.userId, locals.user!.id)
+				)
+			)
+			.limit(1);
+		if (existing) {
+			return fail(403, {
+				error: 'Réponse déjà enregistrée — seul un administrateur peut la modifier.'
+			});
+		}
+
 		await setAttendanceResponse(db, params.eventId, locals.user!.id, status);
 
 		return { status };

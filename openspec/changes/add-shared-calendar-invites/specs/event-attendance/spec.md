@@ -16,19 +16,22 @@ SHALL default every user to no response until they act.
 - **THEN** the system shows their status as "no response", distinct from "no" — it
   never conflates "hasn't answered" with a negative answer
 
-### Requirement: User sets their own presence response
-The system SHALL let any authenticated user set or change their own presence
-response on any event, at any time.
+### Requirement: User sets their own presence response once
+The system SHALL let any authenticated user set their own presence response on
+any event they have not yet responded to. Once a response is recorded, the user
+SHALL NOT be able to change it themselves — only an admin, from the attendance
+overview, may change it thereafter.
 
 #### Scenario: First response
 - **WHEN** a user selects "oui", "non", or "indécis" on an event they have not
   responded to
-- **THEN** the system records that status for that user and that event
+- **THEN** the system records that status for that user and that event, and the
+  response choices become disabled for that user on that event
 
-#### Scenario: Changing a response
-- **WHEN** a user who already responded selects a different status on the same
-  event
-- **THEN** the system replaces the prior status with the new one
+#### Scenario: Attempting to change an already-recorded response
+- **WHEN** a user who already responded submits a different status for the same
+  event (e.g. by bypassing the disabled interface)
+- **THEN** the system rejects the change and leaves the recorded status untouched
 
 ### Requirement: Optimistic response updates
 The system SHALL reflect a presence response change in the interface immediately,

@@ -21,6 +21,10 @@
 	let displayStatus = $state<PresenceStatus>('none');
 	let confirmedStatus = $state<PresenceStatus>('none');
 	let saveFailed = $state(false);
+	// Once a response is recorded, only an admin can change it (from Vue d'ensemble)
+	// — locked as soon as the server has confirmed a non-"none" status, not on the
+	// optimistic displayStatus, so a still-saving first click isn't locked prematurely.
+	let locked = $derived(confirmedStatus !== 'none');
 
 	$effect(() => {
 		displayStatus = data.myStatus as PresenceStatus;
@@ -175,6 +179,7 @@
 							<input type="hidden" name="status" value={choice.status} />
 							<button
 								type="submit"
+								disabled={locked}
 								class={cn(
 									buttonVariants({ variant: active ? 'default' : 'outline', size: 'sm' }),
 									'w-full px-1',
@@ -189,6 +194,10 @@
 				{#if displayStatus === 'none'}
 					<p class="mt-2 text-sm text-muted-foreground">
 						<StatusBadge status="none" /> — vous n'avez pas encore répondu.
+					</p>
+				{:else if locked}
+					<p class="mt-2 text-sm text-muted-foreground">
+						Réponse enregistrée — seul un administrateur peut la modifier, depuis Vue d’ensemble.
 					</p>
 				{/if}
 				{#if saveFailed}
