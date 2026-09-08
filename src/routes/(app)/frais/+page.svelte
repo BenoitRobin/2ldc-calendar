@@ -15,7 +15,7 @@
 <svelte:head><title>Frais — 2LDC Calendar</title></svelte:head>
 
 <div class="p-4">
-	<h1 class="mb-4 font-display text-2xl font-extrabold">Frais</h1>
+	<h1 class="mb-6 font-display text-2xl font-extrabold">Frais</h1>
 
 	<div class="flex flex-col items-start gap-4 rounded-lg border border-border bg-card p-6">
 		<Receipt class="size-8 text-accent" aria-hidden="true" />

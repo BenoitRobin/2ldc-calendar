@@ -23,12 +23,12 @@
 
 <svelte:head><title>Dates — 2LDC Calendar</title></svelte:head>
 
-<div class="flex items-center justify-between">
+<div class="mb-6 flex items-center justify-between">
 	<h1 class="font-display text-2xl font-extrabold">Dates</h1>
 	<a href={resolve('/admin/events/new')} class={buttonVariants()}>Nouvelle date</a>
 </div>
 
-<div class="mt-4 flex flex-col gap-3">
+<div class="flex flex-col gap-3">
 	{#each data.events as evt (evt.id)}
 		<div class="rounded-lg border border-border bg-card">
 			<div class="flex items-center gap-4 p-4">

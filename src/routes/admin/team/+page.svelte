@@ -23,12 +23,12 @@
 
 <svelte:head><title>Fanfarons — 2LDC Calendar</title></svelte:head>
 
-<div class="flex items-center justify-between">
+<div class="mb-6 flex items-center justify-between">
 	<h1 class="font-display text-2xl font-extrabold">Fanfarons</h1>
 	<a href={resolve('/admin/team/new')} class={buttonVariants()}>Nouveau fanfaron</a>
 </div>
 
-<div class="mt-4 flex flex-col gap-3">
+<div class="flex flex-col gap-3">
 	{#each data.members as member (member.id)}
 		<div class="rounded-lg border border-border bg-card">
 			<div class="flex flex-wrap items-center gap-3 p-4">

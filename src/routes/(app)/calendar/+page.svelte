@@ -15,7 +15,7 @@
 <svelte:head><title>Calendrier — 2LDC Calendar</title></svelte:head>
 
 <div class="p-4">
-	<div class="mb-2 flex items-center justify-between">
+	<div class="mb-6 flex items-center justify-between">
 		<h1 class="font-display text-2xl font-extrabold">Calendrier</h1>
 		{#if isAdmin}
 			<a href={resolve('/admin/events/new')} class={buttonVariants()}>Ajouter une date</a>
