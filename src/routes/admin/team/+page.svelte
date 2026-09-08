@@ -23,7 +23,7 @@
 
 <svelte:head><title>Fanfarons — 2LDC Calendar</title></svelte:head>
 
-<div class="mb-6 flex items-center justify-between">
+<div class="mb-20 flex items-center justify-between">
 	<h1 class="font-display text-2xl font-extrabold">Fanfarons</h1>
 	<a href={resolve('/admin/team/new')} class={buttonVariants()}>Nouveau fanfaron</a>
 </div>

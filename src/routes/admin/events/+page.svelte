@@ -23,7 +23,7 @@
 
 <svelte:head><title>Dates — 2LDC Calendar</title></svelte:head>
 
-<div class="mb-6 flex items-center justify-between">
+<div class="mb-20 flex items-center justify-between">
 	<h1 class="font-display text-2xl font-extrabold">Dates</h1>
 	<a href={resolve('/admin/events/new')} class={buttonVariants()}>Nouvelle date</a>
 </div>
