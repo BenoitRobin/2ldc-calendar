@@ -8,11 +8,11 @@
 	let { data, form }: { data: PageData; form: ActionData } = $props();
 </script>
 
-<svelte:head><title>Modifier l'évènement — 2LDC Calendar</title></svelte:head>
+<svelte:head><title>Modifier la date — 2LDC Calendar</title></svelte:head>
 
 <Card class="mx-auto max-w-lg">
 	<CardHeader>
-		<CardTitle>Modifier l'évènement</CardTitle>
+		<CardTitle>Modifier la date</CardTitle>
 	</CardHeader>
 	<CardContent>
 		<EventForm
@@ -35,7 +35,7 @@
 		// confirmation" must leave the event unchanged).
 		if (
 			!confirm(
-				'Supprimer cet évènement ? Les réponses de présence associées seront aussi supprimées.'
+				'Supprimer cette date ? Les réponses de présence associées seront aussi supprimées.'
 			)
 		) {
 			cancel();
@@ -43,5 +43,5 @@
 	}}
 	class="mx-auto mt-4 max-w-lg"
 >
-	<Button type="submit" variant="destructive">Supprimer l'évènement</Button>
+	<Button type="submit" variant="destructive">Supprimer la date</Button>
 </form>

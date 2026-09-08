@@ -18,7 +18,7 @@
 	<div class="mb-2 flex items-center justify-between">
 		<h1 class="font-display text-2xl font-extrabold">Calendrier</h1>
 		{#if isAdmin}
-			<a href={resolve('/admin/events/new')} class={buttonVariants()}>Ajouter un évènement</a>
+			<a href={resolve('/admin/events/new')} class={buttonVariants()}>Ajouter une date</a>
 		{/if}
 	</div>
 
@@ -58,7 +58,7 @@
 				</div>
 			</a>
 		{:else}
-			<p class="py-6 text-sm text-muted-foreground">Aucun évènement pour le moment.</p>
+			<p class="py-6 text-sm text-muted-foreground">Aucune date pour le moment.</p>
 		{/each}
 	</div>
 </div>

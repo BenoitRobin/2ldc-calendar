@@ -7,11 +7,11 @@
 	let { data, form }: { data: PageData; form: ActionData } = $props();
 </script>
 
-<svelte:head><title>Modifier le membre — 2LDC Calendar</title></svelte:head>
+<svelte:head><title>Modifier le fanfaron — 2LDC Calendar</title></svelte:head>
 
 <Card class="mx-auto max-w-lg">
 	<CardHeader>
-		<CardTitle>Modifier le membre</CardTitle>
+		<CardTitle>Modifier le fanfaron</CardTitle>
 	</CardHeader>
 	<CardContent>
 		<form method="POST" action="?/update" use:enhance class="flex flex-col gap-4">
@@ -49,7 +49,7 @@
 				/>
 				<p class="text-xs text-muted-foreground">
 					Le mot de passe actuel n'est pas consultable — renseignez ce champ pour le remplacer (8
-					caractères minimum), à transmettre ensuite au membre.
+					caractères minimum), à transmettre ensuite au fanfaron.
 				</p>
 			</div>
 			<div class="flex flex-col gap-1.5">

@@ -21,11 +21,11 @@
 	let deletingEvent = $state<{ id: string; name: string } | null>(null);
 </script>
 
-<svelte:head><title>Évènements — 2LDC Calendar</title></svelte:head>
+<svelte:head><title>Dates — 2LDC Calendar</title></svelte:head>
 
 <div class="flex items-center justify-between">
-	<h1 class="font-display text-2xl font-extrabold">Évènements</h1>
-	<a href={resolve('/admin/events/new')} class={buttonVariants()}>Nouvel évènement</a>
+	<h1 class="font-display text-2xl font-extrabold">Dates</h1>
+	<a href={resolve('/admin/events/new')} class={buttonVariants()}>Nouvelle date</a>
 </div>
 
 <div class="mt-4 flex flex-col gap-3">
@@ -67,7 +67,7 @@
 			</div>
 		</div>
 	{:else}
-		<p class="py-6 text-sm text-muted-foreground">Aucun évènement pour le moment.</p>
+		<p class="py-6 text-sm text-muted-foreground">Aucune date pour le moment.</p>
 	{/each}
 </div>
 
@@ -81,8 +81,8 @@
 		<AlertDialogHeader>
 			<AlertDialogTitle>Supprimer « {deletingEvent?.name} » ?</AlertDialogTitle>
 			<AlertDialogDescription>
-				Cette action est définitive : l'évènement et toutes les réponses de présence associées
-				seront supprimés. Impossible d'annuler après confirmation.
+				Cette action est définitive : la date et toutes les réponses de présence associées
+				seront supprimées. Impossible d'annuler après confirmation.
 			</AlertDialogDescription>
 		</AlertDialogHeader>
 		{#if form?.error}

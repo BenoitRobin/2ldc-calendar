@@ -20,11 +20,11 @@
 	let deletingMember = $state<{ id: string; name: string } | null>(null);
 </script>
 
-<svelte:head><title>Équipe — 2LDC Calendar</title></svelte:head>
+<svelte:head><title>Fanfarons — 2LDC Calendar</title></svelte:head>
 
 <div class="flex items-center justify-between">
-	<h1 class="font-display text-2xl font-extrabold">Équipe</h1>
-	<a href={resolve('/admin/team/new')} class={buttonVariants()}>Nouveau membre</a>
+	<h1 class="font-display text-2xl font-extrabold">Fanfarons</h1>
+	<a href={resolve('/admin/team/new')} class={buttonVariants()}>Nouveau fanfaron</a>
 </div>
 
 <div class="mt-4 flex flex-col gap-3">
@@ -57,7 +57,7 @@
 			</div>
 		</div>
 	{:else}
-		<p class="py-6 text-sm text-muted-foreground">Aucun membre pour le moment.</p>
+		<p class="py-6 text-sm text-muted-foreground">Aucun fanfaron pour le moment.</p>
 	{/each}
 </div>
 

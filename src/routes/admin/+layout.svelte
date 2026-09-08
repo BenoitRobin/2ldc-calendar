@@ -9,8 +9,8 @@
 	let { children } = $props();
 
 	const links = [
-		{ href: resolve('/admin/events'), label: 'Évènements', icon: CalendarCog },
-		{ href: resolve('/admin/team'), label: 'Équipe', icon: Users },
+		{ href: resolve('/admin/events'), label: 'Dates', icon: CalendarCog },
+		{ href: resolve('/admin/team'), label: 'Fanfarons', icon: Users },
 		{ href: resolve('/(app)/calendar'), label: 'Voir le calendrier', icon: CalendarDays },
 		{ href: resolve('/(app)/overview'), label: 'Vue d’ensemble', icon: Table2 }
 	];

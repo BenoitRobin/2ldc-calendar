@@ -21,13 +21,13 @@ export const actions: Actions = {
 		const userId = formData.get('userId');
 
 		if (typeof userId !== 'string' || !userId) {
-			return fail(400, { error: 'Membre invalide.' });
+			return fail(400, { error: 'Fanfaron invalide.' });
 		}
 
 		// Auto-lockout guard (PRD phase 8): never let the last admin be deleted.
 		const [target] = await db.select({ role: user.role }).from(user).where(eq(user.id, userId));
 		if (!target) {
-			return fail(404, { error: 'Membre introuvable.' });
+			return fail(404, { error: 'Fanfaron introuvable.' });
 		}
 		if (target.role === 'admin') {
 			const admins = await db.select({ id: user.id }).from(user).where(eq(user.role, 'admin'));
@@ -54,7 +54,7 @@ export const actions: Actions = {
 			// silently orphaning or cascading away those events.
 			if (error instanceof Error && error.message.includes('FOREIGN KEY constraint failed')) {
 				return fail(400, {
-					error: 'Impossible de supprimer ce membre : il a créé des évènements existants.'
+					error: 'Impossible de supprimer ce fanfaron : il a créé des dates existantes.'
 				});
 			}
 			throw error;

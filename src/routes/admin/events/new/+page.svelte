@@ -8,11 +8,11 @@
 	let { form }: { form: ActionData } = $props();
 </script>
 
-<svelte:head><title>Nouvel évènement — 2LDC Calendar</title></svelte:head>
+<svelte:head><title>Nouvelle date — 2LDC Calendar</title></svelte:head>
 
 <Card class="mx-auto max-w-lg">
 	<CardHeader class="flex-row items-center justify-between">
-		<CardTitle>Nouvel évènement</CardTitle>
+		<CardTitle>Nouvelle date</CardTitle>
 		<a
 			href={resolve('/admin/events')}
 			aria-label="Fermer"

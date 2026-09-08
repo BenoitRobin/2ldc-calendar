@@ -7,7 +7,7 @@ import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params, locals }) => {
 	const [existing] = await db.select().from(event).where(eq(event.id, params.eventId)).limit(1);
-	if (!existing) kitError(404, 'Évènement introuvable.');
+	if (!existing) kitError(404, 'Date introuvable.');
 
 	const [myResponse] = await db
 		.select({ status: attendanceResponse.status })

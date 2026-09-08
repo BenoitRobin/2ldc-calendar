@@ -78,7 +78,7 @@
 				<th
 					class="sticky left-0 z-10 border-b-2 border-dashed border-accent/70 bg-card p-3 text-left font-medium"
 				>
-					Membre
+					Fanfaron
 				</th>
 				{#each events as evt (evt.id)}
 					{@const day = formatEventDay(evt.date)}

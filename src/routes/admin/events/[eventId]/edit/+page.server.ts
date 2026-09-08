@@ -7,7 +7,7 @@ import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params }) => {
 	const [existing] = await db.select().from(event).where(eq(event.id, params.eventId)).limit(1);
-	if (!existing) kitError(404, 'Évènement introuvable.');
+	if (!existing) kitError(404, 'Date introuvable.');
 	return { event: existing };
 };
 

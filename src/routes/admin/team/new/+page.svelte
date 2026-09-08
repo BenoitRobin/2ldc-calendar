@@ -9,11 +9,11 @@
 	let { form }: { form: ActionData } = $props();
 </script>
 
-<svelte:head><title>Nouveau membre — 2LDC Calendar</title></svelte:head>
+<svelte:head><title>Nouveau fanfaron — 2LDC Calendar</title></svelte:head>
 
 <Card class="mx-auto max-w-lg">
 	<CardHeader class="flex-row items-center justify-between">
-		<CardTitle>Nouveau membre</CardTitle>
+		<CardTitle>Nouveau fanfaron</CardTitle>
 		<a
 			href={resolve('/admin/team')}
 			aria-label="Fermer"
@@ -34,7 +34,7 @@
 					class="h-11 rounded-md border border-input px-3 text-sm"
 				/>
 				<p class="text-xs text-muted-foreground">
-					Utilisé pour se connecter — doit être unique dans l'équipe.
+					Utilisé pour se connecter — doit être unique parmi les fanfarons.
 				</p>
 			</div>
 			<div class="flex flex-col gap-1.5">
@@ -57,7 +57,7 @@
 					minlength="8"
 					class="h-11 rounded-md border border-input px-3 text-sm"
 				/>
-				<p class="text-xs text-muted-foreground">À transmettre au membre — 8 caractères minimum.</p>
+				<p class="text-xs text-muted-foreground">À transmettre au fanfaron — 8 caractères minimum.</p>
 			</div>
 			<div class="flex flex-col gap-1.5">
 				<label for="role" class="text-sm font-medium">Rôle</label>

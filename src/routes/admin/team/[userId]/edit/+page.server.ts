@@ -13,7 +13,7 @@ export const load: PageServerLoad = async ({ params }) => {
 		.from(user)
 		.where(eq(user.id, params.userId))
 		.limit(1);
-	if (!existing) kitError(404, 'Membre introuvable.');
+	if (!existing) kitError(404, 'Fanfaron introuvable.');
 
 	return { member: existing };
 };
@@ -47,13 +47,13 @@ export const actions: Actions = {
 			.from(user)
 			.where(eq(user.id, params.userId))
 			.limit(1);
-		if (!target) kitError(404, 'Membre introuvable.');
+		if (!target) kitError(404, 'Fanfaron introuvable.');
 
 		// Login is by prénom (specs/user-auth), so two members can't share one —
 		// excludes this member's own current row from the clash check.
 		const clash = await findUserByName(db, trimmedName);
 		if (clash && clash.id !== params.userId) {
-			return fail(400, { error: 'Ce prénom est déjà utilisé par un autre membre.' });
+			return fail(400, { error: 'Ce prénom est déjà utilisé par un autre fanfaron.' });
 		}
 
 		// Auto-lockout guard (PRD phase 8): never let the last admin lose the role,

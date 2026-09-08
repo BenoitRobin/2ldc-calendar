@@ -11,7 +11,7 @@
 	<h1 class="mb-4 font-display text-2xl font-extrabold">Vue d’ensemble</h1>
 
 	{#if data.events.length === 0}
-		<p class="text-sm text-muted-foreground">Aucun évènement pour le moment.</p>
+		<p class="text-sm text-muted-foreground">Aucune date pour le moment.</p>
 	{:else}
 		<AttendanceMatrix
 			events={data.events}

@@ -11,14 +11,14 @@
 
 	// An admin browsing the shared calendar/overview pages must still see the admin
 	// sections in the nav — otherwise they hit a dead end with no way back to
-	// Évènements/Équipe (this component's links don't know about admin routes
+	// Dates/Fanfarons (this component's links don't know about admin routes
 	// otherwise, since /calendar and /overview are shared with standard accounts).
 	let isAdmin = $derived(page.data.user?.role === 'admin');
 	let links = $derived([
 		...(isAdmin
 			? [
-					{ href: resolve('/admin/events'), label: 'Évènements', icon: CalendarCog },
-					{ href: resolve('/admin/team'), label: 'Équipe', icon: Users }
+					{ href: resolve('/admin/events'), label: 'Dates', icon: CalendarCog },
+					{ href: resolve('/admin/team'), label: 'Fanfarons', icon: Users }
 				]
 			: []),
 		{ href: resolve('/(app)/calendar'), label: 'Calendrier', icon: CalendarDays },

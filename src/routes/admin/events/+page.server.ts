@@ -17,12 +17,12 @@ export const actions: Actions = {
 		const eventId = formData.get('eventId');
 
 		if (typeof eventId !== 'string' || !eventId) {
-			return fail(400, { error: 'Évènement invalide.' });
+			return fail(400, { error: 'Date invalide.' });
 		}
 
 		const deleted = await db.delete(event).where(eq(event.id, eventId)).returning({ id: event.id });
 		if (deleted.length === 0) {
-			return fail(404, { error: 'Évènement introuvable.' });
+			return fail(404, { error: 'Date introuvable.' });
 		}
 	}
 };

@@ -30,7 +30,7 @@ export const actions: Actions = {
 
 		// Login is by prénom (specs/user-auth), so two members can't share one.
 		if (await findUserByName(db, trimmedName)) {
-			return fail(400, { error: 'Ce prénom est déjà utilisé par un autre membre.' });
+			return fail(400, { error: 'Ce prénom est déjà utilisé par un autre fanfaron.' });
 		}
 
 		try {

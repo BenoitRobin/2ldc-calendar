@@ -232,7 +232,7 @@
 				<a
 					href={resolve('/(app)/calendar/[eventId]', { eventId: prev.id })}
 					onclick={(e) => handlePreviewClick(e, prev.id, 'right')}
-					aria-label="Évènement précédent : {prev.name}"
+					aria-label="Date précédente : {prev.name}"
 					class="flex size-6 items-center justify-center"
 				>
 					<span class="size-1.5 rounded-full bg-muted-foreground/50" aria-hidden="true"></span>
@@ -244,13 +244,13 @@
 				<a
 					href={resolve('/(app)/calendar/[eventId]', { eventId: next.id })}
 					onclick={(e) => handlePreviewClick(e, next.id, 'left')}
-					aria-label="Évènement suivant : {next.name}"
+					aria-label="Date suivante : {next.name}"
 					class="flex size-6 items-center justify-center"
 				>
 					<span class="size-1.5 rounded-full bg-muted-foreground/50" aria-hidden="true"></span>
 				</a>
 			{/if}
-			<span class="sr-only">Balayez pour changer d'évènement.</span>
+			<span class="sr-only">Balayez pour changer de date.</span>
 		</div>
 	{/if}
 </div>
