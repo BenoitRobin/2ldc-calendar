@@ -196,9 +196,7 @@
 						<StatusBadge status="none" /> — réponds vite!.
 					</p>
 				{:else if locked}
-					<p class="mt-2 text-sm text-muted-foreground">
-						Trop tard! seul Dieu peut le modifier.
-					</p>
+					<p class="mt-2 text-sm text-muted-foreground">Trop tard! seul Dieu peut le modifier.</p>
 				{/if}
 				{#if saveFailed}
 					<p class="mt-2 text-sm text-danger" role="alert">Échec de l'enregistrement, réessaie.</p>

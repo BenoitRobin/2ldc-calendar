@@ -67,7 +67,8 @@ const NEW_EVENTS = [
 		startTime: '10:00',
 		endTime: '17:00',
 		location: 'Salle polyvalente',
-		description: 'Répétition longue avec pause déjeuner sur place, travail intensif du programme de printemps.'
+		description:
+			'Répétition longue avec pause déjeuner sur place, travail intensif du programme de printemps.'
 	},
 	{
 		name: 'Répétition tutti',

@@ -34,9 +34,7 @@
 		// abort an enhanced submission (specs/event-calendar: "Deletion without
 		// confirmation" must leave the event unchanged).
 		if (
-			!confirm(
-				'Supprimer cette date ? Les réponses de présence associées seront aussi supprimées.'
-			)
+			!confirm('Supprimer cette date ? Les réponses de présence associées seront aussi supprimées.')
 		) {
 			cancel();
 		}

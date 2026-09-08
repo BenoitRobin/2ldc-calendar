@@ -57,7 +57,9 @@
 					minlength="8"
 					class="h-11 rounded-md border border-input px-3 text-sm"
 				/>
-				<p class="text-xs text-muted-foreground">À transmettre au fanfaron — 8 caractères minimum.</p>
+				<p class="text-xs text-muted-foreground">
+					À transmettre au fanfaron — 8 caractères minimum.
+				</p>
 			</div>
 			<div class="flex flex-col gap-1.5">
 				<label for="role" class="text-sm font-medium">Rôle</label>

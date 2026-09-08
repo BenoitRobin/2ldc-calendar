@@ -21,8 +21,8 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 		.limit(1);
 
 	// Navigation précédent/suivant : même ordre et même filtre que la liste du
-	// calendrier (évènements à venir uniquement, du plus proche au plus loin) —
-	// un évènement passé consulté via un lien direct n'a alors ni voisin. Le nom et
+	// calendrier (dates à venir uniquement, du plus proche au plus loin) — une
+	// date passée consultée via un lien direct n'a alors ni voisin. Le nom et
 	// la date des voisins sont inclus pour l'aperçu affiché à côté de la carte sur
 	// desktop, sans requête supplémentaire.
 	const today = new Date().toISOString().slice(0, 10);
@@ -52,24 +52,15 @@ export const actions: Actions = {
 
 		// A user may only set their own response once — after that, only an admin
 		// can change it, from the Vue d'ensemble overview's own `respond` action
-		// (admin/(app)/overview +page.server.ts), which is unaffected by this check.
-		const [existing] = await db
-			.select({ status: attendanceResponse.status })
-			.from(attendanceResponse)
-			.where(
-				and(
-					eq(attendanceResponse.eventId, params.eventId),
-					eq(attendanceResponse.userId, locals.user!.id)
-				)
-			)
-			.limit(1);
-		if (existing) {
+		// (admin/(app)/overview +page.server.ts), which passes allowOverwrite: true.
+		const saved = await setAttendanceResponse(db, params.eventId, locals.user!.id, status, {
+			allowOverwrite: false
+		});
+		if (!saved) {
 			return fail(403, {
 				error: 'Réponse déjà enregistrée — seul un administrateur peut la modifier.'
 			});
 		}
-
-		await setAttendanceResponse(db, params.eventId, locals.user!.id, status);
 
 		return { status };
 	}

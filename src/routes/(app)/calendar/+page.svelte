@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
-	import { formatEventDay } from '$lib/format-date';
 	import { STATUS_LABELS } from '$lib/components/status-badge.svelte';
+	import EventTicketHeader from '$lib/components/event-ticket-header.svelte';
 	import { buttonVariants } from '$lib/components/ui/button';
 	import { cn } from '$lib/utils';
 	import type { PageData } from './$types';
@@ -24,26 +24,11 @@
 
 	<div class="flex flex-col gap-3">
 		{#each data.events as evt (evt.id)}
-			{@const day = formatEventDay(evt.date)}
 			<a
 				href={resolve('/(app)/calendar/[eventId]', { eventId: evt.id })}
 				class="flex items-center gap-4 rounded-lg border border-border bg-card p-4 transition-colors hover:border-accent/60"
 			>
-				<div class="w-14 shrink-0 text-center">
-					<p class="font-display text-2xl leading-none font-extrabold text-accent">{day.day}</p>
-					<p class="mt-1 text-xs text-muted-foreground">{day.month}</p>
-				</div>
-				<div class="min-w-0 flex-1">
-					<p class="font-display text-lg leading-snug font-extrabold">{evt.name}</p>
-					<p class="mt-0.5 text-sm text-muted-foreground">
-						{[
-							evt.startTime && evt.endTime ? `${evt.startTime}–${evt.endTime}` : evt.startTime,
-							evt.location
-						]
-							.filter(Boolean)
-							.join(', ')}
-					</p>
-				</div>
+				<EventTicketHeader {evt} />
 				<div class="flex w-14 shrink-0 items-center justify-center md:w-96">
 					<span
 						class={cn(

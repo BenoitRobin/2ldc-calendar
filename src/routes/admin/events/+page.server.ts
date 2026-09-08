@@ -5,7 +5,7 @@ import { event } from '$lib/server/db/schema';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
-	// Contrairement au calendrier musicien, l'admin voit tous les évènements,
+	// Contrairement au calendrier musicien, l'admin voit toutes les dates,
 	// passés compris, pour pouvoir les gérer/supprimer.
 	const events = await db.select().from(event).orderBy(desc(event.date));
 	return { events };
