@@ -1,13 +1,15 @@
 import { fail } from '@sveltejs/kit';
-import { asc } from 'drizzle-orm';
+import { asc, gte } from 'drizzle-orm';
 import { db } from '$lib/server/db';
 import { event, user, attendanceResponse } from '$lib/server/db/schema';
 import { isPresenceValue, setAttendanceResponse } from '$lib/server/attendance';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals }) => {
+	// Comme pour le calendrier musicien, les dates passées disparaissent automatiquement.
+	const today = new Date().toISOString().slice(0, 10);
 	const [events, users, responses] = await Promise.all([
-		db.select().from(event).orderBy(asc(event.date)),
+		db.select().from(event).where(gte(event.date, today)).orderBy(asc(event.date)),
 		db
 			.select({ id: user.id, name: user.name, instrument: user.instrument })
 			.from(user)
