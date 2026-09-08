@@ -2,6 +2,7 @@
 	import { enhance } from '$app/forms';
 	import { formatEventDay } from '$lib/format-date';
 	import StatusBadge, { type PresenceStatus } from '$lib/components/status-badge.svelte';
+	import { cn } from '$lib/utils';
 
 	let {
 		events,
@@ -37,16 +38,30 @@
 			<select
 				name="status"
 				onchange={(e) => e.currentTarget.form?.requestSubmit()}
-				class="h-9 w-36 rounded-md border border-input px-2 text-sm"
+				class={cn(
+					'h-9 w-36 rounded-md border px-2 text-sm font-medium',
+					`bg-status-${current} text-status-${current}-foreground`,
+					current === 'none' ? 'border-input' : 'border-transparent'
+				)}
 			>
 				{#if current === 'none'}
-					<option value="none" disabled selected>Pas de réponse</option>
+					<option value="none" disabled selected class="bg-status-none text-status-none-foreground"
+						>Pas de réponse</option
+					>
 				{/if}
 				<!-- No "reset to no response" option: setAttendanceResponse only accepts
 				     oui/non/indecis — "no response" is row absence, not a settable value. -->
-				<option value="oui" selected={current === 'oui'}>Oui</option>
-				<option value="non" selected={current === 'non'}>Non</option>
-				<option value="indecis" selected={current === 'indecis'}>Indécis</option>
+				<option value="oui" selected={current === 'oui'} class="bg-status-oui text-status-oui-foreground"
+					>Oui</option
+				>
+				<option value="non" selected={current === 'non'} class="bg-status-non text-status-non-foreground"
+					>Non</option
+				>
+				<option
+					value="indecis"
+					selected={current === 'indecis'}
+					class="bg-status-indecis text-status-indecis-foreground">Indécis</option
+				>
 			</select>
 		</form>
 	{:else}
