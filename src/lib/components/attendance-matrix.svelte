@@ -2,10 +2,12 @@
 	import { enhance } from '$app/forms';
 	import { formatEventDay } from '$lib/format-date';
 	import EventTicketHeader from '$lib/components/event-ticket-header.svelte';
+	import InstrumentIcon from '$lib/components/instrument-icon.svelte';
 	import StatusBadge, {
 		STATUS_COLOR_CLASSES,
 		type PresenceStatus
 	} from '$lib/components/status-badge.svelte';
+	import { isInstrument } from '$lib/instruments';
 	import { cn } from '$lib/utils';
 
 	let {
@@ -22,7 +24,7 @@
 			endTime?: string | null;
 			location?: string | null;
 		}[];
-		users: { id: string; name: string }[];
+		users: { id: string; name: string; instrument?: string | null }[];
 		responses: { eventId: string; userId: string; status: string }[];
 		editable: boolean;
 	} = $props();
@@ -100,8 +102,14 @@
 				<tr class="group hover:bg-secondary/40">
 					<td
 						class="sticky left-0 z-10 border-b border-border bg-card p-3 font-medium whitespace-nowrap group-hover:bg-secondary/40"
-						>{u.name}</td
 					>
+						<span class="flex items-center gap-2">
+							{#if isInstrument(u.instrument)}
+								<InstrumentIcon instrument={u.instrument} class="h-5 shrink-0" />
+							{/if}
+							{u.name}
+						</span>
+					</td>
 					{#each events as evt (evt.id)}
 						<td class="border-b border-border p-3">
 							{@render responseControl(evt.id, u.id)}
@@ -128,7 +136,12 @@
 			>
 				{#each users as u (u.id)}
 					<div class="flex items-center justify-between gap-3 py-2">
-						<p class="min-w-0 truncate text-sm font-medium">{u.name}</p>
+						<p class="flex min-w-0 items-center gap-2 truncate text-sm font-medium">
+							{#if isInstrument(u.instrument)}
+								<InstrumentIcon instrument={u.instrument} class="h-4 shrink-0" />
+							{/if}
+							{u.name}
+						</p>
 						{@render responseControl(evt.id, u.id)}
 					</div>
 				{/each}

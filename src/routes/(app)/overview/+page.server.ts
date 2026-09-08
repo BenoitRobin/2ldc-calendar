@@ -8,7 +8,10 @@ import type { Actions, PageServerLoad } from './$types';
 export const load: PageServerLoad = async ({ locals }) => {
 	const [events, users, responses] = await Promise.all([
 		db.select().from(event).orderBy(asc(event.date)),
-		db.select({ id: user.id, name: user.name }).from(user).orderBy(asc(user.name)),
+		db
+			.select({ id: user.id, name: user.name, instrument: user.instrument })
+			.from(user)
+			.orderBy(asc(user.name)),
 		db
 			.select({
 				eventId: attendanceResponse.eventId,
