@@ -1,5 +1,6 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { isAPIError } from 'better-auth/api';
+import { isInstrument } from '$lib/instruments';
 import { auth } from '$lib/server/auth';
 import { db } from '$lib/server/db';
 import { findUserByName } from '$lib/server/user-lookup';
@@ -12,6 +13,7 @@ export const actions: Actions = {
 		const email = formData.get('email');
 		const password = formData.get('password');
 		const role = formData.get('role');
+		const instrument = formData.get('instrument');
 
 		if (typeof name !== 'string' || !name.trim()) {
 			return fail(400, { error: 'Prénom requis.' });
@@ -24,6 +26,9 @@ export const actions: Actions = {
 		}
 		if (role !== 'standard' && role !== 'admin') {
 			return fail(400, { error: 'Rôle invalide.' });
+		}
+		if (!isInstrument(instrument)) {
+			return fail(400, { error: 'Instrument invalide.' });
 		}
 
 		const trimmedName = name.trim();
@@ -45,7 +50,8 @@ export const actions: Actions = {
 					email: email.trim(),
 					name: trimmedName,
 					password,
-					role: role as unknown as 'user' | 'admin'
+					role: role as unknown as 'user' | 'admin',
+					data: { instrument }
 				}
 			});
 		} catch (error) {

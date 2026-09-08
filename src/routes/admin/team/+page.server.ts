@@ -8,7 +8,13 @@ import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
 	const members = await db
-		.select({ id: user.id, name: user.name, email: user.email, role: user.role })
+		.select({
+			id: user.id,
+			name: user.name,
+			email: user.email,
+			role: user.role,
+			instrument: user.instrument
+		})
 		.from(user)
 		.orderBy(asc(user.name));
 

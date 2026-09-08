@@ -12,6 +12,7 @@
 		AlertDialogAction,
 		AlertDialogCancel
 	} from '$lib/components/ui/alert-dialog';
+	import { INSTRUMENT_LABELS, isInstrument } from '$lib/instruments';
 	import X from '@lucide/svelte/icons/x';
 	import type { ActionData, PageData } from './$types';
 
@@ -33,7 +34,12 @@
 			<div class="flex flex-wrap items-center gap-3 p-4">
 				<div class="min-w-0 flex-1">
 					<p class="font-display text-lg leading-snug font-extrabold">{member.name}</p>
-					<p class="mt-0.5 text-sm text-muted-foreground">{member.email}</p>
+					<p class="mt-0.5 text-sm text-muted-foreground">
+						{member.email}
+						{#if isInstrument(member.instrument)}
+							· {INSTRUMENT_LABELS[member.instrument]}
+						{/if}
+					</p>
 				</div>
 				<span class="rounded-sm border border-border px-2 py-1 text-xs text-muted-foreground">
 					{member.role === 'admin' ? 'Administrateur' : 'Standard'}

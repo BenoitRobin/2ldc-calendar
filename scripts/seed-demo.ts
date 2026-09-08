@@ -6,6 +6,7 @@ import { createAuthOptions } from '../src/lib/server/auth-options';
 import { createDbClient } from '../src/lib/server/db/client';
 import { user, event } from '../src/lib/server/db/schema';
 import { setAttendanceResponse, type PresenceValue } from '../src/lib/server/attendance';
+import type { Instrument } from '../src/lib/instruments';
 
 // Rejouable (PRD phase 13) : nettoie l'ancien jeu de démo avant d'en recréer un,
 // identifié par le domaine d'email des musiciens et les noms d'évènements ci-dessous.
@@ -14,13 +15,13 @@ const DEMO_PASSWORD = 'Demo1234!';
 
 // Prénoms seuls : c'est ce qui sert à se connecter (specs/user-auth), donc ça doit
 // rester unique dans l'équipe.
-const MUSICIANS = [
-	{ email: `alice${DEMO_EMAIL_DOMAIN}`, name: 'Alice' },
-	{ email: `baptiste${DEMO_EMAIL_DOMAIN}`, name: 'Baptiste' },
-	{ email: `chloe${DEMO_EMAIL_DOMAIN}`, name: 'Chloé' },
-	{ email: `david${DEMO_EMAIL_DOMAIN}`, name: 'David' },
-	{ email: `emma${DEMO_EMAIL_DOMAIN}`, name: 'Emma' },
-	{ email: `hugo${DEMO_EMAIL_DOMAIN}`, name: 'Hugo' }
+const MUSICIANS: { email: string; name: string; instrument: Instrument }[] = [
+	{ email: `alice${DEMO_EMAIL_DOMAIN}`, name: 'Alice', instrument: 'saxophone' },
+	{ email: `baptiste${DEMO_EMAIL_DOMAIN}`, name: 'Baptiste', instrument: 'trompette' },
+	{ email: `chloe${DEMO_EMAIL_DOMAIN}`, name: 'Chloé', instrument: 'trombone' },
+	{ email: `david${DEMO_EMAIL_DOMAIN}`, name: 'David', instrument: 'tuba' },
+	{ email: `emma${DEMO_EMAIL_DOMAIN}`, name: 'Emma', instrument: 'batterie' },
+	{ email: `hugo${DEMO_EMAIL_DOMAIN}`, name: 'Hugo', instrument: 'sousaphone' }
 ];
 
 const EVENTS = [
@@ -111,7 +112,8 @@ async function main() {
 				email: musician.email,
 				name: musician.name,
 				role: 'standard',
-				password: DEMO_PASSWORD
+				password: DEMO_PASSWORD,
+				data: { instrument: musician.instrument }
 			}
 		});
 		musicianIds.push(created.id);

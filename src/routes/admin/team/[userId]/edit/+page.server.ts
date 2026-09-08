@@ -1,6 +1,7 @@
 import { error as kitError, fail, redirect } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
 import { isAPIError } from 'better-auth/api';
+import { isInstrument } from '$lib/instruments';
 import { auth } from '$lib/server/auth';
 import { db } from '$lib/server/db';
 import { user } from '$lib/server/db/schema';
@@ -9,7 +10,13 @@ import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params }) => {
 	const [existing] = await db
-		.select({ id: user.id, name: user.name, email: user.email, role: user.role })
+		.select({
+			id: user.id,
+			name: user.name,
+			email: user.email,
+			role: user.role,
+			instrument: user.instrument
+		})
 		.from(user)
 		.where(eq(user.id, params.userId))
 		.limit(1);
@@ -25,6 +32,7 @@ export const actions: Actions = {
 		const email = formData.get('email');
 		const password = formData.get('password');
 		const role = formData.get('role');
+		const instrument = formData.get('instrument');
 
 		if (typeof name !== 'string' || !name.trim()) {
 			return fail(400, { error: 'Prénom requis.' });
@@ -38,6 +46,9 @@ export const actions: Actions = {
 		}
 		if (role !== 'standard' && role !== 'admin') {
 			return fail(400, { error: 'Rôle invalide.' });
+		}
+		if (!isInstrument(instrument)) {
+			return fail(400, { error: 'Instrument invalide.' });
 		}
 
 		const trimmedName = name.trim();
@@ -71,7 +82,10 @@ export const actions: Actions = {
 			// headers required: unlike createUser, adminUpdateUser always checks the
 			// caller's session/permissions itself (better-auth's adminMiddleware).
 			await auth.api.adminUpdateUser({
-				body: { userId: params.userId, data: { name: trimmedName, email: email.trim(), role } },
+				body: {
+					userId: params.userId,
+					data: { name: trimmedName, email: email.trim(), role, instrument }
+				},
 				headers: request.headers
 			});
 

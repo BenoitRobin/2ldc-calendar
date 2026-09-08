@@ -17,7 +17,10 @@ export const user = sqliteTable('user', {
 	role: text('role'),
 	banned: integer('banned', { mode: 'boolean' }).default(false),
 	banReason: text('ban_reason'),
-	banExpires: integer('ban_expires', { mode: 'timestamp_ms' })
+	banExpires: integer('ban_expires', { mode: 'timestamp_ms' }),
+	instrument: text('instrument', {
+		enum: ['batterie', 'saxophone', 'trompette', 'sousaphone', 'tuba', 'trombone']
+	})
 });
 
 export const session = sqliteTable(

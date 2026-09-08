@@ -2,6 +2,7 @@
 	import { enhance } from '$app/forms';
 	import { Button } from '$lib/components/ui/button';
 	import { Card, CardHeader, CardTitle, CardContent } from '$lib/components/ui/card';
+	import { INSTRUMENTS, INSTRUMENT_LABELS } from '$lib/instruments';
 	import type { ActionData, PageData } from './$types';
 
 	let { data, form }: { data: PageData; form: ActionData } = $props();
@@ -57,6 +58,23 @@
 				<select id="role" name="role" class="h-11 rounded-md border border-input px-3 text-sm">
 					<option value="standard" selected={data.member.role !== 'admin'}>Standard</option>
 					<option value="admin" selected={data.member.role === 'admin'}>Administrateur</option>
+				</select>
+			</div>
+			<div class="flex flex-col gap-1.5">
+				<label for="instrument" class="text-sm font-medium">Instrument</label>
+				<select
+					id="instrument"
+					name="instrument"
+					required
+					class="h-11 rounded-md border border-input px-3 text-sm"
+				>
+					<option value="" disabled selected={!data.member.instrument}>Choisir un instrument</option
+					>
+					{#each INSTRUMENTS as instrument (instrument)}
+						<option value={instrument} selected={data.member.instrument === instrument}
+							>{INSTRUMENT_LABELS[instrument]}</option
+						>
+					{/each}
 				</select>
 			</div>
 			{#if form?.error}

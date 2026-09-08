@@ -3,6 +3,7 @@
 	import { resolve } from '$app/paths';
 	import { Button } from '$lib/components/ui/button';
 	import { Card, CardHeader, CardTitle, CardContent } from '$lib/components/ui/card';
+	import { INSTRUMENTS, INSTRUMENT_LABELS } from '$lib/instruments';
 	import X from '@lucide/svelte/icons/x';
 	import type { ActionData } from './$types';
 
@@ -66,6 +67,20 @@
 				<select id="role" name="role" class="h-11 rounded-md border border-input px-3 text-sm">
 					<option value="standard" selected>Standard</option>
 					<option value="admin">Administrateur</option>
+				</select>
+			</div>
+			<div class="flex flex-col gap-1.5">
+				<label for="instrument" class="text-sm font-medium">Instrument</label>
+				<select
+					id="instrument"
+					name="instrument"
+					required
+					class="h-11 rounded-md border border-input px-3 text-sm"
+				>
+					<option value="" disabled selected>Choisir un instrument</option>
+					{#each INSTRUMENTS as instrument (instrument)}
+						<option value={instrument}>{INSTRUMENT_LABELS[instrument]}</option>
+					{/each}
 				</select>
 			</div>
 			{#if form?.error}
