@@ -1,17 +1,26 @@
 <script lang="ts">
+	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
 	import { formatEventDay } from '$lib/format-date';
 	import { STATUS_LABELS } from '$lib/components/status-badge.svelte';
+	import { buttonVariants } from '$lib/components/ui/button';
 	import { cn } from '$lib/utils';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
+
+	let isAdmin = $derived(page.data.user?.role === 'admin');
 </script>
 
 <svelte:head><title>Calendrier — 2LDC Calendar</title></svelte:head>
 
 <div class="p-4">
-	<h1 class="mb-2 font-display text-2xl font-extrabold">Calendrier</h1>
+	<div class="mb-2 flex items-center justify-between">
+		<h1 class="font-display text-2xl font-extrabold">Calendrier</h1>
+		{#if isAdmin}
+			<a href={resolve('/admin/events/new')} class={buttonVariants()}>Ajouter un évènement</a>
+		{/if}
+	</div>
 
 	<div class="flex flex-col gap-3">
 		{#each data.events as evt (evt.id)}
