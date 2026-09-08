@@ -71,3 +71,15 @@ body {
 	outline: 2px solid var(--color-ring);
 	outline-offset: 2px;
 }
+
+/* iOS Safari auto-zooms the whole page on focus for any text input/select/textarea
+   rendered below 16px — our text-sm form fields (login, admin team forms) trigger it
+   below the md breakpoint, where nothing here is wide enough to warrant the visual
+   size difference anyway. */
+@media (max-width: 767px) {
+	input,
+	select,
+	textarea {
+		font-size: 16px;
+	}
+}
