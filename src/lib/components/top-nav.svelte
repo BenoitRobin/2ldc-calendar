@@ -47,18 +47,21 @@
 				<span class="text-sm text-muted-foreground">{page.data.user.name}</span>
 			{/if}
 		</div>
-		<div class="hidden shrink-0 gap-5 overflow-x-auto md:flex">
+		<div class="hidden shrink-0 items-center gap-5 overflow-x-auto md:flex">
 			{#each links as link (link.href)}
 				{@const active = page.url.pathname.startsWith(link.href)}
 				<!-- eslint-disable svelte/no-navigation-without-resolve -- links is built with resolve() by every caller (admin/team layouts) -->
 				<a
 					href={link.href}
 					class={cn(
-						'shrink-0 text-sm',
+						'flex shrink-0 items-center gap-1.5 text-sm',
 						active ? 'font-semibold text-primary' : 'text-muted-foreground hover:text-foreground'
 					)}
 					aria-current={active ? 'page' : undefined}
 				>
+					{#if link.icon}
+						<link.icon class="size-4 shrink-0" aria-hidden="true" />
+					{/if}
 					{link.label}
 				</a>
 				<!-- eslint-enable svelte/no-navigation-without-resolve -->
@@ -66,7 +69,11 @@
 		</div>
 		<div class="hidden flex-1 shrink-0 justify-end md:flex">
 			<form method="POST" action="/logout">
-				<button type="submit" class="text-sm text-muted-foreground hover:text-foreground">
+				<button
+					type="submit"
+					class="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"
+				>
+					<LogOut class="size-4 shrink-0" aria-hidden="true" />
 					Déconnexion
 				</button>
 			</form>
