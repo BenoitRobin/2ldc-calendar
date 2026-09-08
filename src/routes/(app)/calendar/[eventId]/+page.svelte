@@ -197,7 +197,7 @@
 					</p>
 				{:else if locked}
 					<p class="mt-2 text-sm text-muted-foreground">
-						Done! seul l'admin peut le modifier.
+						Trop tard! seul Dieu peut le modifier.
 					</p>
 				{/if}
 				{#if saveFailed}
