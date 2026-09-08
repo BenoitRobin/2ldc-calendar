@@ -6,6 +6,7 @@
 	import Users from '@lucide/svelte/icons/users';
 	import CalendarDays from '@lucide/svelte/icons/calendar-days';
 	import Table2 from '@lucide/svelte/icons/table-2';
+	import Receipt from '@lucide/svelte/icons/receipt';
 
 	let { children } = $props();
 
@@ -22,7 +23,8 @@
 				]
 			: []),
 		{ href: resolve('/(app)/calendar'), label: 'Calendrier', icon: CalendarDays },
-		{ href: resolve('/(app)/overview'), label: 'Vue d’ensemble', icon: Table2 }
+		{ href: resolve('/(app)/overview'), label: 'Vue d’ensemble', icon: Table2 },
+		{ href: resolve('/(app)/frais'), label: 'Frais', icon: Receipt }
 	]);
 </script>
 
