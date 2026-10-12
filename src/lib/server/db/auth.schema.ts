@@ -25,9 +25,9 @@ export const user = sqliteTable('user', {
 			'sax_tenor',
 			'sax_baryton',
 			'trompette',
+			'trombone',
 			'sousaphone',
-			'basse',
-			'trombone'
+			'basse'
 		]
 	})
 });

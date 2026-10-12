@@ -2,7 +2,13 @@
 	import { resolve } from '$app/paths';
 	import { buttonVariants } from '$lib/components/ui/button';
 	import InstrumentIcon from '$lib/components/instrument-icon.svelte';
-	import { INSTRUMENTS, INSTRUMENT_LABELS, isInstrument, type Instrument } from '$lib/instruments';
+	import {
+		INSTRUMENTS,
+		INSTRUMENT_LABELS,
+		familyBg,
+		isInstrument,
+		type Instrument
+	} from '$lib/instruments';
 	import { cn } from '$lib/utils';
 	import ExternalLink from '@lucide/svelte/icons/external-link';
 	import Search from '@lucide/svelte/icons/search';
@@ -105,10 +111,11 @@
 					<div class="flex min-w-0 flex-1 items-center gap-4 py-4">
 						<div class="flex w-14 shrink-0 justify-center">
 							{#if shown}
-								<InstrumentIcon
-									instrument={shown}
-									class={cn('h-8', parts.length ? 'text-foreground' : 'text-muted-foreground/40')}
-								/>
+								{#if parts.length}
+									<InstrumentIcon instrument={shown} class="h-8" tinted />
+								{:else}
+									<InstrumentIcon instrument={shown} class="h-8 text-muted-foreground/40" />
+								{/if}
 							{/if}
 						</div>
 						<p class="min-w-0 flex-1 font-display text-lg leading-snug font-extrabold text-balance">
@@ -124,7 +131,11 @@
 									href={part.driveUrl}
 									target="_blank"
 									rel="noopener noreferrer"
-									class={cn(buttonVariants(), 'flex-1 gap-1.5 md:flex-none')}
+									class={cn(
+										buttonVariants({ variant: 'outline' }),
+										'flex-1 gap-1.5 border-transparent md:flex-none',
+										familyBg(shown as Instrument)
+									)}
 								>
 									<ExternalLink class="size-4 shrink-0" aria-hidden="true" />
 									<!-- Numbered whenever the number tells you something: several parts, or a

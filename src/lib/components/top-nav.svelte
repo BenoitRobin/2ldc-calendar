@@ -56,7 +56,7 @@
 			{#if page.data.user?.name}
 				<span class="flex items-center gap-1.5 text-sm text-muted-foreground">
 					{#if isInstrument(page.data.user.instrument)}
-						<InstrumentIcon instrument={page.data.user.instrument} class="h-4 shrink-0" />
+						<InstrumentIcon instrument={page.data.user.instrument} class="h-4" tinted />
 					{/if}
 					{page.data.user.name}
 				</span>

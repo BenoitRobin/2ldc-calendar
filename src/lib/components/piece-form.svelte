@@ -61,7 +61,7 @@
 			{@const parts = fields[instrument]}
 			<div class="flex flex-col gap-1.5">
 				<label for="part-{instrument}-0" class="flex items-center gap-2 text-sm font-medium">
-					<InstrumentIcon {instrument} class="h-4 shrink-0" />
+					<InstrumentIcon {instrument} class="h-4" tinted />
 					{INSTRUMENT_LABELS[instrument]}
 				</label>
 				{#each parts as part, i (part.id)}

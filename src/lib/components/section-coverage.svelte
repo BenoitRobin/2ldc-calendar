@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { INSTRUMENT_LABELS, type Instrument } from '$lib/instruments';
+	import { INSTRUMENT_LABELS, familyBg, type Instrument } from '$lib/instruments';
 	import { weightFor, type SectionCoverage } from '$lib/specimen';
 	import { cn } from '$lib/utils';
 
@@ -11,15 +11,15 @@
 		sax_tenor: 'Tén.',
 		sax_baryton: 'Bar.',
 		trompette: 'Trp',
+		trombone: 'Trb',
 		sousaphone: 'Sousa.',
-		basse: 'Basse',
-		trombone: 'Trb'
+		basse: 'Basse'
 	};
 </script>
 
 <dl class={cn('grid grid-cols-8 gap-1 border-t border-foreground pt-3 text-center', className)}>
 	{#each sections as s (s.instrument)}
-		<div class="flex flex-col-reverse items-center">
+		<div class={cn('flex flex-col-reverse items-center rounded-md py-1.5', familyBg(s.instrument))}>
 			<!-- Eight columns on a phone: smaller, untracked labels so SOUSA. and BASSE don't touch. -->
 			<dt class="text-[0.625rem] text-muted-foreground uppercase md:text-xs md:tracking-wide">
 				<abbr title={INSTRUMENT_LABELS[s.instrument]} class="no-underline"

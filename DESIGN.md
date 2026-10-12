@@ -12,6 +12,11 @@ colors:
   field-stroke: '#8a857b'
   mustard: '#e8b931'
   white: '#ffffff'
+  family-percussions: '#dfe7f5'
+  family-saxophones: '#dcefe4'
+  family-trompettes: '#f6e7d2'
+  family-trombones: '#f5dde6'
+  family-graves: '#ebe0f1'
 typography:
   display:
     fontFamily: 'Archivo, ui-sans-serif, system-ui, sans-serif'
@@ -183,11 +188,15 @@ A specimen-sheet palette: warm paper, near-black ink, two warm greys for hierarc
 - **Field Stroke** (`field-stroke`): the 1px border of text inputs and selects, dark enough to read as a control boundary against paper.
 - **White** (`white`): text on red fills only.
 
+### Instrument families
+
+Five pale fills, one per section: **Percussions** (`family-percussions`, pale blue: batterie), **Saxophones** (`family-saxophones`, pale green: alto, ténor, baryton), **Trompettes** (`family-trompettes`, sand), **Trombones** (`family-trombones`, pale rose), **Graves** (`family-graves`, lilac: sousaphone, basse). They appear as the chip behind an instrument icon (nav, attendance matrix, piece form, Partition list), the background of each coverage-row column, and the fill of a Partition part button. Text on them is always ink; they are never used as text or rule colours.
+
 ### Named Rules
 
 **The Red Means Act Rule.** Red appears only on something that needs attention: an unanswered date, an empty section, a refusal, an error, a destructive action. Dates, icons, headings, links and section labels stay ink. If nothing on the screen needs the user, the screen has no red.
 
-**The Paper and Ink Rule.** Hierarchy is built from ink, graphite and hairline on paper. Do not introduce a new hue to separate content; use weight, a rule, or graphite text instead.
+**The Paper and Ink Rule.** Hierarchy is built from ink, graphite and hairline on paper. Do not introduce a new hue to separate content; use weight, a rule, or graphite text instead. The one exception is the instrument-family pastels, which say "which section" and nothing else: pale fills under ink, never on headings, dates or status.
 
 ## Typography
 

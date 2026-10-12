@@ -6,7 +6,7 @@
 		STATUS_COLOR_CLASSES,
 		type PresenceStatus
 	} from '$lib/components/status-badge.svelte';
-	import { isInstrument } from '$lib/instruments';
+	import { INSTRUMENTS, isInstrument } from '$lib/instruments';
 	import { weightFor, type Coverage } from '$lib/specimen';
 	import { cn } from '$lib/utils';
 
@@ -30,6 +30,16 @@
 		coverage: Record<string, Coverage>;
 		editable: boolean;
 	} = $props();
+
+	// Grouped by family (INSTRUMENTS is ordered that way), then by name, so each
+	// section's colour chips line up into one block. No instrument goes last.
+	const rank = (instrument?: string | null) =>
+		isInstrument(instrument) ? INSTRUMENTS.indexOf(instrument) : INSTRUMENTS.length;
+	const sortedUsers = $derived(
+		[...users].sort(
+			(a, b) => rank(a.instrument) - rank(b.instrument) || a.name.localeCompare(b.name, 'fr')
+		)
+	);
 
 	function statusFor(eventId: string, userId: string): NonNullable<PresenceStatus> {
 		const match = responses.find((r) => r.eventId === eventId && r.userId === userId);
@@ -111,14 +121,14 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each users as u (u.id)}
+			{#each sortedUsers as u (u.id)}
 				<tr class="group hover:bg-secondary/40">
 					<td
 						class="sticky left-0 z-10 border-b border-border bg-card p-3 font-medium whitespace-nowrap group-hover:bg-secondary/40"
 					>
 						<span class="flex items-center gap-2">
 							{#if isInstrument(u.instrument)}
-								<InstrumentIcon instrument={u.instrument} class="h-5 shrink-0" />
+								<InstrumentIcon instrument={u.instrument} class="h-5" tinted />
 							{/if}
 							{u.name}
 						</span>
@@ -144,11 +154,11 @@
 			<p class="mt-2 font-display text-lg leading-tight font-extrabold">{evt.name}</p>
 
 			<div class="mt-3 flex flex-col divide-y divide-border border-t border-foreground">
-				{#each users as u (u.id)}
+				{#each sortedUsers as u (u.id)}
 					<div class="flex items-center justify-between gap-3 py-2">
 						<p class="flex min-w-0 items-center gap-2 truncate text-sm font-medium">
 							{#if isInstrument(u.instrument)}
-								<InstrumentIcon instrument={u.instrument} class="h-4 shrink-0" />
+								<InstrumentIcon instrument={u.instrument} class="h-4" tinted />
 							{/if}
 							{u.name}
 						</p>

@@ -46,6 +46,15 @@
 	--color-status-none: #efece6;
 	--color-status-none-foreground: #67635b;
 
+	/* Instrument families: pale fills behind icons, coverage columns and part
+	   buttons, always under ink text. Kept far paler than the status colours so
+	   they read as "which section", never as "needs attention". */
+	--color-family-percussions: #dfe7f5;
+	--color-family-saxophones: #dcefe4;
+	--color-family-trompettes: #f6e7d2;
+	--color-family-trombones: #f5dde6;
+	--color-family-graves: #ebe0f1;
+
 	/* Rounded like the logo's frame: controls 8px, containers 12px, status pills rounded-full. */
 	--radius-sm: 6px;
 	--radius-md: 8px;

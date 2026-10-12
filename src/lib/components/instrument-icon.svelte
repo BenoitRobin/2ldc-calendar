@@ -1,5 +1,6 @@
 <script lang="ts">
-	import type { Instrument } from '$lib/instruments';
+	import { familyBg, type Instrument } from '$lib/instruments';
+	import { cn } from '$lib/utils';
 	import batterie from '$lib/assets/instruments/batterie.svg?raw';
 	import saxophone from '$lib/assets/instruments/saxophone.svg?raw';
 	import trompette from '$lib/assets/instruments/trompette.svg?raw';
@@ -24,18 +25,39 @@
 		trombone
 	};
 
-	let { instrument, class: className = '' }: { instrument: Instrument; class?: string } = $props();
+	let {
+		instrument,
+		class: className = '',
+		tinted = false
+	}: {
+		instrument: Instrument;
+		// `class` sizes the pictogram itself; `tinted` sets it on its family's pastel
+		// chip, which adds padding around that size rather than shrinking the icon.
+		class?: string;
+		tinted?: boolean;
+	} = $props();
 </script>
 
-<span class={className} aria-hidden="true">
-	<!-- eslint-disable-next-line svelte/no-at-html-tags -- ICONS only holds our own build-time ?raw SVG imports, never user input -->
-	{@html ICONS[instrument]}
-</span>
+{#snippet icon(cls: string)}
+	<span class={cls} aria-hidden="true">
+		<!-- eslint-disable-next-line svelte/no-at-html-tags -- ICONS only holds our own build-time ?raw SVG imports, never user input -->
+		{@html ICONS[instrument]}
+	</span>
+{/snippet}
+
+{#if tinted}
+	<span class={cn('shrink-0 rounded-md p-1 text-foreground', familyBg(instrument))}>
+		{@render icon(className)}
+	</span>
+{:else}
+	{@render icon(className)}
+{/if}
 
 <style>
 	span {
 		display: inline-flex;
 		align-items: center;
+		justify-content: center;
 	}
 
 	span :global(svg) {
