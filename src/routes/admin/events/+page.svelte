@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { resolve } from '$app/paths';
+	import { page } from '$app/state';
 	import { buttonVariants } from '$lib/components/ui/button';
 	import {
 		AlertDialog,
@@ -19,6 +20,10 @@
 	let { data, form }: { data: PageData; form: ActionData } = $props();
 
 	let deletingEvent = $state<{ id: string; name: string } | null>(null);
+
+	// Set by the create action's redirect after the members email went out (or didn't).
+	const notified = $derived(page.url.searchParams.get('notified'));
+	const notifyError = $derived(page.url.searchParams.has('notifyError'));
 </script>
 
 <svelte:head><title>Dates — 2LDC Calendar</title></svelte:head>
@@ -27,6 +32,16 @@
 	<h1 class="font-display text-2xl font-extrabold">Dates</h1>
 	<a href={resolve('/admin/events/new')} class={buttonVariants()}>Nouvelle date</a>
 </div>
+
+{#if notifyError}
+	<p class="mb-6 text-sm font-medium text-danger" role="alert">
+		La date est créée, mais le mail aux membres n'a pas pu partir.
+	</p>
+{:else if notified}
+	<p class="mb-6 text-sm text-muted-foreground" role="status">
+		Mail envoyé à {notified} membre{Number(notified) > 1 ? 's' : ''}.
+	</p>
+{/if}
 
 <div class="border-t border-foreground">
 	{#each data.events as evt (evt.id)}

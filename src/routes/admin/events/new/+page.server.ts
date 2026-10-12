@@ -1,6 +1,7 @@
 import { fail, redirect } from '@sveltejs/kit';
 import { db } from '$lib/server/db';
 import { event } from '$lib/server/db/schema';
+import { notifyNewEvent } from '$lib/server/notify-new-event';
 import { parseEventForm } from '$lib/server/validate-event';
 import type { Actions } from './$types';
 
@@ -15,7 +16,15 @@ export const actions: Actions = {
 
 		// locals.user is guaranteed here: hooks.server.ts already gated /admin/** to
 		// admins only (specs/user-auth), and every admin account has an id.
-		await db.insert(event).values({ ...parsed, createdBy: locals.user!.id });
+		const [created] = await db
+			.insert(event)
+			.values({ ...parsed, createdBy: locals.user!.id })
+			.returning({ id: event.id });
+
+		if (formData.get('notify') === 'on') {
+			const { sent, failed } = await notifyNewEvent(created.id);
+			redirect(303, failed ? '/admin/events?notifyError' : `/admin/events?notified=${sent}`);
+		}
 
 		redirect(303, '/admin/events');
 	}

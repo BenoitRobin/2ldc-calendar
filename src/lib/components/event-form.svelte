@@ -6,7 +6,8 @@
 		values,
 		error,
 		submitLabel = 'Enregistrer',
-		action
+		action,
+		showNotify = false
 	}: {
 		values?: {
 			name?: string;
@@ -19,6 +20,8 @@
 		error?: string;
 		submitLabel?: string;
 		action?: string;
+		// Only the create form offers the members email; editing never re-sends it.
+		showNotify?: boolean;
 	} = $props();
 </script>
 
@@ -86,6 +89,12 @@
 			class="rounded-md border border-input px-3 py-2 text-sm"
 			value={values?.description ?? ''}></textarea>
 	</div>
+	{#if showNotify}
+		<label class="flex items-center gap-3 text-sm font-medium">
+			<input type="checkbox" name="notify" checked class="size-5 accent-foreground" />
+			Prévenir les membres par mail
+		</label>
+	{/if}
 	{#if error}
 		<p class="text-sm text-danger" role="alert">{error}</p>
 	{/if}

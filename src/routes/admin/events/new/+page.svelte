@@ -22,6 +22,6 @@
 		</a>
 	</CardHeader>
 	<CardContent>
-		<EventForm values={form?.values} error={form?.error} submitLabel="Créer" />
+		<EventForm values={form?.values} error={form?.error} submitLabel="Créer" showNotify />
 	</CardContent>
 </Card>
