@@ -1,0 +1,369 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-12T08:40:23+00:00",
+  "title": "Design System: 2LDC Calendar",
+  "extensions": {
+    "colorMeta": {
+      "poster-black": {
+        "role": "neutral",
+        "displayName": "Poster Black",
+        "canonical": "oklch(9.8% 0.004 285)",
+        "tonalRamp": [
+          "#0b0b0d",
+          "#242426",
+          "#3f3f42",
+          "#5d5d60",
+          "#7d7d80",
+          "#9e9ea1",
+          "#c4c4c7",
+          "#eeeef1"
+        ]
+      },
+      "cream-ink": {
+        "role": "neutral",
+        "displayName": "Cream Ink",
+        "canonical": "oklch(96.4% 0.012 91)",
+        "tonalRamp": [
+          "#0d0b06",
+          "#26241d",
+          "#424038",
+          "#605d56",
+          "#807d75",
+          "#a19e96",
+          "#c7c4bb",
+          "#f1eee5"
+        ]
+      },
+      "stage-board": {
+        "role": "neutral",
+        "displayName": "Stage Board",
+        "canonical": "oklch(21.0% 0.007 78)",
+        "tonalRamp": [
+          "#0d0b08",
+          "#262420",
+          "#423f3c",
+          "#605d59",
+          "#7f7d79",
+          "#a19e9a",
+          "#c6c4bf",
+          "#f1eeea"
+        ]
+      },
+      "stage-board-raised": {
+        "role": "neutral",
+        "displayName": "Stage Board Raised",
+        "canonical": "oklch(26.1% 0.008 84)",
+        "tonalRamp": [
+          "#0d0b08",
+          "#262420",
+          "#423f3b",
+          "#605d59",
+          "#7f7d78",
+          "#a19e99",
+          "#c6c4be",
+          "#f1eee9"
+        ]
+      },
+      "faded-ink": {
+        "role": "neutral",
+        "displayName": "Faded Ink",
+        "canonical": "oklch(69.2% 0.025 84)",
+        "tonalRamp": [
+          "#100a02",
+          "#2a2316",
+          "#463f31",
+          "#645d4e",
+          "#847c6d",
+          "#a69e8d",
+          "#ccc3b3",
+          "#f6eedc"
+        ]
+      },
+      "rivet-grey": {
+        "role": "neutral",
+        "displayName": "Rivet Grey",
+        "canonical": "oklch(48.6% 0.027 90)",
+        "tonalRamp": [
+          "#0f0b01",
+          "#292414",
+          "#453f2f",
+          "#635d4c",
+          "#837d6b",
+          "#a59e8c",
+          "#cbc4b1",
+          "#f5eeda"
+        ]
+      },
+      "tarnished-brass": {
+        "role": "primary",
+        "displayName": "Tarnished Brass",
+        "canonical": "oklch(52.7% 0.103 76)",
+        "tonalRamp": [
+          "#1d0300",
+          "#3c1a00",
+          "#5d3600",
+          "#7e5400",
+          "#9f742d",
+          "#c29650",
+          "#e8bc7a",
+          "#ffe8b1"
+        ]
+      },
+      "white": {
+        "role": "neutral",
+        "displayName": "White",
+        "canonical": "oklch(100.0% 0.000 89)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242424",
+          "#404040",
+          "#5d5d5d",
+          "#7d7d7d",
+          "#9e9e9e",
+          "#c4c4c4",
+          "#eeeeee"
+        ]
+      },
+      "bottle-green": {
+        "role": "status",
+        "displayName": "Bottle Green",
+        "canonical": "oklch(48.6% 0.072 150)",
+        "tonalRamp": [
+          "#001200",
+          "#002d10",
+          "#1e4a2b",
+          "#3d6948",
+          "#5d8a67",
+          "#7dac88",
+          "#a2d2ac",
+          "#ccfdd6"
+        ]
+      },
+      "oxblood": {
+        "role": "status",
+        "displayName": "Oxblood",
+        "canonical": "oklch(48.4% 0.130 23)",
+        "tonalRamp": [
+          "#240000",
+          "#48060c",
+          "#6e2223",
+          "#963c3c",
+          "#bc5c59",
+          "#db817d",
+          "#fdaba6",
+          "#ffdad5"
+        ]
+      },
+      "warning-coral": {
+        "role": "error",
+        "displayName": "Warning Coral",
+        "canonical": "oklch(63.9% 0.146 24)",
+        "tonalRamp": [
+          "#240000",
+          "#48060b",
+          "#6e2222",
+          "#963c3a",
+          "#bc5c58",
+          "#db827c",
+          "#fdaba5",
+          "#ffdad4"
+        ]
+      },
+      "pitch-black-ink": {
+        "role": "neutral",
+        "displayName": "Pitch Black Ink",
+        "canonical": "oklch(16.4% 0.000 89)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242424",
+          "#404040",
+          "#5d5d5d",
+          "#7d7d7d",
+          "#9e9e9e",
+          "#c4c4c4",
+          "#eeeeee"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Page titles, followed by an 80px gap."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Event name on the event detail page."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Event names on ticket cards."
+      },
+      "date-numeral": {
+        "displayName": "Date Numeral",
+        "purpose": "Brass day number on ticket stubs."
+      },
+      "wordmark": {
+        "displayName": "Wordmark",
+        "purpose": "The 2LDC mark in the top nav; only use of weight 900."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text, links, labels, button text."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Status badges, month labels, role tag."
+      }
+    },
+    "shadows": [
+      {
+        "name": "dialog-lift",
+        "value": "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
+        "purpose": "Alert dialogs only; everything else is flat."
+      }
+    ],
+    "motion": [
+      {
+        "name": "color-transition",
+        "value": "150ms cubic-bezier(0.4, 0, 0.2, 1)",
+        "purpose": "Default hover/state color changes."
+      },
+      {
+        "name": "event-slide",
+        "value": "200ms ease-out (180ms before navigation)",
+        "purpose": "Event detail card slides 32px out and fades when moving to the previous/next event; disabled under prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "md",
+        "value": "768px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main action on a page (Ajouter une date, Connexion). Cream fill, bold.",
+      "html": "<button class=\"ds-btn-primary\">Ajouter une date</button>",
+      "css": ".ds-btn-primary { font-family: 'Archivo', ui-sans-serif, system-ui, sans-serif; display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 8px 16px; border: none; border-radius: 6px; background: var(--color-primary, #f6f3ea); color: var(--color-primary-foreground, #0e0e0e); font-size: 0.875rem; font-weight: 700; cursor: pointer; transition: background-color 150ms, opacity 150ms; } .ds-btn-primary:hover { opacity: 0.85; } .ds-btn-primary:focus-visible { outline: 2px solid var(--color-ring, #f6f3ea); outline-offset: 2px; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary actions (Retour, Modifier). Fills with brass on hover.",
+      "html": "<button class=\"ds-btn-outline\">Modifier</button>",
+      "css": ".ds-btn-outline { font-family: 'Archivo', ui-sans-serif, system-ui, sans-serif; display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 8px 12px; border: 2px solid rgb(246 243 234 / 0.4); border-radius: 6px; background: transparent; color: var(--color-foreground, #f6f3ea); font-size: 0.875rem; font-weight: 700; cursor: pointer; transition: background-color 150ms, border-color 150ms, color 150ms; } .ds-btn-outline:hover { background: var(--color-accent, #8c6215); border-color: var(--color-accent, #8c6215); color: var(--color-accent-foreground, #ffffff); } .ds-btn-outline:focus-visible { outline: 2px solid var(--color-ring, #f6f3ea); outline-offset: 2px; }"
+    },
+    {
+      "name": "Destructive Button",
+      "kind": "button",
+      "refersTo": "button-destructive",
+      "description": "Delete event or member; always behind a confirmation dialog.",
+      "html": "<button class=\"ds-btn-destructive\">Supprimer</button>",
+      "css": ".ds-btn-destructive { font-family: 'Archivo', ui-sans-serif, system-ui, sans-serif; display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 8px 16px; border: none; border-radius: 6px; background: var(--color-destructive, #9b3a3a); color: var(--color-destructive-foreground, #ffffff); font-size: 0.875rem; font-weight: 700; cursor: pointer; transition: opacity 150ms; } .ds-btn-destructive:hover { opacity: 0.9; } .ds-btn-destructive:focus-visible { outline: 2px solid var(--color-ring, #f6f3ea); outline-offset: 2px; }"
+    },
+    {
+      "name": "Presence Choice",
+      "kind": "custom",
+      "refersTo": "button-outline",
+      "description": "Oui / Non / Indécis answer row on the event page; the selected answer takes its status ink.",
+      "html": "<div class=\"ds-presence\"><button class=\"ds-presence-btn ds-presence-oui\" aria-pressed=\"true\">Oui</button><button class=\"ds-presence-btn\">Non</button><button class=\"ds-presence-btn\">Indécis</button></div>",
+      "css": ".ds-presence { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; max-width: 360px; } .ds-presence-btn { font-family: 'Archivo', ui-sans-serif, system-ui, sans-serif; min-height: 44px; padding: 0 4px; border: 2px solid rgb(246 243 234 / 0.4); border-radius: 6px; background: transparent; color: var(--color-foreground, #f6f3ea); font-size: 0.875rem; font-weight: 700; cursor: pointer; transition: background-color 150ms, border-color 150ms; } .ds-presence-btn:hover { background: var(--color-accent, #8c6215); border-color: var(--color-accent, #8c6215); color: #fff; } .ds-presence-btn:focus-visible { outline: 2px solid var(--color-ring, #f6f3ea); outline-offset: 2px; } .ds-presence-oui, .ds-presence-oui:hover { background: var(--color-status-oui, #3f6b4a); border-color: transparent; color: var(--color-status-oui-foreground, #fff); }"
+    },
+    {
+      "name": "Status Badges",
+      "kind": "chip",
+      "refersTo": "status-badge-oui",
+      "description": "The four presence states, always color plus word.",
+      "html": "<div class=\"ds-badges\"><span class=\"ds-badge ds-badge-oui\">Oui</span><span class=\"ds-badge ds-badge-non\">Non</span><span class=\"ds-badge ds-badge-indecis\">Indécis</span><span class=\"ds-badge ds-badge-none\">Pas de réponse</span></div>",
+      "css": ".ds-badges { display: flex; flex-wrap: wrap; gap: 8px; } .ds-badge { font-family: 'Archivo', ui-sans-serif, system-ui, sans-serif; display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; } .ds-badge-oui { background: var(--color-status-oui, #3f6b4a); color: var(--color-status-oui-foreground, #fff); } .ds-badge-non { background: var(--color-status-non, #9b3a3a); color: var(--color-status-non-foreground, #fff); } .ds-badge-indecis { background: var(--color-status-indecis, #8c6215); color: var(--color-status-indecis-foreground, #fff); } .ds-badge-none { background: var(--color-status-none, #262420); color: var(--color-status-none-foreground, #a39b8b); }"
+    },
+    {
+      "name": "Ticket Stub",
+      "kind": "card",
+      "refersTo": "ticket-card",
+      "description": "Signature list card: brass date numeral, event name, dashed tear line before actions.",
+      "html": "<article class=\"ds-ticket\"><div class=\"ds-ticket-body\"><div class=\"ds-ticket-date\"><p class=\"ds-ticket-day\">14</p><p class=\"ds-ticket-month\">nov.</p></div><div class=\"ds-ticket-info\"><p class=\"ds-ticket-name\">Concert — Fête de la Bière</p><p class=\"ds-ticket-meta\">20:00–23:00, Place du Marché</p></div></div><div class=\"ds-ticket-actions\"><button class=\"ds-ticket-btn\">Modifier</button></div></article>",
+      "css": ".ds-ticket { font-family: 'Archivo', ui-sans-serif, system-ui, sans-serif; max-width: 480px; border: 1px solid var(--color-border, #655f4e); border-radius: 8px; background: var(--color-card, #1a1815); color: var(--color-card-foreground, #f6f3ea); transition: border-color 150ms; } .ds-ticket:hover { border-color: rgb(140 98 21 / 0.6); } .ds-ticket-body { display: flex; gap: 16px; padding: 16px; } .ds-ticket-date { width: 56px; flex-shrink: 0; text-align: center; } .ds-ticket-day { margin: 0; font-size: 1.5rem; line-height: 1; font-weight: 800; color: var(--color-accent, #8c6215); } .ds-ticket-month { margin: 4px 0 0; font-size: 0.75rem; color: var(--color-muted-foreground, #a39b8b); } .ds-ticket-info { min-width: 0; flex: 1; } .ds-ticket-name { margin: 0; font-size: 1.125rem; line-height: 1.375; font-weight: 800; } .ds-ticket-meta { margin: 2px 0 0; font-size: 0.875rem; color: var(--color-muted-foreground, #a39b8b); } .ds-ticket-actions { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 16px; border-top: 1px dashed var(--color-border, #655f4e); } .ds-ticket-btn { font-family: 'Archivo', ui-sans-serif, system-ui, sans-serif; min-height: 44px; padding: 0 12px; border: 2px solid rgb(246 243 234 / 0.4); border-radius: 6px; background: transparent; color: var(--color-foreground, #f6f3ea); font-size: 0.875rem; font-weight: 700; cursor: pointer; } .ds-ticket-btn:hover { background: var(--color-accent, #8c6215); border-color: var(--color-accent, #8c6215); color: #fff; } .ds-ticket-btn:focus-visible { outline: 2px solid var(--color-ring, #f6f3ea); outline-offset: 2px; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input-text",
+      "description": "Form field with label above (login, admin forms).",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field-label\">Pseudo</span><input class=\"ds-input\" placeholder=\"Prénom\" /></label>",
+      "css": ".ds-field { font-family: 'Archivo', ui-sans-serif, system-ui, sans-serif; display: flex; flex-direction: column; gap: 6px; max-width: 320px; color: var(--color-foreground, #f6f3ea); } .ds-field-label { font-size: 0.875rem; font-weight: 500; } .ds-input { font-family: 'Archivo', ui-sans-serif, system-ui, sans-serif; height: 44px; padding: 0 12px; border: 1px solid var(--color-input, #655f4e); border-radius: 6px; background: transparent; color: var(--color-foreground, #f6f3ea); font-size: 0.875rem; } .ds-input::placeholder { color: var(--color-muted-foreground, #a39b8b); } .ds-input:focus-visible { outline: 2px solid var(--color-ring, #f6f3ea); outline-offset: 2px; }"
+    },
+    {
+      "name": "Top Nav",
+      "kind": "nav",
+      "refersTo": "top-nav",
+      "description": "Fixed top bar shared by members and admins; wordmark, links, logout.",
+      "html": "<nav class=\"ds-nav\"><div class=\"ds-nav-brand\"><span class=\"ds-nav-mark\">2LDC</span><span class=\"ds-nav-tag\">Admin</span><span class=\"ds-nav-user\">Camille</span></div><div class=\"ds-nav-links\"><a href=\"#\" class=\"ds-nav-link ds-nav-link-active\" aria-current=\"page\">Calendrier</a><a href=\"#\" class=\"ds-nav-link\">Vue d’ensemble</a><a href=\"#\" class=\"ds-nav-link\">Frais</a><a href=\"#\" class=\"ds-nav-link\">Partition</a></div></nav>",
+      "css": ".ds-nav { font-family: 'Archivo', ui-sans-serif, system-ui, sans-serif; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding: 12px 16px; border-bottom: 1px solid var(--color-border, #655f4e); background: var(--color-card, #1a1815); color: var(--color-foreground, #f6f3ea); } .ds-nav-brand { display: flex; align-items: center; gap: 8px; flex: 1; } .ds-nav-mark { font-size: 1.125rem; font-weight: 900; } .ds-nav-tag { padding: 2px 6px; border: 1px solid var(--color-border, #655f4e); border-radius: 4px; font-size: 0.75rem; color: var(--color-muted-foreground, #a39b8b); } .ds-nav-user { font-size: 0.875rem; color: var(--color-muted-foreground, #a39b8b); } .ds-nav-links { display: flex; gap: 20px; } .ds-nav-link { font-size: 0.875rem; color: var(--color-muted-foreground, #a39b8b); text-decoration: none; transition: color 150ms; } .ds-nav-link:hover { color: var(--color-foreground, #f6f3ea); } .ds-nav-link:focus-visible { outline: 2px solid var(--color-ring, #f6f3ea); outline-offset: 2px; } .ds-nav-link-active { color: var(--color-primary, #f6f3ea); font-weight: 600; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Gig Poster",
+    "overview": "2LDC Calendar looks like the flyer stapled outside a bar on gig night: black poster stock, cream ink, and one brass highlight. The page background is the exact black of the 2LDC logo's own plate, so the logo and the app read as one continuous printed sheet. Everything on top of it is set in a single heavy grotesque (Archivo) and laid down flat, as if stamped rather than floating.\n\nThe system is dense and practical, because members open it on a phone between other things to check a date and tap an answer. Personality comes from the type weight, the poster palette and the ticket-stub card, not from decoration. Color is mostly reserved for meaning: the brass marks dates and the current position, and the four presence colors say oui, non, indécis or no answer. Nothing else competes with them.\n\nSurfaces are dark-only. There is no light theme, and no screen should introduce one piecemeal.",
+    "keyCharacteristics": [
+      "Black poster stock (logo-matched) with cream ink, never pure white text on pure black.",
+      "One typeface, Archivo, carried by weight: 800–900 for anything that names a thing, 400–600 for everything else.",
+      "Tarnished brass as the single accent, used sparingly.",
+      "Ticket-stub cards: brass date numeral on the left, dashed tear line before actions.",
+      "Flat surfaces separated by tone and hairline borders, not shadows.",
+      "Presence status is always color plus a word, from four dedicated tokens."
+    ],
+    "rules": [
+      {
+        "name": "The Tarnished Brass Rule",
+        "body": "Brass appears only on dates, active-position markers, the matrix header rule, hover on outline buttons, and the indécis status. If a new screen wants brass anywhere else, it should pick a different signal. Its scarcity is the point.",
+        "section": "colors"
+      },
+      {
+        "name": "The Status Token Rule",
+        "body": "Presence colors come only from the `status-oui / non / indecis / none` tokens (and their `-foreground` pairs), never a hard-coded color, and always appear with a text label or screen-reader text alongside.",
+        "section": "colors"
+      },
+      {
+        "name": "The Measured Contrast Rule",
+        "body": "Every text/background pair is checked against WCAG AA by calculation, not by eye. A new pair is only added to the palette after it has been checked.",
+        "section": "colors"
+      },
+      {
+        "name": "The Weight Carries It Rule",
+        "body": "Hierarchy comes from weight before size. Anything that names a thing (a page, an event, a date) is 800; everything else is 400–600. Don't add a second typeface or a larger size step to make something stand out.",
+        "section": "typography"
+      },
+      {
+        "name": "The 16px Field Rule",
+        "body": "Below 768px, every text input, select and textarea renders at 16px so iOS Safari doesn't zoom the page on focus.",
+        "section": "typography"
+      },
+      {
+        "name": "The Printed Sheet Rule",
+        "body": "Surfaces are flat at rest and stay flat on hover. Interaction is shown by a border shifting toward brass (60% opacity) or a tone change, never by a shadow or a lift.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** build every new list of events, members or items as a ticket stub: stage-board card, 8px radius, rivet-grey border, dashed tear line before actions.",
+      "**Do** keep the page background at poster black (#030304) so the logo stays seamless.",
+      "**Do** use Archivo 800 for anything that names a thing and 400–600 for supporting text.",
+      "**Do** pull every presence color from the four status tokens and pair it with a label or screen-reader text.",
+      "**Do** keep controls at least 44px tall, and check new text colors against WCAG AA by calculation.",
+      "**Do** show hover by tone or a brass-tinted border, never by lifting."
+    ],
+    "donts": [
+      "**Don't** use tarnished brass outside dates, active markers, the matrix header rule, outline-button hover and the indécis status.",
+      "**Don't** add drop shadows to cards, nav or buttons; the only shadow is the dialog lift.",
+      "**Don't** introduce a second typeface, a light theme or pure white body text.",
+      "**Don't** hard-code status colors or invent a fifth status color.",
+      "**Don't** use oxblood for error text on dark surfaces; use warning coral."
+    ]
+  }
+}
