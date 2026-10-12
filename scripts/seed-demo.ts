@@ -19,7 +19,7 @@ const MUSICIANS: { email: string; name: string; instrument: Instrument }[] = [
 	{ email: `alice${DEMO_EMAIL_DOMAIN}`, name: 'Alice', instrument: 'sax_alto' },
 	{ email: `baptiste${DEMO_EMAIL_DOMAIN}`, name: 'Baptiste', instrument: 'trompette' },
 	{ email: `chloe${DEMO_EMAIL_DOMAIN}`, name: 'Chloé', instrument: 'trombone' },
-	{ email: `david${DEMO_EMAIL_DOMAIN}`, name: 'David', instrument: 'tuba' },
+	{ email: `david${DEMO_EMAIL_DOMAIN}`, name: 'David', instrument: 'basse' },
 	{ email: `emma${DEMO_EMAIL_DOMAIN}`, name: 'Emma', instrument: 'batterie' },
 	{ email: `hugo${DEMO_EMAIL_DOMAIN}`, name: 'Hugo', instrument: 'sousaphone' }
 ];

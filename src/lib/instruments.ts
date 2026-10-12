@@ -9,7 +9,7 @@ export const INSTRUMENTS = [
 	'sax_baryton',
 	'trompette',
 	'sousaphone',
-	'tuba',
+	'basse',
 	'trombone'
 ] as const;
 
@@ -22,7 +22,7 @@ export const INSTRUMENT_LABELS: Record<Instrument, string> = {
 	sax_baryton: 'Sax baryton',
 	trompette: 'Trompette',
 	sousaphone: 'Sousaphone',
-	tuba: 'Tuba',
+	basse: 'Basse',
 	trombone: 'Trombone'
 };
 

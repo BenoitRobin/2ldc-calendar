@@ -26,7 +26,7 @@ export const user = sqliteTable('user', {
 			'sax_baryton',
 			'trompette',
 			'sousaphone',
-			'tuba',
+			'basse',
 			'trombone'
 		]
 	})

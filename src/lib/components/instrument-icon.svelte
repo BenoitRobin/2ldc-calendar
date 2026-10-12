@@ -19,7 +19,8 @@
 		sax_baryton: saxophone,
 		trompette,
 		sousaphone,
-		tuba,
+		// Basse keeps the tuba pictogram.
+		basse: tuba,
 		trombone
 	};
 

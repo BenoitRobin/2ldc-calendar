@@ -12,7 +12,7 @@
 		sax_baryton: 'Bar.',
 		trompette: 'Trp',
 		sousaphone: 'Sousa.',
-		tuba: 'Tuba',
+		basse: 'Basse',
 		trombone: 'Trb'
 	};
 </script>
@@ -20,7 +20,8 @@
 <dl class={cn('grid grid-cols-8 gap-1 border-t border-foreground pt-3 text-center', className)}>
 	{#each sections as s (s.instrument)}
 		<div class="flex flex-col-reverse items-center">
-			<dt class="text-xs tracking-wide text-muted-foreground uppercase">
+			<!-- Eight columns on a phone: smaller, untracked labels so SOUSA. and BASSE don't touch. -->
+			<dt class="text-[0.625rem] text-muted-foreground uppercase md:text-xs md:tracking-wide">
 				<abbr title={INSTRUMENT_LABELS[s.instrument]} class="no-underline"
 					>{SHORT[s.instrument]}</abbr
 				>
