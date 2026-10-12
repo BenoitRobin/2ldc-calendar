@@ -5,22 +5,24 @@ administrative actions to the members explicitly granted the admin role.
 
 ## ADDED Requirements
 
-### Requirement: Email/password login
-The system SHALL authenticate a user by email and password and, on success,
-establish a cookie-based session.
+### Requirement: Prénom/password login
+The system SHALL authenticate a user by prénom (first name) and password and, on
+success, establish a cookie-based session. Each account still has an email, kept as
+better-auth's internal identity, but members never type it.
 
 #### Scenario: Successful login
-- **WHEN** a user submits the login form with an email and password matching an
+- **WHEN** a user submits the login form with a prénom and password matching an
   existing account
 - **THEN** the system creates a session, sets the session cookie, and redirects the
   user to their default area (standard area for `standard` role, admin area for
   `admin` role)
 
-#### Scenario: Wrong password
-- **WHEN** a user submits the login form with an email that exists but an incorrect
-  password
-- **THEN** the system rejects the login, does not create a session, and shows a
-  generic invalid-credentials error that does not reveal whether the email exists
+#### Scenario: Wrong password or unknown prénom
+- **WHEN** a user submits the login form with a prénom that does not exist, or with
+  an existing prénom and an incorrect password
+- **THEN** the system rejects the login, does not create a session, and shows the
+  same generic invalid-credentials error in both cases, so it never reveals whether
+  the prénom exists
 
 ### Requirement: Session persistence and logout
 The system SHALL keep a user signed in across page loads via the session cookie
@@ -58,16 +60,24 @@ request, independent of any client-side UI hiding.
 - **THEN** the system serves the route normally
 
 ### Requirement: First admin account bootstrap
-The system SHALL provide a one-shot mechanism to create the first admin account
-before any account-management interface exists, without the operator choosing a
-real user's password on their behalf.
+The system SHALL provide a one-shot script to create the first admin account before
+any account-management interface exists. Public self-signup stays disabled.
 
 #### Scenario: Bootstrapping the first admin
-- **WHEN** the project owner runs the bootstrap script against an environment with
-  no existing admin account, providing the intended admin's email
-- **THEN** the system creates an account with the `admin` role and produces a way
-  for that specific person to set their own password (not a password chosen by the
-  operator or the assistant)
+- **WHEN** the project owner runs the bootstrap script with an email, a prénom and a
+  password, against an environment with no existing admin account
+- **THEN** the system creates an account with the `admin` role, and the owner passes
+  the password on to that person; there is no email-based password flow
+
+#### Scenario: An admin already exists
+- **WHEN** the bootstrap script runs against an environment that already has an
+  admin account
+- **THEN** the system refuses to create the account; later accounts are created from
+  the admin area
+
+#### Scenario: Prénom already taken at bootstrap
+- **WHEN** the bootstrap script is given a prénom that another account already uses
+- **THEN** the system refuses to create the account
 
 ### Requirement: Two-role account model
 Every account SHALL have exactly one role, either `standard` or `admin`, and that
@@ -78,15 +88,22 @@ role SHALL determine which areas of the application the account can reach.
 - **THEN** the account is assigned the `standard` role
 
 ### Requirement: Admin creates team member accounts
-The system SHALL let an admin create an account for a new team member by email,
-without the admin choosing that person's password.
+The system SHALL let an admin create an account for a new team member with a
+prénom, an email, a password chosen by the admin, a role and an instrument. The admin
+passes the password on to the member; there is no email-based password or reset
+flow.
 
 #### Scenario: Admin adds a team member
-- **WHEN** an admin submits a new team member's email (and role) through the admin
-  area
-- **THEN** the system creates the account and produces a way for that specific
-  person to set their own password, the same pattern used for the admin bootstrap
-  account
+- **WHEN** an admin submits a new member's prénom, email, password (at least 8
+  characters), role and instrument through the admin area
+- **THEN** the system creates the account, and the member can log in with that
+  prénom and password
+
+#### Scenario: Duplicate prénom
+- **WHEN** an admin tries to create an account with a prénom another account already
+  uses
+- **THEN** the system rejects the creation and reports that the prénom is taken,
+  because login by prénom needs each one to be unique
 
 #### Scenario: Duplicate email
 - **WHEN** an admin tries to create an account with an email that already has an

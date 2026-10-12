@@ -56,9 +56,10 @@ event or response tables.
   better-auth's own primitives for exactly the "admin creates/roles accounts"
   behavior `user-auth` needs, instead of custom code for the same thing. Public
   self-signup is turned off (`emailAndPassword.disableSignUp: true`); every account
-  is created through `createUser`, and the target user sets their own password
-  through better-auth's password-reset flow (see the bootstrap/team-member risk
-  note below), never a password chosen by the admin or the assistant.
+  is created through `createUser` with a password chosen by the admin (or by the
+  owner, for the bootstrap account), who passes it on to the member. There is no
+  email-based password or reset flow. Members log in with their prénom, which must
+  be unique; the email stays better-auth's internal identity and is never typed.
 - `event`: `id`, `name`, `date`, `startTime`, `endTime` (nullable — an event may be
   all-day or open-ended), `location` (nullable), `description` (nullable),
   `createdBy` (FK to `user`), timestamps.
@@ -85,7 +86,7 @@ event or response tables.
   PRD phase 9's reuse guidance).
 - `/admin/events`, `/admin/events/new`, `/admin/events/[eventId]/edit`: event CRUD,
   admin-nav shell.
-- `/admin/team`: the minimal "add a team member by email" action from `user-auth`.
+- `/admin/team`: the minimal "add a team member" action (prénom, email, admin-chosen password) from `user-auth`.
 - `/login`: public.
 
 ### Presence response writes go through form actions, UI updates optimistically
@@ -114,13 +115,11 @@ not per usage site.
   → Matches the explicit confirmation requirement in `event-calendar`; the
   confirmation dialog states that responses will be lost, so the loss is a known
   consequence of a confirmed action, not a surprise.
-- **Admin bootstrap and "add a team member" both hand password-setting to the new
-  user rather than emailing a real link (Resend isn't provisioned yet).** →
-  Fallback is the PRD-mandated console-log stub for `RESEND_API_KEY`-less
-  environments; the flow must still work by having the admin relay the
-  console-logged link manually until Resend is configured. This is a
-  development-time limitation, not a design gap — the same code path sends a real
-  email once Resend credentials are added.
+- **The admin chooses each member's password and passes it on by hand.** → The
+  admin knows every password until the member is told it, and there is no
+  self-service reset: a forgotten password means asking the admin. Accepted for a
+  small band where everyone knows the admin; it avoids depending on email delivery
+  (Resend has no verified domain yet) for something as basic as logging in.
 
 ## Migration Plan
 

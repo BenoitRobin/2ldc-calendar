@@ -16,8 +16,8 @@
 
 - [x] 3.1 Wire better-auth's SvelteKit adapter with email/password provider; implement login and logout pages/actions per `specs/user-auth/spec.md`
 - [x] 3.2 Implement `src/hooks.server.ts` to resolve the session into `locals.user` and reject any `/admin/**` request from a non-admin before route `load`/actions run; verify with a request to an admin route while logged out (redirected to `/login`) and while logged in as `standard` (rejected)
-- [x] 3.3 Write the one-shot admin bootstrap script (creates an `admin`-role account by email, produces a way for that person to set their own password, refuses to run if an admin already exists); verify by running it once against the local dev database
-- [x] 3.4 Build the `/admin/team` "add a team member" form (email + role) reusing the bootstrap script's account-creation + password-setup logic; verify creating a duplicate email is rejected with a clear error
+- [x] 3.3 Write the one-shot admin bootstrap script (creates an `admin`-role account from an email, a prénom and a password chosen by the owner, refuses to run if an admin already exists or the prénom is taken); verify by running it once against the local dev database
+- [x] 3.4 Build the `/admin/team` "add a team member" form (prénom, email, admin-chosen password, role, instrument) using `auth.api.createUser`; verify a duplicate prénom and a duplicate email are each rejected with a clear error
 - [x] 3.5 Manually test the full auth journey with a throwaway account: login, role-based redirect, logout, denied access without a session — then delete the throwaway account
 
 ## 4. Design system and navigation shells
