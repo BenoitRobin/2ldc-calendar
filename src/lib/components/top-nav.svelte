@@ -28,7 +28,7 @@
 
 <div
 	class={cn(
-		'fixed inset-x-0 top-0 z-20 border-b border-border bg-card md:inset-x-auto md:left-1/2 md:w-4/5 md:-translate-x-1/2',
+		'fixed inset-x-0 top-0 z-20 border-b border-foreground bg-background md:inset-x-auto md:left-1/2 md:w-4/5 md:-translate-x-1/2',
 		className
 	)}
 >
@@ -37,7 +37,9 @@
 		aria-label={roleTag ? `Navigation ${roleTag.toLowerCase()}` : 'Navigation principale'}
 	>
 		<div class="flex flex-1 shrink-0 items-center gap-2">
-			<span class="font-display text-lg font-black">2LDC</span>
+			<span class="font-display text-xl font-black" style="font-variation-settings: 'wdth' 125"
+				>2LDC</span
+			>
 			{#if roleTag}
 				<span class="rounded-sm border border-border px-1.5 py-0.5 text-xs text-muted-foreground">
 					{roleTag}
@@ -80,7 +82,7 @@
 		</div>
 		<button
 			type="button"
-			class="shrink-0 text-muted-foreground md:hidden"
+			class="-mr-2.5 flex size-11 shrink-0 items-center justify-center text-foreground md:hidden"
 			aria-expanded={open}
 			aria-controls="top-nav-mobile-menu"
 			aria-label={open ? 'Fermer le menu' : 'Ouvrir le menu'}
@@ -94,7 +96,7 @@
 		</button>
 	</nav>
 	{#if open}
-		<div id="top-nav-mobile-menu" class="border-t border-border md:hidden">
+		<div id="top-nav-mobile-menu" class="border-t border-foreground md:hidden">
 			<div class="flex flex-col p-2">
 				{#each links as link (link.href)}
 					{@const active = page.url.pathname.startsWith(link.href)}

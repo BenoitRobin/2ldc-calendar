@@ -8,10 +8,10 @@
 				default: 'bg-primary text-primary-foreground hover:bg-primary/85',
 				destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
 				outline:
-					'border-primary/40 text-foreground hover:bg-accent hover:text-accent-foreground hover:border-accent border-2 bg-transparent',
+					'border-foreground text-foreground hover:bg-foreground hover:text-background border-[1.5px] bg-transparent',
 				secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/70',
 				ghost: 'hover:bg-secondary',
-				link: 'text-accent underline-offset-4 hover:underline'
+				link: 'text-foreground underline underline-offset-4 hover:decoration-2'
 			},
 			size: {
 				default: 'h-10 min-h-11 px-4 py-2',

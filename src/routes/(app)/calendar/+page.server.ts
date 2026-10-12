@@ -2,6 +2,7 @@ import { asc, eq, gte } from 'drizzle-orm';
 import { db } from '$lib/server/db';
 import { event, attendanceResponse } from '$lib/server/db/schema';
 import type { PresenceValue } from '$lib/server/attendance';
+import { getCoverage } from '$lib/server/coverage';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -26,10 +27,13 @@ export const load: PageServerLoad = async ({ locals }) => {
 		myResponses.map((r) => [r.eventId, r.status])
 	);
 
+	const coverage = await getCoverage(events.map((e) => e.id));
+
 	return {
 		events: events.map((evt) => ({
 			...evt,
-			myStatus: (myStatusByEventId.get(evt.id) ?? 'none') as PresenceValue | 'none'
+			myStatus: (myStatusByEventId.get(evt.id) ?? 'none') as PresenceValue | 'none',
+			coverage: coverage.get(evt.id)!
 		}))
 	};
 };

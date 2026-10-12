@@ -1,19 +1,20 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { formatEventDay } from '$lib/format-date';
-	import EventTicketHeader from '$lib/components/event-ticket-header.svelte';
 	import InstrumentIcon from '$lib/components/instrument-icon.svelte';
 	import StatusBadge, {
 		STATUS_COLOR_CLASSES,
 		type PresenceStatus
 	} from '$lib/components/status-badge.svelte';
 	import { isInstrument } from '$lib/instruments';
+	import { weightFor, type Coverage } from '$lib/specimen';
 	import { cn } from '$lib/utils';
 
 	let {
 		events,
 		users,
 		responses,
+		coverage,
 		editable
 	}: {
 		events: {
@@ -26,6 +27,7 @@
 		}[];
 		users: { id: string; name: string; instrument?: string | null }[];
 		responses: { eventId: string; userId: string; status: string }[];
+		coverage: Record<string, Coverage>;
 		editable: boolean;
 	} = $props();
 
@@ -75,24 +77,35 @@
 	{/if}
 {/snippet}
 
-<!-- Desktop: full matrix, restyled to match the app's card language (ticket-stub
-     border/accent colors, dashed header divider) instead of the old plain-table look. -->
-<div class="hidden overflow-x-auto rounded-lg border border-border bg-card md:block">
+{#snippet dateNumeral(evt: { id: string; date: string }, size: string)}
+	{@const day = formatEventDay(evt.date)}
+	{@const c = coverage[evt.id]}
+	<span
+		class={cn('block leading-none tabular-nums', size)}
+		style="font-weight: {weightFor(c.oui, c.members)}; font-variation-settings: 'wdth' 72"
+	>
+		{day.day}
+	</span>
+	<span class="mt-1 block text-xs font-normal whitespace-nowrap text-muted-foreground">
+		{day.month} · {c.oui}/{c.members} oui
+	</span>
+{/snippet}
+
+<!-- Desktop: full matrix on the specimen sheet — each column headed by its date
+     numeral, weighted by how many musicians said oui. -->
+<div class="hidden overflow-x-auto border-t border-foreground md:block">
 	<table class="w-full min-w-max border-collapse text-sm">
 		<thead>
 			<tr>
-				<th
-					class="sticky left-0 z-10 border-b-2 border-dashed border-accent/70 bg-card p-3 text-left font-medium"
-				>
+				<th class="sticky left-0 z-10 border-b border-foreground bg-card p-3 text-left font-medium">
 					Fanfaron
 				</th>
 				{#each events as evt (evt.id)}
-					{@const day = formatEventDay(evt.date)}
 					<th
-						class="border-b-2 border-dashed border-accent/70 p-3 text-left font-display font-semibold whitespace-nowrap"
+						class="border-b border-foreground p-3 text-left align-bottom font-semibold whitespace-nowrap"
 					>
-						{evt.name}
-						<span class="mt-0.5 block text-xs font-normal text-accent">{day.day} {day.month}</span>
+						{@render dateNumeral(evt, 'text-4xl')}
+						<span class="mt-2 block font-display font-bold">{evt.name}</span>
 					</th>
 				{/each}
 			</tr>
@@ -121,19 +134,16 @@
 	</table>
 </div>
 
-<!-- Mobile: one ticket-stub card per event (same pattern as the Calendrier list),
+<!-- Mobile: one specimen column per event (same numeral as the Calendrier list),
      laid out as a horizontally-scrolling, snap-aligned row so members stay listed
      vertically within a card while events themselves are swiped through sideways. -->
 <div class="-mx-4 flex snap-x snap-mandatory scroll-px-4 gap-3 overflow-x-auto px-4 pb-2 md:hidden">
 	{#each events as evt (evt.id)}
-		<div class="w-[85%] max-w-sm shrink-0 snap-center rounded-lg border border-border bg-card p-4">
-			<div class="flex items-baseline gap-3">
-				<EventTicketHeader {evt} />
-			</div>
+		<div class="w-[85%] max-w-sm shrink-0 snap-center border-t border-foreground pt-3">
+			{@render dateNumeral(evt, 'text-6xl')}
+			<p class="mt-2 font-display text-lg leading-tight font-extrabold">{evt.name}</p>
 
-			<div
-				class="mt-3 flex flex-col divide-y divide-dashed divide-border border-t border-dashed border-border"
-			>
+			<div class="mt-3 flex flex-col divide-y divide-border border-t border-foreground">
 				{#each users as u (u.id)}
 					<div class="flex items-center justify-between gap-3 py-2">
 						<p class="flex min-w-0 items-center gap-2 truncate text-sm font-medium">

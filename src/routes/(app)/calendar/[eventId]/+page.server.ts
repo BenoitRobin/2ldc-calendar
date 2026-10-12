@@ -3,6 +3,7 @@ import { eq, and, asc, gte } from 'drizzle-orm';
 import { db } from '$lib/server/db';
 import { event, attendanceResponse } from '$lib/server/db/schema';
 import { isPresenceValue, setAttendanceResponse } from '$lib/server/attendance';
+import { getCoverage } from '$lib/server/coverage';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params, locals }) => {
@@ -38,7 +39,15 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 			? orderedEvents[currentIndex + 1]
 			: null;
 
-	return { event: existing, myStatus: myResponse?.status ?? 'none', prevEvent, nextEvent };
+	const coverage = (await getCoverage([existing.id])).get(existing.id)!;
+
+	return {
+		event: existing,
+		myStatus: myResponse?.status ?? 'none',
+		prevEvent,
+		nextEvent,
+		coverage
+	};
 };
 
 export const actions: Actions = {

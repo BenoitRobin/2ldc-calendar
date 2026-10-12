@@ -4,7 +4,9 @@
 	import { resolve } from '$app/paths';
 	import { buttonVariants } from '$lib/components/ui/button';
 	import StatusBadge, { type PresenceStatus } from '$lib/components/status-badge.svelte';
+	import SectionCoverage from '$lib/components/section-coverage.svelte';
 	import { formatEventDay } from '$lib/format-date';
+	import { percent, weightFor } from '$lib/specimen';
 	import { cn } from '$lib/utils';
 	import ArrowLeft from '@lucide/svelte/icons/arrow-left';
 	import ChevronLeft from '@lucide/svelte/icons/chevron-left';
@@ -106,20 +108,20 @@
 <div class="p-4">
 	<a
 		href={resolve('/(app)/calendar')}
-		class={cn(buttonVariants({ variant: 'outline', size: 'sm' }), 'mb-8')}
+		class="mb-6 -ml-1 inline-flex min-h-11 items-center gap-1.5 px-1 text-sm text-muted-foreground hover:text-foreground"
 	>
 		<ArrowLeft class="size-4" aria-hidden="true" />
 		Retour au calendrier
 	</a>
 
-	<div class="mx-auto flex max-w-lg items-center gap-2 md:max-w-3xl">
+	<div class="mx-auto flex max-w-lg items-start gap-6 md:max-w-3xl">
 		{#if data.prevEvent}
 			{@const prev = data.prevEvent}
 			{@const prevDay = formatEventDay(prev.date)}
 			<a
 				href={resolve('/(app)/calendar/[eventId]', { eventId: prev.id })}
 				onclick={(e) => handlePreviewClick(e, prev.id, 'right')}
-				class="hidden w-40 shrink-0 items-start gap-2 rounded-lg border border-border bg-card p-3 text-left transition-colors hover:border-accent/60 md:flex"
+				class="hidden w-40 shrink-0 items-start gap-2 border-t border-foreground pt-3 text-left hover:underline md:flex"
 			>
 				<ChevronLeft class="mt-0.5 size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
 				<div class="min-w-0">
@@ -137,40 +139,62 @@
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
 		<div
 			class={cn(
-				'min-w-0 flex-1 rounded-lg border border-border bg-card transition-[transform,opacity] duration-200 ease-out motion-reduce:transition-none',
+				'min-w-0 flex-1 border-t border-foreground transition-[transform,opacity] duration-200 ease-out motion-reduce:transition-none',
 				slideDirection === 'left' && '-translate-x-8 opacity-0',
 				slideDirection === 'right' && 'translate-x-8 opacity-0'
 			)}
 			ontouchstart={handleTouchStart}
 			ontouchend={handleTouchEnd}
 		>
-			<div class="flex gap-4 p-4">
-				<div class="w-14 shrink-0 text-center">
-					<p class="font-display text-2xl leading-none font-extrabold text-accent">{day.day}</p>
-					<p class="mt-1 text-xs text-muted-foreground">{day.month}</p>
+			<div class="pt-3">
+				<p
+					class="flex items-baseline justify-between text-xs tracking-wider text-muted-foreground uppercase"
+				>
+					<span>{day.weekday} {day.month}</span>
+					<span class="tabular-nums">{data.coverage.oui} / {data.coverage.members} viennent</span>
+				</p>
+				<p
+					class="mt-1 text-[9rem] leading-[0.8] tracking-[-0.04em] tabular-nums md:text-[11rem]"
+					style="font-weight: {weightFor(
+						data.coverage.oui,
+						data.coverage.members
+					)}; font-variation-settings: 'wdth' 72"
+				>
+					{day.day}
+				</p>
+				<div class="mt-2 flex items-center gap-3 text-xs text-muted-foreground">
+					<div class="relative h-px flex-1 bg-border">
+						<div
+							class="absolute top-[-1px] left-0 h-[3px] bg-foreground"
+							style="width: {percent(data.coverage.oui, data.coverage.members)}%"
+						></div>
+					</div>
+					<span class="tabular-nums"
+						>{percent(data.coverage.oui, data.coverage.members)} % de oui</span
+					>
 				</div>
-				<div class="min-w-0 flex-1">
-					<h1 class="font-display text-xl leading-snug font-extrabold">
-						{data.event.name}
-					</h1>
-					<p class="mt-0.5 text-sm text-muted-foreground">
-						{[
-							data.event.startTime && data.event.endTime
-								? `${data.event.startTime}–${data.event.endTime}`
-								: data.event.startTime,
-							data.event.location
-						]
-							.filter(Boolean)
-							.join(', ')}
-					</p>
-
-					{#if data.event.description}
-						<p class="mt-3 line-clamp-3 text-sm">{data.event.description}</p>
-					{/if}
-				</div>
+				<h1
+					class="mt-5 font-display text-3xl leading-none font-extrabold"
+					style="font-variation-settings: 'wdth' 85"
+				>
+					{data.event.name}
+				</h1>
+				<p class="mt-1.5 text-sm text-muted-foreground">
+					{[
+						data.event.startTime && data.event.endTime
+							? `${data.event.startTime}–${data.event.endTime}`
+							: data.event.startTime,
+						data.event.location
+					]
+						.filter(Boolean)
+						.join(' · ')}
+				</p>
+				{#if data.event.description}
+					<p class="mt-3 line-clamp-3 text-sm">{data.event.description}</p>
+				{/if}
 			</div>
 
-			<div class="border-t border-dashed border-border p-4">
+			<div class="mt-6 border-t border-border pt-4">
 				<p class="mb-2 text-sm font-medium">Votre présence</p>
 				<div class="grid grid-cols-3 gap-2">
 					{#each CHOICES as choice (choice.status)}
@@ -202,6 +226,7 @@
 					<p class="mt-2 text-sm text-danger" role="alert">Échec de l'enregistrement, réessaie.</p>
 				{/if}
 			</div>
+			<SectionCoverage sections={data.coverage.sections} class="mt-6" />
 		</div>
 
 		{#if data.nextEvent}
@@ -210,7 +235,7 @@
 			<a
 				href={resolve('/(app)/calendar/[eventId]', { eventId: next.id })}
 				onclick={(e) => handlePreviewClick(e, next.id, 'left')}
-				class="hidden w-40 shrink-0 items-start justify-between gap-2 rounded-lg border border-border bg-card p-3 text-right transition-colors hover:border-accent/60 md:flex"
+				class="hidden w-40 shrink-0 items-start justify-between gap-2 border-t border-foreground pt-3 text-right hover:underline md:flex"
 			>
 				<div class="min-w-0">
 					<p class="text-xs text-muted-foreground">{nextDay.day} {nextDay.month}</p>
@@ -231,19 +256,19 @@
 					href={resolve('/(app)/calendar/[eventId]', { eventId: prev.id })}
 					onclick={(e) => handlePreviewClick(e, prev.id, 'right')}
 					aria-label="Date précédente : {prev.name}"
-					class="flex size-6 items-center justify-center"
+					class="flex size-11 items-center justify-center"
 				>
 					<span class="size-1.5 rounded-full bg-muted-foreground/50" aria-hidden="true"></span>
 				</a>
 			{/if}
-			<span class="size-2 rounded-full bg-accent" aria-hidden="true"></span>
+			<span class="size-2 rounded-full bg-foreground" aria-hidden="true"></span>
 			{#if data.nextEvent}
 				{@const next = data.nextEvent}
 				<a
 					href={resolve('/(app)/calendar/[eventId]', { eventId: next.id })}
 					onclick={(e) => handlePreviewClick(e, next.id, 'left')}
 					aria-label="Date suivante : {next.name}"
-					class="flex size-6 items-center justify-center"
+					class="flex size-11 items-center justify-center"
 				>
 					<span class="size-1.5 rounded-full bg-muted-foreground/50" aria-hidden="true"></span>
 				</a>

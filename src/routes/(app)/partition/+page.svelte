@@ -37,7 +37,7 @@
 <svelte:head><title>Partition — 2LDC Calendar</title></svelte:head>
 
 <div class="p-4">
-	<div class="mb-20 flex items-center justify-between gap-4">
+	<div class="mb-10 flex items-center justify-between gap-4 md:mb-16">
 		<h1 class="font-display text-2xl font-extrabold">Partition</h1>
 		{#if data.isAdmin}
 			<a href={resolve('/admin/partitions/new')} class={buttonVariants()}>Ajouter un morceau</a>
@@ -98,11 +98,11 @@
 			</div>
 		</div>
 
-		<ul class="flex flex-col gap-3">
+		<ul class="border-t border-foreground">
 			{#each filtered as p (p.id)}
 				{@const url = shown ? p.parts[shown] : undefined}
-				<li class="rounded-lg border border-border bg-card md:flex md:items-center">
-					<div class="flex min-w-0 flex-1 items-center gap-4 p-4">
+				<li class="border-b border-border md:flex md:items-center">
+					<div class="flex min-w-0 flex-1 items-center gap-4 py-4">
 						<div class="flex w-14 shrink-0 justify-center">
 							{#if shown}
 								<InstrumentIcon
@@ -115,9 +115,7 @@
 							{p.title}
 						</p>
 					</div>
-					<div
-						class="flex items-center gap-2 border-t border-dashed border-border px-4 py-3 md:border-t-0 md:py-4 md:pl-0"
-					>
+					<div class="flex items-center gap-2 pb-4 md:py-4">
 						{#if url}
 							<!-- eslint-disable svelte/no-navigation-without-resolve -- external Google Drive link -->
 							<a

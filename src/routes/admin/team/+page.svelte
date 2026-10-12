@@ -23,15 +23,15 @@
 
 <svelte:head><title>Fanfarons — 2LDC Calendar</title></svelte:head>
 
-<div class="mb-20 flex items-center justify-between">
+<div class="mb-10 flex items-center justify-between md:mb-16">
 	<h1 class="font-display text-2xl font-extrabold">Fanfarons</h1>
 	<a href={resolve('/admin/team/new')} class={buttonVariants()}>Nouveau fanfaron</a>
 </div>
 
-<div class="flex flex-col gap-3">
+<div class="border-t border-foreground">
 	{#each data.members as member (member.id)}
-		<div class="rounded-lg border border-border bg-card">
-			<div class="flex flex-wrap items-center gap-3 p-4">
+		<div class="border-b border-border md:flex md:items-center md:gap-4">
+			<div class="flex min-w-0 flex-wrap items-center gap-3 py-4 md:flex-1">
 				<div class="min-w-0 flex-1">
 					<p class="font-display text-lg leading-snug font-extrabold">{member.name}</p>
 					<p class="mt-0.5 text-sm text-muted-foreground">
@@ -45,9 +45,7 @@
 					{member.role === 'admin' ? 'Administrateur' : 'Standard'}
 				</span>
 			</div>
-			<div
-				class="flex items-center justify-end gap-2 border-t border-dashed border-border px-4 py-3"
-			>
+			<div class="flex items-center justify-end gap-2 pb-4 md:pb-0">
 				<a
 					href={resolve('/admin/team/[userId]/edit', { userId: member.id })}
 					class={buttonVariants({ variant: 'outline', size: 'sm' })}>Modifier</a
@@ -56,7 +54,7 @@
 					type="button"
 					onclick={() => (deletingMember = { id: member.id, name: member.name })}
 					aria-label="Supprimer {member.name}"
-					class="flex size-9 shrink-0 items-center justify-center rounded-md border border-destructive/60 text-destructive transition-colors hover:bg-destructive/10"
+					class="flex size-11 shrink-0 items-center justify-center border-[1.5px] border-destructive text-destructive transition-colors hover:bg-destructive hover:text-destructive-foreground"
 				>
 					<X class="size-4" aria-hidden="true" />
 				</button>

@@ -23,20 +23,18 @@
 
 <svelte:head><title>Dates — 2LDC Calendar</title></svelte:head>
 
-<div class="mb-20 flex items-center justify-between">
+<div class="mb-10 flex items-center justify-between md:mb-16">
 	<h1 class="font-display text-2xl font-extrabold">Dates</h1>
 	<a href={resolve('/admin/events/new')} class={buttonVariants()}>Nouvelle date</a>
 </div>
 
-<div class="flex flex-col gap-3">
+<div class="border-t border-foreground">
 	{#each data.events as evt (evt.id)}
-		<div class="rounded-lg border border-border bg-card">
-			<div class="flex items-center gap-4 p-4">
+		<div class="border-b border-border md:flex md:items-center md:gap-4">
+			<div class="flex min-w-0 items-center gap-4 py-4 md:flex-1">
 				<EventTicketHeader {evt} />
 			</div>
-			<div
-				class="flex items-center justify-end gap-2 border-t border-dashed border-border px-4 py-3"
-			>
+			<div class="flex items-center justify-end gap-2 pb-4 md:pb-0">
 				<a
 					href={resolve('/admin/events/[eventId]/edit', { eventId: evt.id })}
 					class={buttonVariants({ variant: 'outline', size: 'sm' })}>Modifier</a
@@ -45,7 +43,7 @@
 					type="button"
 					onclick={() => (deletingEvent = { id: evt.id, name: evt.name })}
 					aria-label="Supprimer {evt.name}"
-					class="flex size-9 shrink-0 items-center justify-center rounded-md border border-destructive/60 text-destructive transition-colors hover:bg-destructive/10"
+					class="flex size-11 shrink-0 items-center justify-center border-[1.5px] border-destructive text-destructive transition-colors hover:bg-destructive hover:text-destructive-foreground"
 				>
 					<X class="size-4" aria-hidden="true" />
 				</button>

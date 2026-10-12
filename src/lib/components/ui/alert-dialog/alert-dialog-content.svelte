@@ -20,7 +20,7 @@
 		bind:ref
 		data-slot="alert-dialog-content"
 		class={cn(
-			'fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-lg border-2 border-border bg-card p-6 shadow-lg sm:max-w-md',
+			'fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-lg border border-foreground bg-card p-6 shadow-lg sm:max-w-md',
 			className
 		)}
 		{...restProps}

@@ -17,7 +17,7 @@
 </script>
 
 <div class="w-14 shrink-0 text-center">
-	<p class="font-display text-2xl leading-none font-extrabold text-accent">{day.day}</p>
+	<p class="font-display text-3xl leading-none font-extrabold">{day.day}</p>
 	<p class="mt-1 text-xs text-muted-foreground">{day.month}</p>
 </div>
 <div class="min-w-0 flex-1">

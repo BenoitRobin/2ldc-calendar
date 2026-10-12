@@ -1,70 +1,66 @@
 @import 'tailwindcss';
-@import '@fontsource/archivo/400.css';
-@import '@fontsource/archivo/500.css';
-@import '@fontsource/archivo/600.css';
-@import '@fontsource/archivo/700.css';
-@import '@fontsource/archivo/800.css';
-@import '@fontsource/archivo/900.css';
 
 @theme {
 	--font-display: 'Archivo', ui-sans-serif, system-ui, sans-serif;
 	--font-sans: 'Archivo', ui-sans-serif, system-ui, -apple-system, sans-serif;
 
-	/* Brass-band flyer palette, built off the 2LDC logo (bold black/white pictogram
-	   mark, brass instruments): black poster stock throughout, matching the logo's
-	   own black plate, cream ink for type, brass gold as the single supporting
-	   accent. Every pair below is checked for WCAG AA contrast (tasks.md 4.3). */
-	/* Exact black sampled from the logo's own plate (logo-2ldc-white.png), so the
-	   page background and the logo blend into one continuous surface. */
-	--color-background: #030304;
-	--color-foreground: #f6f3ea;
+	/* "Spécimen vivant" palette: a foundry specimen sheet. Paper and ink carry the
+	   whole interface; one red is reserved for what still needs attention
+	   (unanswered dates, an empty section). Weight, not colour, encodes how many
+	   musicians are coming. */
+	--color-background: #fbfaf7;
+	--color-foreground: #111111;
 
-	--color-card: #1a1815;
-	--color-card-foreground: #f6f3ea;
+	--color-card: #fbfaf7;
+	--color-card-foreground: #111111;
 
-	--color-primary: #f6f3ea;
-	--color-primary-foreground: #0e0e0e;
+	--color-primary: #111111;
+	--color-primary-foreground: #fbfaf7;
 
-	--color-secondary: #262420;
-	--color-secondary-foreground: #f6f3ea;
+	--color-secondary: #efece6;
+	--color-secondary-foreground: #111111;
 
-	--color-muted: #262420;
-	--color-muted-foreground: #a39b8b;
+	--color-muted: #efece6;
+	--color-muted-foreground: #67635b;
 
-	--color-accent: #8c6215;
+	--color-accent: #c4321a;
 	--color-accent-foreground: #ffffff;
 
-	--color-destructive: #9b3a3a;
+	--color-destructive: #c4321a;
 	--color-destructive-foreground: #ffffff;
-	/* Brighter than --color-destructive: that value is tuned for white text ON it
-	   (buttons/badges) and fails contrast used directly as text on the dark surfaces
-	   below it — this is for inline error text instead. */
-	--color-danger: #d6635f;
+	--color-danger: #b42d17;
 
-	--color-border: #655f4e;
-	--color-input: #655f4e;
-	--color-ring: #f6f3ea;
+	--color-border: #d9d6cf;
+	--color-input: #8a857b;
+	--color-ring: #111111;
 
-	/* Presence-status color tokens (specs/event-attendance): every status badge in the
-	   app draws from these four, never a hard-coded color, and each pair is checked
-	   for WCAG AA contrast in tasks.md 4.3. */
-	--color-status-oui: #3f6b4a;
-	--color-status-oui-foreground: #ffffff;
+	--color-status-oui: #111111;
+	--color-status-oui-foreground: #fbfaf7;
 
-	--color-status-non: #9b3a3a;
+	--color-status-non: #c4321a;
 	--color-status-non-foreground: #ffffff;
 
-	--color-status-indecis: #8c6215;
-	--color-status-indecis-foreground: #ffffff;
+	--color-status-indecis: #e8b931;
+	--color-status-indecis-foreground: #111111;
 
-	--color-status-none: #262420;
-	--color-status-none-foreground: #a39b8b;
+	--color-status-none: #efece6;
+	--color-status-none-foreground: #67635b;
+
+	/* Square specimen-sheet corners everywhere except status pills (rounded-full). */
+	--radius-sm: 0;
+	--radius-md: 0;
+	--radius-lg: 0;
 }
 
 body {
 	background-color: var(--color-background);
 	color: var(--color-foreground);
 	font-family: var(--font-sans);
+}
+
+::selection {
+	background: var(--color-accent);
+	color: var(--color-accent-foreground);
 }
 
 :focus-visible {

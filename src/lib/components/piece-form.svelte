@@ -30,7 +30,7 @@
 		/>
 	</div>
 
-	<fieldset class="flex flex-col gap-3 border-t border-dashed border-border pt-4">
+	<fieldset class="flex flex-col gap-3 border-t border-border pt-4">
 		<legend class="float-left mb-1 w-full text-sm font-medium">Liens Google Drive</legend>
 		<p class="text-sm text-muted-foreground">
 			Un PDF par instrument, partagé en «&nbsp;Tous les utilisateurs disposant du lien&nbsp;».

@@ -3,6 +3,7 @@ import { asc, gte } from 'drizzle-orm';
 import { db } from '$lib/server/db';
 import { event, user, attendanceResponse } from '$lib/server/db/schema';
 import { isPresenceValue, setAttendanceResponse } from '$lib/server/attendance';
+import { getCoverage } from '$lib/server/coverage';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -23,8 +24,11 @@ export const load: PageServerLoad = async ({ locals }) => {
 			.from(attendanceResponse)
 	]);
 
+	const coverage = Object.fromEntries(await getCoverage(events.map((e) => e.id)));
+
 	return {
 		events,
+		coverage,
 		users,
 		responses,
 		isAdmin: locals.user?.role === 'admin'

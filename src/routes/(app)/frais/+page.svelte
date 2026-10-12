@@ -15,10 +15,10 @@
 <svelte:head><title>Frais — 2LDC Calendar</title></svelte:head>
 
 <div class="p-4">
-	<h1 class="mb-20 font-display text-2xl font-extrabold">Frais</h1>
+	<h1 class="mb-10 font-display text-2xl font-extrabold md:mb-16">Frais</h1>
 
-	<div class="flex flex-col items-start gap-4 rounded-lg border border-border bg-card p-6">
-		<Receipt class="size-8 text-accent" aria-hidden="true" />
+	<div class="flex flex-col items-start gap-4 border-t border-foreground pt-6">
+		<Receipt class="size-8 text-foreground" aria-hidden="true" />
 		<div>
 			<p class="font-display text-lg font-extrabold">Demande de remboursement</p>
 			<p class="mt-1 text-sm text-muted-foreground">
