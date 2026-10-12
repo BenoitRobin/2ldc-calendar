@@ -1,10 +1,12 @@
 <script lang="ts">
 	import type { Component } from 'svelte';
 	import { page } from '$app/state';
+	import { resolve } from '$app/paths';
 	import { cn } from '$lib/utils';
 	import Menu from '@lucide/svelte/icons/menu';
 	import X from '@lucide/svelte/icons/x';
 	import LogOut from '@lucide/svelte/icons/log-out';
+	import logo from '$lib/assets/logo-2ldc-drum.svg';
 
 	let {
 		links,
@@ -17,6 +19,10 @@
 	} = $props();
 
 	let open = $state(false);
+
+	let homeHref = $derived(
+		page.data.user?.role === 'admin' ? resolve('/admin/events') : resolve('/(app)/calendar')
+	);
 
 	// Ferme le menu mobile après un changement de page (clic sur un lien),
 	// sinon il resterait ouvert par-dessus la page suivante.
@@ -37,9 +43,9 @@
 		aria-label={roleTag ? `Navigation ${roleTag.toLowerCase()}` : 'Navigation principale'}
 	>
 		<div class="flex flex-1 shrink-0 items-center gap-2">
-			<span class="font-display text-xl font-black" style="font-variation-settings: 'wdth' 125"
-				>2LDC</span
-			>
+			<a href={homeHref} class="shrink-0">
+				<img src={logo} alt="2LDC — accueil" class="h-8 w-auto" />
+			</a>
 			{#if roleTag}
 				<span class="rounded-sm border border-border px-1.5 py-0.5 text-xs text-muted-foreground">
 					{roleTag}

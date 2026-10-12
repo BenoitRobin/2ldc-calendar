@@ -46,10 +46,10 @@
 	--color-status-none: #efece6;
 	--color-status-none-foreground: #67635b;
 
-	/* Square specimen-sheet corners everywhere except status pills (rounded-full). */
-	--radius-sm: 0;
-	--radius-md: 0;
-	--radius-lg: 0;
+	/* Rounded like the logo's frame: controls 8px, containers 12px, status pills rounded-full. */
+	--radius-sm: 6px;
+	--radius-md: 8px;
+	--radius-lg: 12px;
 }
 
 body {

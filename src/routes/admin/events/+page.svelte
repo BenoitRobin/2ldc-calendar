@@ -43,7 +43,7 @@
 					type="button"
 					onclick={() => (deletingEvent = { id: evt.id, name: evt.name })}
 					aria-label="Supprimer {evt.name}"
-					class="flex size-11 shrink-0 items-center justify-center border-[1.5px] border-destructive text-destructive transition-colors hover:bg-destructive hover:text-destructive-foreground"
+					class="flex size-11 shrink-0 items-center justify-center rounded-md border-[1.5px] border-destructive text-destructive transition-colors hover:bg-destructive hover:text-destructive-foreground"
 				>
 					<X class="size-4" aria-hidden="true" />
 				</button>

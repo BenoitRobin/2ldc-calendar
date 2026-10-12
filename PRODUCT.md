@@ -53,7 +53,7 @@ A private tool built for one specific fanfare, not a generic scheduling product:
 ## Brand Commitments
 
 - Name: **2LDC** (app title "2LDC Calendar").
-- Existing assets: white 2LDC logo (`src/lib/assets/logo-2ldc-white.png`), brass-band drummer favicon (`src/lib/assets/favicon.svg`), per-instrument icons (`src/lib/assets/instruments/*.svg`).
+- Existing assets: 2LDC logos (`src/lib/assets/logo-2ldc-band.svg` on login, `src/lib/assets/logo-2ldc-drum.svg` in the top nav), brass-band drummer favicon (`src/lib/assets/favicon.svg`), per-instrument icons (`src/lib/assets/instruments/*.svg`).
 - Voice: plain, friendly French for bandmates; short labels over explanations.
 
 ## Evidence on Hand

@@ -69,7 +69,9 @@ typography:
     lineHeight: 1.33
     letterSpacing: '0.05em'
 rounded:
-  none: '0'
+  sm: '6px'
+  md: '8px'
+  lg: '12px'
   pill: '9999px'
 spacing:
   row: '12px'
@@ -84,14 +86,14 @@ components:
     backgroundColor: '{colors.ink}'
     textColor: '{colors.paper}'
     typography: '{typography.body}'
-    rounded: '{rounded.none}'
+    rounded: '{rounded.md}'
     padding: '8px 16px'
     height: '44px'
   button-outline:
     backgroundColor: 'transparent'
     textColor: '{colors.ink}'
     typography: '{typography.body}'
-    rounded: '{rounded.none}'
+    rounded: '{rounded.md}'
     padding: '8px 12px'
     height: '44px'
   button-outline-hover:
@@ -100,7 +102,7 @@ components:
   button-destructive:
     backgroundColor: '{colors.specimen-red}'
     textColor: '{colors.white}'
-    rounded: '{rounded.none}'
+    rounded: '{rounded.md}'
     padding: '8px 16px'
     height: '44px'
   status-pill-oui:
@@ -127,13 +129,13 @@ components:
     backgroundColor: 'transparent'
     textColor: '{colors.ink}'
     typography: '{typography.body}'
-    rounded: '{rounded.none}'
+    rounded: '{rounded.md}'
     padding: '0 12px'
     height: '44px'
   card-form:
     backgroundColor: '{colors.paper}'
     textColor: '{colors.ink}'
-    rounded: '{rounded.none}'
+    rounded: '{rounded.lg}'
     padding: '{spacing.card}'
 ---
 
@@ -145,7 +147,7 @@ components:
 
 The interface is a foundry type specimen sheet that happens to be alive: paper and ink, one variable family, and numerals set large enough to read across a rehearsal room. Its single signature is that weight, not colour, encodes how many musicians are coming. A date numeral is set at hairline weight when nobody has said oui and at black weight when everyone has (weight = 200 + share of oui × 700), so a glance down the calendar reads as a texture of light and heavy dates before any word is read. That weight is always paired with a readable number ("3 / 6 viennent", "50 % de oui"), because a typographic signal alone is not an accessible one.
 
-Structure comes from printed rules, not boxes. An ink rule opens every list, section and featured date; hairline rules separate rows beneath it; corners are square; nothing floats except a confirmation dialog. Colour is almost absent: the one red is reserved for what still needs attention, so when it appears it means something.
+Structure comes from printed rules, not boxes. An ink rule opens every list, section and featured date; hairline rules separate rows beneath it; corners are softly rounded like the logo's frame; nothing floats except a confirmation dialog. Colour is almost absent: the one red is reserved for what still needs attention, so when it appears it means something.
 
 Density is calm and generous at the top of a page (a large gap under every page title, one giant numeral for the next date) and tight in lists, where rows sit 12 to 16px apart under hairlines. The previous "Gig Poster" world (black stage, cream ink, brass accents) is retired; none of its tokens or devices carry over.
 
@@ -155,7 +157,7 @@ Density is calm and generous at the top of a page (a large gap under every page 
 - Date numerals weighted by attendance share, from 200 to 900, at a condensed width (wdth 72), always beside a plain count.
 - One red, reserved for attention: unanswered, empty, refused, destructive.
 - Ink top rule opens a section; hairline rules divide rows; no boxed lists.
-- Square corners everywhere except status pills.
+- Rounded corners echoing the logo's frame: 8px on controls, 12px on containers, fully rounded status pills.
 - One family, Archivo variable, ranked by weight and width axes rather than by many sizes.
 
 ## Colors
@@ -238,19 +240,19 @@ The system is flat. Surfaces sit on paper and are separated by rules, not by sha
 
 ## Shapes
 
-Corners are square throughout: the radius tokens are all 0, so buttons, inputs, selects, cards, dialogs and the role tag are sharp rectangles. Status pills are the one rounded form (fully rounded), along with the tiny dot indicators on the mobile event pager. Borders are 1px ink for structure (rules, cards, dialog), 1.5px ink for outline buttons, 1px field stroke for inputs, and 1px hairline for row dividers. The coverage gauge is a 1px hairline track with a 3px ink bar laid over it.
+Corners echo the rounded frame of the 2LDC logo: buttons, inputs and selects use `rounded-md` (8px), cards and dialogs `rounded-lg` (12px), the role tag `rounded-sm` (6px). Status pills are fully rounded, as are the tiny dot indicators on the mobile event pager. Borders are 1px ink for structure (rules, cards, dialog), 1.5px ink for outline buttons, 1px field stroke for inputs, and 1px hairline for row dividers. The coverage gauge is a 1px hairline track with a 3px ink bar laid over it.
 
 ### Named Rules
 
-**The Square Sheet Rule.** Nothing is rounded except a status pill. If a new element needs a container, it gets square corners and a rule.
+**The Logo Frame Rule.** Every box takes the logo's rounded corner: 8px for controls, 12px for containers, fully rounded for status pills. Rules (horizontal lines) stay straight.
 
 ## Components
 
 ### Buttons
 
-Blunt and typographic: bold small text in a square slab.
+Blunt and typographic: bold small text in a rounded slab.
 
-- **Shape:** square corners (0), height 40px with a 44px minimum, bold 0.875rem text.
+- **Shape:** 8px rounded corners, height 40px with a 44px minimum, bold 0.875rem text.
 - **Primary:** ink fill with paper text, 16px horizontal padding; hover lightens the ink to 85%.
 - **Outline:** transparent with a 1.5px ink border and ink text; on hover it inverts to an ink fill with paper text. Used for the unchosen attendance choices and secondary actions.
 - **Destructive:** red fill with white text; delete icon buttons in admin lists are the outline form in red (1.5px red border, red icon) that fills red on hover.
@@ -265,7 +267,7 @@ Blunt and typographic: bold small text in a square slab.
 
 ### Cards / Containers
 
-- **Corner Style:** square (0).
+- **Corner Style:** 12px rounded.
 - **Background:** paper.
 - **Shadow Strategy:** none (see Elevation & Depth).
 - **Border:** 1px ink.
@@ -274,13 +276,13 @@ Blunt and typographic: bold small text in a square slab.
 
 ### Inputs / Fields
 
-- **Style:** 44px tall, square, 1px field-stroke border, 12px horizontal padding, transparent or paper fill, 0.875rem text with graphite placeholders. Labels sit above at 0.875rem, 500.
+- **Style:** 44px tall, 8px rounded, 1px field-stroke border, 12px horizontal padding, transparent or paper fill, 0.875rem text with graphite placeholders. Labels sit above at 0.875rem, 500.
 - **Focus:** the global 2px ink outline, offset 2px.
 - **Error:** danger-red 0.875rem text below the field.
 
 ### Navigation
 
-- **Style:** fixed bar on paper with a 1px ink bottom rule, 16px by 12px padding. Left: the 900-weight, wdth 125 wordmark, an optional square role tag (hairline border, graphite 0.75rem), and the user's name in graphite.
+- **Style:** fixed bar on paper with a 1px ink bottom rule, 16px by 12px padding. Left: the 2LDC drum logo (`logo-2ldc-drum.svg`, 32px tall, links to Dates for admins and Calendrier otherwise), an optional 6px-rounded role tag (hairline border, graphite 0.75rem), and the user's name in graphite.
 - **Links:** 0.875rem with optional 16px icons; inactive in graphite, hover to ink, active in ink at 600.
 - **Mobile:** links collapse behind a 44px burger; the open menu drops under its own ink rule as a stacked list.
 
@@ -299,7 +301,7 @@ A six-column strip under an ink rule, one column per instrument section: the oui
 - **Do** compute every date and section numeral's weight from attendance (200 + share of oui × 700) and set it at wdth 72 (wdth 80 in the coverage strip).
 - **Do** pair every weighted numeral with a readable count ("3 / 6 viennent", "50 % de oui", "2/6 oui").
 - **Do** open every list or section with a 1px ink top rule and divide rows with 1px hairline rules.
-- **Do** keep corners square (0) on everything except status pills.
+- **Do** round every box like the logo's frame (8px controls, 12px containers); keep rules straight.
 - **Do** leave 40px under a page title on mobile and 64px from 768px.
 - **Do** give every tap target at least 44px.
 - **Do** use red only for what needs attention: unanswered, empty, refused, error, destructive.

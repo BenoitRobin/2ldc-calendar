@@ -2,7 +2,7 @@
 	import { enhance } from '$app/forms';
 	import { Button } from '$lib/components/ui/button';
 	import { Card, CardContent } from '$lib/components/ui/card';
-	import logo from '$lib/assets/logo-2ldc-white.png';
+	import logo from '$lib/assets/logo-2ldc-band.svg';
 	import type { ActionData } from './$types';
 
 	let { form }: { form: ActionData } = $props();
@@ -11,7 +11,7 @@
 <svelte:head><title>Connexion — 2LDC Calendar</title></svelte:head>
 
 <div class="flex min-h-dvh flex-col items-center justify-center gap-6 p-4">
-	<img src={logo} alt="2LDC" class="w-full max-w-xs rounded-lg" />
+	<img src={logo} alt="2LDC" class="w-full max-w-sm" />
 
 	<Card class="w-full max-w-sm border-t-2 border-primary/70">
 		<CardContent class="pt-6">
