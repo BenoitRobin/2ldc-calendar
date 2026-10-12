@@ -100,14 +100,14 @@
 
 		<ul class="border-t border-foreground">
 			{#each filtered as p (p.id)}
-				{@const url = shown ? p.parts[shown] : undefined}
+				{@const parts = shown ? (p.parts[shown] ?? []) : []}
 				<li class="border-b border-border md:flex md:items-center">
 					<div class="flex min-w-0 flex-1 items-center gap-4 py-4">
 						<div class="flex w-14 shrink-0 justify-center">
 							{#if shown}
 								<InstrumentIcon
 									instrument={shown}
-									class={cn('h-8', url ? 'text-foreground' : 'text-muted-foreground/40')}
+									class={cn('h-8', parts.length ? 'text-foreground' : 'text-muted-foreground/40')}
 								/>
 							{/if}
 						</div>
@@ -116,21 +116,29 @@
 						</p>
 					</div>
 					<div class="flex items-center gap-2 pb-4 md:py-4">
-						{#if url}
-							<!-- eslint-disable svelte/no-navigation-without-resolve -- external Google Drive link -->
-							<a
-								href={url}
-								target="_blank"
-								rel="noopener noreferrer"
-								class={cn(buttonVariants(), 'flex-1 gap-1.5 md:flex-none')}
-							>
-								<ExternalLink class="size-4 shrink-0" aria-hidden="true" />
-								{isMine
-									? 'Ma partie'
-									: `Partie ${INSTRUMENT_LABELS[shown as Instrument].toLowerCase()}`}
-								<span class="sr-only">— {p.title} (nouvel onglet)</span>
-							</a>
-							<!-- eslint-enable svelte/no-navigation-without-resolve -->
+						{#if parts.length}
+							{@const label = INSTRUMENT_LABELS[shown as Instrument].toLowerCase()}
+							{#each parts as part (part.partNumber)}
+								<!-- eslint-disable svelte/no-navigation-without-resolve -- external Google Drive link -->
+								<a
+									href={part.driveUrl}
+									target="_blank"
+									rel="noopener noreferrer"
+									class={cn(buttonVariants(), 'flex-1 gap-1.5 md:flex-none')}
+								>
+									<ExternalLink class="size-4 shrink-0" aria-hidden="true" />
+									<!-- Numbered whenever the number tells you something: several parts, or a
+									     lone partie 2 whose partie 1 isn't uploaded yet. -->
+									{#if parts.length > 1 || part.partNumber > 1}
+										Partie {part.partNumber}
+										<span class="sr-only">{label} — {p.title} (nouvel onglet)</span>
+									{:else}
+										{isMine ? 'Ma partie' : `Partie ${label}`}
+										<span class="sr-only">— {p.title} (nouvel onglet)</span>
+									{/if}
+								</a>
+								<!-- eslint-enable svelte/no-navigation-without-resolve -->
+							{/each}
 						{:else}
 							<p
 								class="flex min-h-11 flex-1 items-center text-sm text-muted-foreground md:flex-none"

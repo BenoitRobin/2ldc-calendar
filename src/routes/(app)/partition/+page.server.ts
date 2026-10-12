@@ -10,16 +10,19 @@ export const load: PageServerLoad = async ({ locals }) => {
 			.select({
 				pieceId: piecePart.pieceId,
 				instrument: piecePart.instrument,
+				partNumber: piecePart.partNumber,
 				driveUrl: piecePart.driveUrl
 			})
 			.from(piecePart)
+			.orderBy(piecePart.partNumber)
 	]);
 
-	const partsByPiece = new Map<string, Partial<Record<Instrument, string>>>();
-	for (const part of parts) {
-		const entry = partsByPiece.get(part.pieceId) ?? {};
-		entry[part.instrument] = part.driveUrl;
-		partsByPiece.set(part.pieceId, entry);
+	type Part = { partNumber: number; driveUrl: string };
+	const partsByPiece = new Map<string, Partial<Record<Instrument, Part[]>>>();
+	for (const { pieceId, instrument, partNumber, driveUrl } of parts) {
+		const entry = partsByPiece.get(pieceId) ?? {};
+		(entry[instrument] ??= []).push({ partNumber, driveUrl });
+		partsByPiece.set(pieceId, entry);
 	}
 
 	return {

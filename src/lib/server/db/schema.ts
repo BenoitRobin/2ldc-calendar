@@ -88,9 +88,18 @@ export const piecePart = sqliteTable(
 			.notNull()
 			.references(() => piece.id, { onDelete: 'cascade' }),
 		instrument: text('instrument', { enum: INSTRUMENTS }).notNull(),
+		// 1-based: trombone, trompette and sax often have a partie 1 and a partie 2.
+		// An instrument with a single part just has part 1.
+		partNumber: integer('part_number').notNull().default(1),
 		driveUrl: text('drive_url').notNull()
 	},
-	(table) => [uniqueIndex('piece_part_piece_instrument_uidx').on(table.pieceId, table.instrument)]
+	(table) => [
+		uniqueIndex('piece_part_piece_instrument_part_uidx').on(
+			table.pieceId,
+			table.instrument,
+			table.partNumber
+		)
+	]
 );
 
 export const pieceRelations = relations(piece, ({ many }) => ({

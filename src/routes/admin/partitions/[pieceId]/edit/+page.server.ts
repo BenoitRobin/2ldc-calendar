@@ -2,6 +2,7 @@ import { error as kitError, fail, redirect } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
 import { db } from '$lib/server/db';
 import { piece, piecePart } from '$lib/server/db/schema';
+import { INSTRUMENTS } from '$lib/instruments';
 import { parsePieceForm, type PieceFormValues } from '$lib/server/validate-piece';
 import { savePiece } from '$lib/server/pieces';
 import type { Actions, PageServerLoad } from './$types';
@@ -12,7 +13,16 @@ export const load: PageServerLoad = async ({ params }) => {
 
 	const parts = await db.select().from(piecePart).where(eq(piecePart.pieceId, params.pieceId));
 	const values: Partial<PieceFormValues> = { title: existing.title };
-	for (const part of parts) values[part.instrument] = part.driveUrl;
+	for (const part of parts) {
+		const urls = (values[part.instrument] ??= []);
+		urls[part.partNumber - 1] = part.driveUrl;
+	}
+	// A lone partie 2 leaves a hole at index 0: fill it so the form shows an empty
+	// partie 1 field rather than skipping it.
+	for (const instrument of INSTRUMENTS) {
+		const urls = values[instrument];
+		if (urls) values[instrument] = Array.from(urls, (url) => url ?? '');
+	}
 
 	return { values };
 };

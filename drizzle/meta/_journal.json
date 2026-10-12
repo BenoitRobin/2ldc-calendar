@@ -15,6 +15,13 @@
       "when": 1791794931058,
       "tag": "0001_wild_union_jack",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1791804831168,
+      "tag": "0002_sudden_jane_foster",
+      "breakpoints": true
     }
   ]
 }
