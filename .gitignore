@@ -26,3 +26,8 @@ test-results
 .playwright-mcp/
 # SQLite
 *.db
+
+# Impeccable working files (critique snapshots, decision mocks, question-page state)
+.impeccable/critique/
+.impeccable/mocks/
+.impeccable/questions/
