@@ -20,7 +20,8 @@
 		"db:studio": "drizzle-kit studio",
 		"auth:schema": "auth generate --config src/lib/server/auth.ts --output src/lib/server/db/auth.schema.ts --yes",
 		"bootstrap:admin": "vite-node scripts/bootstrap-admin.ts --",
-		"seed:demo": "vite-node scripts/seed-demo.ts --"
+		"seed:demo": "vite-node scripts/seed-demo.ts --",
+		"import:lalyre": "vite-node scripts/import-lalyre.ts --"
 	},
 	"devDependencies": {
 		"@eslint/js": "^10.0.1",
