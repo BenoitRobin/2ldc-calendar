@@ -13,6 +13,8 @@ declare global {
 				email: string;
 				name: string;
 				role?: string | null;
+				// better-auth additionalField (auth-options.ts); null until an admin sets it.
+				instrument?: string | null;
 			};
 			session?: {
 				id: string;

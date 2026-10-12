@@ -1,14 +1,171 @@
 <script lang="ts">
-	import FileMusic from '@lucide/svelte/icons/file-music';
+	import { resolve } from '$app/paths';
+	import { buttonVariants } from '$lib/components/ui/button';
+	import InstrumentIcon from '$lib/components/instrument-icon.svelte';
+	import { INSTRUMENTS, INSTRUMENT_LABELS, isInstrument, type Instrument } from '$lib/instruments';
+	import { cn } from '$lib/utils';
+	import ExternalLink from '@lucide/svelte/icons/external-link';
+	import Search from '@lucide/svelte/icons/search';
+	import X from '@lucide/svelte/icons/x';
+	import type { PageData } from './$types';
+
+	let { data }: { data: PageData } = $props();
+
+	// Defaults to the member's own instrument: the page's whole point is "open MY part"
+	// without being asked which one. The select only exists to stand in for someone else.
+	// Initial value only; the member then picks freely.
+	// svelte-ignore state_referenced_locally
+	let shown = $state<Instrument | ''>(data.myInstrument ?? '');
+	let query = $state('');
+
+	// Accent- and case-insensitive, so "ete" finds "Été".
+	const normalize = (s: string) =>
+		s
+			.normalize('NFD')
+			.replace(/\p{Diacritic}/gu, '')
+			.toLowerCase();
+
+	let filtered = $derived(
+		query.trim()
+			? data.pieces.filter((p) => normalize(p.title).includes(normalize(query.trim())))
+			: data.pieces
+	);
+
+	let isMine = $derived(shown !== '' && shown === data.myInstrument);
 </script>
 
 <svelte:head><title>Partition — 2LDC Calendar</title></svelte:head>
 
 <div class="p-4">
-	<h1 class="mb-20 font-display text-2xl font-extrabold">Partition</h1>
-
-	<div class="flex flex-col items-start gap-4 rounded-lg border border-border bg-card p-6">
-		<FileMusic class="size-8 text-accent" aria-hidden="true" />
-		<p class="font-display text-lg font-extrabold">... en construction</p>
+	<div class="mb-20 flex items-center justify-between gap-4">
+		<h1 class="font-display text-2xl font-extrabold">Partition</h1>
+		{#if data.isAdmin}
+			<a href={resolve('/admin/partitions/new')} class={buttonVariants()}>Ajouter un morceau</a>
+		{/if}
 	</div>
+
+	{#if data.pieces.length === 0}
+		<p class="py-6 text-sm text-muted-foreground">Aucun morceau pour le moment.</p>
+	{:else}
+		<div class="mb-6 flex flex-col gap-3 md:flex-row md:items-end">
+			<div class="relative flex-1">
+				<label for="piece-search" class="sr-only">Rechercher un morceau</label>
+				<Search
+					class="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
+					aria-hidden="true"
+				/>
+				<input
+					id="piece-search"
+					type="search"
+					bind:value={query}
+					placeholder="Rechercher un morceau"
+					autocomplete="off"
+					class="h-11 w-full rounded-md border border-input bg-transparent pr-11 pl-9 text-sm placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:appearance-none"
+				/>
+				{#if query}
+					<button
+						type="button"
+						onclick={() => (query = '')}
+						aria-label="Effacer la recherche"
+						class="absolute top-0 right-0 flex size-11 items-center justify-center rounded-md text-muted-foreground transition-colors hover:text-foreground"
+					>
+						<X class="size-4" aria-hidden="true" />
+					</button>
+				{/if}
+			</div>
+			<div class="flex items-center gap-2 md:w-64">
+				<label for="shown-part" class="shrink-0 text-sm text-muted-foreground">Partie</label>
+				<select
+					id="shown-part"
+					value={shown}
+					onchange={(e) => {
+						const v = e.currentTarget.value;
+						shown = isInstrument(v) ? v : '';
+					}}
+					class="h-11 min-w-0 flex-1 rounded-md border border-input bg-card px-3 text-sm"
+				>
+					{#if !data.myInstrument}
+						<option value="" disabled>Choisis un instrument</option>
+					{/if}
+					{#each INSTRUMENTS as instrument (instrument)}
+						<option value={instrument}>
+							{INSTRUMENT_LABELS[instrument]}{instrument === data.myInstrument
+								? ' (la mienne)'
+								: ''}
+						</option>
+					{/each}
+				</select>
+			</div>
+		</div>
+
+		<ul class="flex flex-col gap-3">
+			{#each filtered as p (p.id)}
+				{@const url = shown ? p.parts[shown] : undefined}
+				<li class="rounded-lg border border-border bg-card md:flex md:items-center">
+					<div class="flex min-w-0 flex-1 items-center gap-4 p-4">
+						<div class="flex w-14 shrink-0 justify-center">
+							{#if shown}
+								<InstrumentIcon
+									instrument={shown}
+									class={cn('h-8', url ? 'text-foreground' : 'text-muted-foreground/40')}
+								/>
+							{/if}
+						</div>
+						<p class="min-w-0 flex-1 font-display text-lg leading-snug font-extrabold text-balance">
+							{p.title}
+						</p>
+					</div>
+					<div
+						class="flex items-center gap-2 border-t border-dashed border-border px-4 py-3 md:border-t-0 md:py-4 md:pl-0"
+					>
+						{#if url}
+							<!-- eslint-disable svelte/no-navigation-without-resolve -- external Google Drive link -->
+							<a
+								href={url}
+								target="_blank"
+								rel="noopener noreferrer"
+								class={cn(buttonVariants(), 'flex-1 gap-1.5 md:flex-none')}
+							>
+								<ExternalLink class="size-4 shrink-0" aria-hidden="true" />
+								{isMine
+									? 'Ma partie'
+									: `Partie ${INSTRUMENT_LABELS[shown as Instrument].toLowerCase()}`}
+								<span class="sr-only">— {p.title} (nouvel onglet)</span>
+							</a>
+							<!-- eslint-enable svelte/no-navigation-without-resolve -->
+						{:else}
+							<p
+								class="flex min-h-11 flex-1 items-center text-sm text-muted-foreground md:flex-none"
+							>
+								{shown
+									? `Pas encore de partie ${INSTRUMENT_LABELS[shown].toLowerCase()}`
+									: 'Choisis un instrument'}
+							</p>
+						{/if}
+						{#if data.isAdmin}
+							<a
+								href={resolve('/admin/partitions/[pieceId]/edit', { pieceId: p.id })}
+								class={buttonVariants({ variant: 'outline', size: 'sm' })}
+							>
+								Modifier<span class="sr-only"> {p.title}</span>
+							</a>
+						{/if}
+					</div>
+				</li>
+			{:else}
+				<li class="flex flex-col items-start gap-3 py-6">
+					<p class="text-sm text-muted-foreground">
+						Aucun morceau pour «&nbsp;{query.trim()}&nbsp;».
+					</p>
+					<button
+						type="button"
+						onclick={() => (query = '')}
+						class={buttonVariants({ variant: 'outline', size: 'sm' })}
+					>
+						Effacer la recherche
+					</button>
+				</li>
+			{/each}
+		</ul>
+	{/if}
 </div>

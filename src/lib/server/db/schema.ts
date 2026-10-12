@@ -1,6 +1,8 @@
 import { relations, sql } from 'drizzle-orm';
 import { integer, sqliteTable, text, uniqueIndex } from 'drizzle-orm/sqlite-core';
 import { user } from './auth.schema';
+// Relative path (not $lib): drizzle-kit loads this file outside Vite's alias resolution.
+import { INSTRUMENTS } from '../../instruments';
 
 export const event = sqliteTable('event', {
 	id: text('id')
@@ -58,6 +60,45 @@ export const eventRelations = relations(event, ({ many, one }) => ({
 export const attendanceResponseRelations = relations(attendanceResponse, ({ one }) => ({
 	event: one(event, { fields: [attendanceResponse.eventId], references: [event.id] }),
 	user: one(user, { fields: [attendanceResponse.userId], references: [user.id] })
+}));
+
+// Sheet music library (Partition page). Files stay on Google Drive: a part is just
+// the Drive link for one instrument, so the app never stores or serves PDFs itself.
+export const piece = sqliteTable('piece', {
+	id: text('id')
+		.primaryKey()
+		.$defaultFn(() => crypto.randomUUID()),
+	title: text('title').notNull(),
+	createdAt: integer('created_at', { mode: 'timestamp_ms' })
+		.default(sql`(cast(unixepoch('subsecond') * 1000 as integer))`)
+		.notNull(),
+	updatedAt: integer('updated_at', { mode: 'timestamp_ms' })
+		.default(sql`(cast(unixepoch('subsecond') * 1000 as integer))`)
+		.$onUpdate(() => new Date())
+		.notNull()
+});
+
+export const piecePart = sqliteTable(
+	'piece_part',
+	{
+		id: text('id')
+			.primaryKey()
+			.$defaultFn(() => crypto.randomUUID()),
+		pieceId: text('piece_id')
+			.notNull()
+			.references(() => piece.id, { onDelete: 'cascade' }),
+		instrument: text('instrument', { enum: INSTRUMENTS }).notNull(),
+		driveUrl: text('drive_url').notNull()
+	},
+	(table) => [uniqueIndex('piece_part_piece_instrument_uidx').on(table.pieceId, table.instrument)]
+);
+
+export const pieceRelations = relations(piece, ({ many }) => ({
+	parts: many(piecePart)
+}));
+
+export const piecePartRelations = relations(piecePart, ({ one }) => ({
+	piece: one(piece, { fields: [piecePart.pieceId], references: [piece.id] })
 }));
 
 export * from './auth.schema';
