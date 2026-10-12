@@ -19,7 +19,16 @@ export const user = sqliteTable('user', {
 	banReason: text('ban_reason'),
 	banExpires: integer('ban_expires', { mode: 'timestamp_ms' }),
 	instrument: text('instrument', {
-		enum: ['batterie', 'saxophone', 'trompette', 'sousaphone', 'tuba', 'trombone']
+		enum: [
+			'batterie',
+			'sax_alto',
+			'sax_tenor',
+			'sax_baryton',
+			'trompette',
+			'sousaphone',
+			'tuba',
+			'trombone'
+		]
 	})
 });
 

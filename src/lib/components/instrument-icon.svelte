@@ -13,7 +13,10 @@
 	// of, never against an external image document.
 	const ICONS: Record<Instrument, string> = {
 		batterie,
-		saxophone,
+		// The three saxes share one pictogram.
+		sax_alto: saxophone,
+		sax_tenor: saxophone,
+		sax_baryton: saxophone,
 		trompette,
 		sousaphone,
 		tuba,

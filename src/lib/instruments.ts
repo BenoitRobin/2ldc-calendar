@@ -4,7 +4,9 @@
 // column), the team create/edit forms, and the team list display.
 export const INSTRUMENTS = [
 	'batterie',
-	'saxophone',
+	'sax_alto',
+	'sax_tenor',
+	'sax_baryton',
 	'trompette',
 	'sousaphone',
 	'tuba',
@@ -15,7 +17,9 @@ export type Instrument = (typeof INSTRUMENTS)[number];
 
 export const INSTRUMENT_LABELS: Record<Instrument, string> = {
 	batterie: 'Batterie',
-	saxophone: 'Saxophone',
+	sax_alto: 'Sax alto',
+	sax_tenor: 'Sax ténor',
+	sax_baryton: 'Sax baryton',
 	trompette: 'Trompette',
 	sousaphone: 'Sousaphone',
 	tuba: 'Tuba',

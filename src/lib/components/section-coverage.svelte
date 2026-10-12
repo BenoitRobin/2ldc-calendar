@@ -7,7 +7,9 @@
 
 	const SHORT: Record<Instrument, string> = {
 		batterie: 'Batt.',
-		saxophone: 'Sax',
+		sax_alto: 'Alto',
+		sax_tenor: 'Tén.',
+		sax_baryton: 'Bar.',
 		trompette: 'Trp',
 		sousaphone: 'Sousa.',
 		tuba: 'Tuba',
@@ -15,7 +17,7 @@
 	};
 </script>
 
-<dl class={cn('grid grid-cols-6 gap-1 border-t border-foreground pt-3 text-center', className)}>
+<dl class={cn('grid grid-cols-8 gap-1 border-t border-foreground pt-3 text-center', className)}>
 	{#each sections as s (s.instrument)}
 		<div class="flex flex-col-reverse items-center">
 			<dt class="text-xs tracking-wide text-muted-foreground uppercase">

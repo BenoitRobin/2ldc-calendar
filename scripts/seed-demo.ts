@@ -16,7 +16,7 @@ const DEMO_PASSWORD = 'Demo1234!';
 // Prénoms seuls : c'est ce qui sert à se connecter (specs/user-auth), donc ça doit
 // rester unique dans l'équipe.
 const MUSICIANS: { email: string; name: string; instrument: Instrument }[] = [
-	{ email: `alice${DEMO_EMAIL_DOMAIN}`, name: 'Alice', instrument: 'saxophone' },
+	{ email: `alice${DEMO_EMAIL_DOMAIN}`, name: 'Alice', instrument: 'sax_alto' },
 	{ email: `baptiste${DEMO_EMAIL_DOMAIN}`, name: 'Baptiste', instrument: 'trompette' },
 	{ email: `chloe${DEMO_EMAIL_DOMAIN}`, name: 'Chloé', instrument: 'trombone' },
 	{ email: `david${DEMO_EMAIL_DOMAIN}`, name: 'David', instrument: 'tuba' },
