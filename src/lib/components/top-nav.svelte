@@ -42,12 +42,18 @@
 		class="flex items-center gap-4 px-4 py-3"
 		aria-label={roleTag ? `Navigation ${roleTag.toLowerCase()}` : 'Navigation principale'}
 	>
-		<div class="flex flex-1 shrink-0 items-center gap-2">
-			<a href={homeHref} class="shrink-0">
+		<!-- items-baseline: the logo (an image) has no text baseline, so its bottom edge acts as
+		     one and the name sits on the bottom of the logo's frame. The role tag is a box, so
+		     its bottom border goes on that line instead: self-end + mb-1.5 cancels the name's
+		     descent (6px below its baseline at text-sm). -->
+		<div class="flex flex-1 shrink-0 items-baseline gap-2">
+			<a href={homeHref} class="flex shrink-0">
 				<img src={logo} alt="2LDC — accueil" class="h-8 w-auto" />
 			</a>
 			{#if roleTag}
-				<span class="rounded-sm border border-border px-1.5 py-0.5 text-xs text-muted-foreground">
+				<span
+					class="mb-1.5 self-end rounded-sm border border-border px-1.5 py-0.5 text-xs text-muted-foreground"
+				>
 					{roleTag}
 				</span>
 			{/if}
